@@ -12,6 +12,7 @@ $admin_current_page = basename($_SERVER['PHP_SELF']);
         <a href="<?= BASE_URL ?>admin/products.php" class="admin-nav-link <?= ($admin_current_page == 'products.php') ? 'active' : '' ?>">Produk</a>
         <a href="<?= BASE_URL ?>admin/farmers.php" class="admin-nav-link <?= ($admin_current_page == 'farmers.php') ? 'active' : '' ?>">Petani</a>
         <a href="<?= BASE_URL ?>admin/orders.php" class="admin-nav-link <?= ($admin_current_page == 'orders.php') ? 'active' : '' ?>">Pesanan</a>
+        <a href="<?= BASE_URL ?>admin/kasir.php" class="admin-nav-link <?= ($admin_current_page == 'kasir.php') ? 'active' : '' ?>">Kasir</a>
     </nav>
 
     <div style="margin-top:auto;">
