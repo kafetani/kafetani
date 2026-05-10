@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['order_id'], $_POST['st
     }
 }
 
-$query = "SELECT o.*, u.name as customer_name FROM orders o JOIN users u ON o.user_id = u.id";
+$query = "SELECT o.*, u.nama as customer_name FROM orders o JOIN users u ON o.user_id = u.id";
 if ($status_filter !== 'all') {
     $query .= " WHERE o.status = " . $pdo->quote($status_filter);
 }

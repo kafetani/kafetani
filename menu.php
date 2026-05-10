@@ -1,66 +1,107 @@
 <?php
-session_start();
-require_once 'config/db.php';
+// Data Menu (Simulasi Database)
+$menu_items = [
+    [
+        "nama"      => "Kopi Susu Gula Aren",
+        "kategori"  => "Kopi",
+        "deskripsi" => "Espresso + susu segar + gula aren petani lokal",
+        "harga"     => 28000,
+        "gambar"    => "assets/img/products/kopi_susu_gula_aren.webp"
+    ],
+    [
+        "nama"      => "Americano Arabica",
+        "kategori"  => "Kopi",
+        "deskripsi" => "Single origin biji kopi Arabica Gayo",
+        "harga"     => 22000,
+        "gambar"    => "assets/img/products/americano_arabica.webp"
+    ],
+    [
+        "nama"      => "Cappuccino",
+        "kategori"  => "Kopi",
+        "deskripsi" => "Double shot espresso dengan microfoam susu",
+        "harga"     => 26000,
+        "gambar"    => "assets/img/products/cappuccino.webp"
+    ],
+    [
+        "nama"      => "Croissant Butter",
+        "kategori"  => "Bakeri",
+        "deskripsi" => "Berlapis-lapis, renyah di luar lembut di dalam",
+        "harga"     => 22000,
+        "gambar"    => "assets/img/products/croissant_butter.webp"
+    ],
+    [
+        "nama"      => "Roti Gandum",
+        "kategori"  => "Bakeri",
+        "deskripsi" => "Roti gandum utuh homemade tanpa pengawet",
+        "harga"     => 16000,
+        "gambar"    => "assets/img/products/roti_gandum.webp"
+    ],
+    [
+        "nama"      => "Chocolate Cake",
+        "kategori"  => "Camilan",
+        "deskripsi" => "Kue cokelat lembut dengan taburan cokelat",
+        "harga"     => 25000,
+        "gambar"    => "assets/img/products/chocolate_cake.webp"
+    ]
+];
 
-$cat_filter = $_GET['cat'] ?? 'all';
-$query = "SELECT p.*, c.slug as cat_slug 
-          FROM products p 
-          LEFT JOIN categories c ON p.category_id = c.id 
-          WHERE p.type = 'cafe'";
-
-if ($cat_filter !== 'all') {
-    $query .= " AND c.slug = " . $pdo->quote($cat_filter);
-}
-$query .= " ORDER BY p.created_at DESC";
-
-$menu_items = $pdo->query($query)->fetchAll();
-$categories = $pdo->query("SELECT * FROM categories WHERE slug != 'bahan-baku'")->fetchAll();
-
-include 'includes/header.php';
-include 'includes/navbar.php';
+// Ambil kategori unik untuk filter tab
+$categories = ["Semua", "Kopi", "Non-Kopi", "Bakeri", "Camilan"];
 ?>
 
-<div class="page" id="page-menu">
-  <div class="page-header">
-    <div class="page-header-label">Kafetani · Menu</div>
-    <h1 class="page-header-title">Menu Kafe</h1>
-    <p class="page-header-sub">Minuman, bakeri, dan camilan buatan sendiri dari bahan lokal</p>
-  </div>
-  
-  <div class="filter-bar">
-    <a href="menu.php" class="filter-tab <?= $cat_filter == 'all' ? 'active' : '' ?>">Semua</a>
-    <?php foreach($categories as $cat): ?>
-        <a href="menu.php?cat=<?= $cat['slug'] ?>" class="filter-tab <?= $cat_filter == $cat['slug'] ? 'active' : '' ?>">
-            <?= $cat['name'] ?>
-        </a>
-    <?php endforeach; ?>
-  </div>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kafetani - Menu Kafe</title>
+    <link rel="stylesheet" href="assets/css/style_menu.css">
+    <script src="assets/js/menu.js" defer></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="index.php">BERANDA</a>
+            <a href="menu.php">MENU KAFE</a>
+            <a href="marketplace.php">MARKETPLACE</a>
+            <a href="auth/login.php">LOGIN</a>
+        </nav>
+        <button class="cart">🛒 Keranjang (0)</button>
+    </header>
 
-  <div class="products-grid" id="menu-grid">
-    <?php foreach($menu_items as $item): ?>
-    <div class="product-card">
-      <div class="product-thumb">
-        <?php if($item['image']): ?>
-            <img src="assets/img/products/<?= $item['image'] ?>" style="width:100%;height:100%;object-fit:cover;">
-        <?php else: ?>
-            ☕
-        <?php endif; ?>
-      </div>
-      <div class="product-body">
-        <div class="product-cat"><?= htmlspecialchars($item['cat_slug']) ?></div>
-        <div class="product-name"><?= htmlspecialchars($item['name']) ?></div>
-        <div class="product-desc"><?= htmlspecialchars($item['description']) ?></div>
-        <div class="product-footer">
-          <span class="product-price">Rp <?= number_format($item['price'], 0, ',', '.') ?></span>
-          <button class="add-btn" onclick="addToCart({id:<?= $item['id'] ?>, name:'<?= addslashes(htmlspecialchars($item['name'])) ?>', price:<?= $item['price'] ?>, image:'<?= $item['image'] ?>', icon:'☕'}, this)">+</button>
+    <!-- Menu Section -->
+    <section class="menu-section">
+        <header class="section-header">
+            <h1>Menu Kafe</h1>
+            <p>Minuman, bakeri, dan camilan buatan sendiri dari bahan lokal</p>
+        </header>
+
+        <!-- Tabs Kategori -->
+        <div class="tabs">
+            <?php foreach ($categories as $index => $cat): ?>
+                <button class="<?= $index === 0 ? 'active' : '' ?>">
+                    <?= $cat ?>
+                </button>
+            <?php endforeach; ?>
         </div>
-      </div>
-    </div>
-    <?php endforeach; ?>
-    <?php if(empty($menu_items)): ?>
-        <p style="grid-column:1/-1;text-align:center;padding:4rem;color:var(--text-light);">Belum ada menu di kategori ini.</p>
-    <?php endif; ?>
-  </div>
-</div>
 
-<?php include 'includes/footer.php'; ?>
+        <!-- Menu Items -->
+        <div class="menu-items">
+            <?php foreach ($menu_items as $item): ?>
+                <div class="item-card <?= $item['kategori'] ?>">
+                    <img src="<?= $item['gambar'] ?>" alt="<?= $item['nama'] ?>">
+                    <h3><?= $item['nama'] ?></h3>
+                    <p><?= $item['deskripsi'] ?></p>
+                    <div class="price">Rp <?= number_format($item['harga'], 0, ',', '.') ?></div>
+                    <button class="add-btn">+</button>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </section>
+
+    <footer>
+        © <?= date('Y') ?> Kafetani - Semua hak dilindungi
+    </footer>
+</body>
+</html>

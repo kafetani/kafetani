@@ -1,51 +1,83 @@
 <?php
-require_once '../config/db.php';
+session_start();
 require_once '../includes/auth_check.php';
 checkAdmin();
 
-// Fetch summary stats
-$total_orders = $pdo->query("SELECT COUNT(*) FROM orders")->fetchColumn();
-$total_products = $pdo->query("SELECT COUNT(*) FROM products")->fetchColumn();
-$total_farmers = $pdo->query("SELECT COUNT(*) FROM farmers")->fetchColumn();
-$total_revenue = $pdo->query("SELECT SUM(total) FROM orders WHERE status = 'completed'")->fetchColumn() ?: 0;
+// Data Simulasi (Nantinya data ini bisa diambil dari Database)
+$admin_name       = $_SESSION['nama'];
+$total_pendapatan = 28000;
+$total_pesanan    = 7;
+$total_produk     = 9;
+$total_petani     = 3;
 
-include '../includes/header.php';
+// Array untuk Menu Sidebar agar lebih dinamis
+$sidebar_menu = [
+    ['label' => 'Dashboard', 'link' => 'dashboard.php', 'active' => true],
+    ['label' => 'Produk',    'link' => 'products.php',  'active' => false],
+];
 ?>
-<div class="admin-layout" style="display:grid;grid-template-columns:240px 1fr;min-height:100vh;">
-<?php include '../includes/admin_sidebar.php'; ?>
-    
-    <main style="padding:3rem;background:var(--cream);">
-        <header style="margin-bottom:3rem;">
-            <h1 style="font-family:var(--ff-display);font-size:2.5rem;color:var(--brown);font-weight:300;">Ringkasan Bisnis</h1>
-            <p style="color:var(--text-mid);font-size:.9rem;">Selamat datang, <?= $_SESSION['name'] ?>. Berikut statistik hari ini.</p>
-        </header>
 
-        <section style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-bottom:3rem;">
-            <div style="background:#fff;padding:1.5rem;border:1px solid var(--border);">
-                <div style="font-size:.7rem;color:var(--text-light);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem;">Total Pendapatan</div>
-                <div style="font-family:var(--ff-display);font-size:1.8rem;color:var(--green);">Rp <?= number_format($total_revenue, 0, ',', '.') ?></div>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel Kafetani - Dashboard</title>
+    <link rel="stylesheet" href="../assets/css/style_dashboard.css">
+    <script src="../assets/js/dashboard.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div>
+                <h2>Kafetani</h2>
+                <ul>
+                    <?php foreach ($sidebar_menu as $menu): ?>
+                        <li>
+                            <a href="<?= $menu['link'] ?>" style="<?= $menu['active'] ? 'font-weight: bold; color: #27ae60;' : '' ?>">
+                                <?= $menu['label'] ?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
             </div>
-            <div style="background:#fff;padding:1.5rem;border:1px solid var(--border);">
-                <div style="font-size:.7rem;color:var(--text-light);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem;">Total Pesanan</div>
-                <div style="font-family:var(--ff-display);font-size:1.8rem;color:var(--brown);"><?= $total_orders ?></div>
-            </div>
-            <div style="background:#fff;padding:1.5rem;border:1px solid var(--border);">
-                <div style="font-size:.7rem;color:var(--text-light);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem;">Produk Tersedia</div>
-                <div style="font-family:var(--ff-display);font-size:1.8rem;color:var(--brown);"><?= $total_products ?></div>
-            </div>
-            <div style="background:#fff;padding:1.5rem;border:1px solid var(--border);">
-                <div style="font-size:.7rem;color:var(--text-light);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem;">Petani Mitra</div>
-                <div style="font-family:var(--ff-display);font-size:1.8rem;color:var(--brown);"><?= $total_farmers ?></div>
-            </div>
-        </section>
+            <a href="../index.php" class="view-site">← Lihat Situs</a>
+        </aside>
 
-        <section>
-            <h3 style="font-family:var(--ff-display);font-size:1.5rem;color:var(--brown);margin-bottom:1.5rem;font-weight:300;">Aksi Cepat</h3>
-            <div style="display:flex;gap:1rem;">
-                <a href="products.php?action=add" class="add-btn" style="text-decoration:none;padding:.8rem 1.5rem;font-size:.85rem;display:inline-block;width:auto;height:auto;border-radius:2px;">+ Tambah Produk Baru</a>
-                <a href="farmers.php?action=add" class="btn-outline" style="text-decoration:none;padding:.8rem 1.5rem;font-size:.85rem;display:inline-block;border-radius:2px;">+ Daftarkan Petani</a>
-            </div>
-        </section>
-    </main>
-</div>
-<?php include '../includes/footer.php'; ?>
+        <!-- Main Content -->
+        <main class="main">
+            <header>
+                <h1>Ringkasan Bisnis</h1>
+                <p>Selamat datang, <?= htmlspecialchars($admin_name) ?>. Berikut statistik hari ini</p>
+            </header>
+
+            <!-- Statistik -->
+            <section class="stats">
+                <div class="card">
+                    <h3>Total Pendapatan</h3>
+                    <p>Rp <?= number_format($total_pendapatan, 0, ',', '.') ?></p>
+                </div>
+                <div class="card">
+                    <h3>Total Pesanan</h3>
+                    <p><?= $total_pesanan ?></p>
+                </div>
+                <div class="card">
+                    <h3>Produk Tersedia</h3>
+                    <p><?= $total_produk ?></p>
+                </div>
+                <div class="card">
+                    <h3>Petani Mitra</h3>
+                    <p><?= $total_petani ?></p>
+                </div>
+            </section>
+
+            <!-- Aksi Cepat -->
+            <section class="actions">
+                <button class="btn">+ Tambah Produk Baru</button>
+                <button class="btn">+ Daftarkan Petani</button>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

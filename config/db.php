@@ -1,7 +1,7 @@
 <?php
 $host = 'localhost';
 define('BASE_URL', '/kafetani/');
-$db   = 'kafetani';
+$db   = 'db_kafetani';
 $user = 'root';
 $pass = '';
 $charset = 'utf8mb4';
