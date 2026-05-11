@@ -73,72 +73,67 @@ $products = [
     ]
 ];
 ?>
+<?php include '../includes/header.php'; ?>
+<link rel="stylesheet" href="../assets/css/style_produk.css">
+<script src="../assets/js/produk.js" defer></script>
 
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kafetani Dashboard - Manajemen Produk</title>
-    <link rel="stylesheet" href="../assets/css/style_produk.css">
-    <script src="../assets/js/produk.js" defer></script>
-</head>
-<body>
-    <div class="dashboard">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <h2>Admin Panel</h2>
-            <ul>
-                <li><a href="dashboard.php">Dashboard</a></li>
-                <li><a href="products.php">Produk</a></li>
-                <li><a href="../admin/farmers.php">Farmer</a></li>
-                <li><a href="../admin/orders.php">Pesanan</a></li>
+<div class="admin-layout" style="display:grid;grid-template-columns:240px 1fr;min-height:100vh;">
 
-            </ul>
-        </aside>
+    <!-- Sidebar -->
+    <aside style="background:var(--brown);color:#fff;padding:2rem;">
+        <h2 style="font-family:var(--ff-display);font-size:1.5rem;margin-bottom:1rem;">Kafetani Admin</h2>
+        <nav style="display:flex;flex-direction:column;gap:.8rem;">
+            <a href="dashboard.php" style="color:#fff;text-decoration:none;font-size:.9rem;opacity:.7;">Dashboard</a>
+            <a href="products.php"  style="color:var(--amber);text-decoration:none;font-size:.9rem;">Produk</a>
+            <a href="farmers.php"   style="color:#fff;text-decoration:none;font-size:.9rem;opacity:.7;">Petani</a>
+            <a href="orders.php"    style="color:#fff;text-decoration:none;font-size:.9rem;opacity:.7;">Pesanan</a>
+            <hr style="opacity:.2;margin:1rem 0;">
+            <a href="../index.php"  style="color:#fff;text-decoration:none;font-size:.9rem;opacity:.7;">&#8592; Lihat Situs</a>
+        </nav>
+    </aside>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <div class="header">
-                <h1>Manajemen Produk</h1>
-                <button class="add-product">+ Produk Baru</button>
-            </div>
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="header">
+            <h1>Manajemen Produk</h1>
+            <button class="add-product">+ Produk Baru</button>
+        </div>
 
-            <!-- Table -->
-            <table class="product-table">
-                <thead>
+        <!-- Table -->
+        <table class="product-table">
+            <thead>
+                <tr>
+                    <th>Gambar</th>
+                    <th>Nama Produk</th>
+                    <th>Kategori</th>
+                    <th>Tipe</th>
+                    <th>Harga</th>
+                    <th>Stok</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($products as $p): ?>
                     <tr>
-                        <th>Gambar</th>
-                        <th>Nama Produk</th>
-                        <th>Kategori</th>
-                        <th>Tipe</th>
-                        <th>Harga</th>
-                        <th>Stok</th>
-                        <th>Aksi</th>
+                        <td><img src="<?= $p['gambar'] ?>" alt="<?= htmlspecialchars($p['nama']) ?>"></td>
+                        <td><?= htmlspecialchars($p['nama']) ?></td>
+                        <td><?= htmlspecialchars($p['kategori']) ?></td>
+                        <td>
+                            <span style="color: <?= $p['tipe'] == 'MARKET' ? '#e67e22' : '#2980b9' ?>; font-weight: bold;">
+                                <?= $p['tipe'] ?>
+                            </span>
+                        </td>
+                        <td>Rp <?= number_format($p['harga'], 0, ',', '.') ?></td>
+                        <td><?= htmlspecialchars($p['stok']) ?></td>
+                        <td>
+                            <a href="?edit=<?= urlencode($p['nama']) ?>">Edit</a> |
+                            <a href="?hapus=<?= urlencode($p['nama']) ?>" style="color: #c0392b;">Hapus</a>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($products as $p): ?>
-                        <tr>
-                            <td><img src="<?= $p['gambar'] ?>" alt="<?= htmlspecialchars($p['nama']) ?>"></td>
-                            <td><?= htmlspecialchars($p['nama']) ?></td>
-                            <td><?= htmlspecialchars($p['kategori']) ?></td>
-                            <td>
-                                <span style="color: <?= $p['tipe'] == 'MARKET' ? '#e67e22' : '#2980b9' ?>; font-weight: bold;">
-                                    <?= $p['tipe'] ?>
-                                </span>
-                            </td>
-                            <td>Rp <?= number_format($p['harga'], 0, ',', '.') ?></td>
-                            <td><?= htmlspecialchars($p['stok']) ?></td>
-                            <td>
-                                <a href="?edit=<?= urlencode($p['nama']) ?>">Edit</a> |
-                                <a href="?hapus=<?= urlencode($p['nama']) ?>" style="color: #c0392b;">Hapus</a>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </main>
-    </div>
-</body>
-</html>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </main>
+
+</div>
+<?php include '../includes/footer.php'; ?>

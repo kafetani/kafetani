@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'config/koneksi.php';
 
 // mengambil data product dari database
@@ -21,7 +22,14 @@ $query = mysqli_query($conn, "SELECT * FROM product WHERE type = 'market'");
             <a href="/kafetani/index.php">BERANDA</a> 
             <a href="/kafetani/menu.php">MENU KAFE</a> 
             <a href="/kafetani/marketplace.php">MARKETPLACE</a> 
-            <a href="/kafetani/auth/login.php">LOGIN</a>
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <?php if ($_SESSION['role'] == 'admin'): ?>
+                    <a href="/kafetani/admin/dashboard.php" class="nav-link">Admin</a>
+                <?php endif; ?>
+                <a href="/kafetani/auth/logout.php" class="nav-link">Logout</a>
+            <?php else: ?>
+                <a href="/kafetani/auth/login.php" class="nav-link">Login</a>
+            <?php endif; ?>
         </nav>
         <button class="cart-btn">🛒 Keranjang (0)</button>
     </header>

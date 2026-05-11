@@ -20,7 +20,6 @@ if ($data) {
     // simpan session
     $_SESSION['user_id'] = $data['id'];
     $_SESSION['nama']    = $data['nama'];
-    $_SESSION['name']    = $data['nama'];
     $_SESSION['role']    = $data['role'];
 
     // jika admin

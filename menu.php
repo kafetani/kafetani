@@ -41,7 +41,14 @@ while ($row = mysqli_fetch_assoc($cat_result)) {
             <a href="index.php">BERANDA</a>
             <a href="menu.php">MENU KAFE</a>
             <a href="marketplace.php">MARKETPLACE</a>
-            <a href="auth/login.php">LOGIN</a>
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <?php if ($_SESSION['role'] == 'admin'): ?>
+                    <a href="/kafetani/admin/dashboard.php" class="nav-link">ADMIN</a>
+                <?php endif; ?>
+                <a href="/kafetani/auth/logout.php" class="nav-link">LOGOUT</a>
+            <?php else: ?>
+                <a href="/kafetani/auth/login.php" class="nav-link">LOGIN</a>
+            <?php endif; ?>
         </nav>
         <button class="cart">🛒 Keranjang (0)</button>
     </header>
