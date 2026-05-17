@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS order_items (
 -- DATA ADMIN
 -- =============================================
 INSERT IGNORE INTO users (nama, email, password, role)
-VALUES ('Administrator', 'admin@gmail.com', 'admin123', 'admin');
+VALUES ('Administrator', 'admin@gmail.com', 'kafetani2025', 'admin');
 
 
 -- =============================================
@@ -106,10 +106,10 @@ INSERT IGNORE INTO categories (name, slug) VALUES
 -- =============================================
 -- DATA FARMERS
 -- =============================================
-INSERT IGNORE INTO farmers (name, location, avatar) VALUES
-('Pak Budi', 'Gayo, Aceh', 'pak_budi.webp'),
-('Bu Sari', 'Temanggung, Jateng', 'bu_sari.webp'),
-('Pak Yusuf', 'Pangalengan, Jabar', 'pak_yusuf.webp');
+INSERT IGNORE INTO farmers (name, location, contact, bio, avatar) VALUES
+('Pak Budi', 'Gayo, Aceh', '0812-3456-7890', 'Petani kopi Arabica generasi ketiga di dataran tinggi Gayo. Sudah 20 tahun mengelola kebun seluas 3 hektar dengan metode organik tanpa pestisida kimia.', 'pak_budi.webp'),
+('Bu Sari', 'Temanggung, Jateng', '0856-9876-5432', 'Pelopor gula aren tradisional di Temanggung. Bu Sari mengolah nira aren secara manual menggunakan tungku kayu bakar warisan leluhur untuk menjaga cita rasa autentik.', 'bu_sari.webp'),
+('Pak Yusuf', 'Pangalengan, Jabar', '0821-5544-3322', 'Petani muda yang fokus pada sayuran hidroponik dan bahan baku bakeri segar. Lulusan pertanian IPB yang memilih kembali ke desa untuk mengembangkan pertanian modern ramah lingkungan.', 'pak_yusuf.webp');
 
 
 -- =============================================

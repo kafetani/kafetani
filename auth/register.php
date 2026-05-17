@@ -11,17 +11,17 @@
 
         <!-- Input Nama Lengkap -->
         <label for="nama_lengkap">Nama Lengkap:</label>
-        <input type="text" id="nama_lengkap" name="nama_lengkap" required placeholder="Masukkan Nama Lengkap"><br>
+        <input type="text" id="nama_lengkap" name="nama_lengkap" required placeholder="Masukkan Nama Lengkap" autocomplete="name"><br>
 
         <!-- Input Email -->
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required placeholder="example@gmail.com"><br>
+        <input type="email" id="email" name="email" required placeholder="example@gmail.com" autocomplete="email"><br>
 
         <!-- Input Password -->
         <label for="password">Password:</label>
 
         <div class="password-row">
-            <input type="password" id="password" name="password" required placeholder="Masukkan Password">
+            <input type="password" id="password" name="password" required placeholder="Masukkan Password" autocomplete="new-password">
             <button type="button" onclick="togglePassword()">👁</button>
         </div>
 
@@ -29,7 +29,7 @@
         <label for="konfirmasi_password">Konfirmasi Password:</label>
         
         <div class="password-row">
-            <input type="password" id="konfirmasi_password" name="konfirmasi_password" required placeholder="Konfirmasi Password">
+            <input type="password" id="konfirmasi_password" name="konfirmasi_password" required placeholder="Konfirmasi Password" autocomplete="new-password">
             <button type="button" onclick="toggleKonfirmasiPassword()">👁</button>
         </div>
 

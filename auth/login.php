@@ -11,7 +11,7 @@
 
         <!-- Email -->
         <label for="email">Email Address:</label>
-        <input type="email" id="email" name="email" required placeholder="Masukkan Email"><br><br>
+        <input type="email" id="email" name="email" required placeholder="Masukkan Email" autocomplete="email"><br><br>
 
         <!-- Password + lupa -->
         <div class="password-row">
@@ -21,7 +21,7 @@
 
         <!-- Input + tombol mata -->
         <div class="password-row">
-            <input type="password" id="password" name="password" required placeholder="Masukkan Password">
+            <input type="password" id="password" name="password" required placeholder="Masukkan Password" autocomplete="current-password">
             <button type="button" onclick="togglePassword()">👁</button>
         </div>
 
