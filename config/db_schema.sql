@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS users (
     nama VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(100) NOT NULL,
-    role ENUM('admin','user') DEFAULT 'user'
+    role ENUM('admin','kasir','user') DEFAULT 'user'
 );
 
 
@@ -64,6 +64,8 @@ CREATE TABLE IF NOT EXISTS orders (
     user_id INT NOT NULL,
     total INT NOT NULL DEFAULT 0,
     type ENUM('cafe','market','mixed') DEFAULT 'cafe',
+    source ENUM('online','offline') DEFAULT 'online',
+    customer_name VARCHAR(100) DEFAULT NULL,
     status ENUM('pending','processing','ready','completed','cancelled') DEFAULT 'pending',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
@@ -86,10 +88,21 @@ CREATE TABLE IF NOT EXISTS order_items (
 
 
 -- =============================================
--- DATA ADMIN
+-- DATA ADMIN & KASIR
 -- =============================================
 INSERT IGNORE INTO users (nama, email, password, role)
 VALUES ('Administrator', 'admin@gmail.com', 'kafetani2025', 'admin');
+
+INSERT IGNORE INTO users (nama, email, password, role)
+VALUES ('Kasir Utama', 'kasir@kafetani.com', 'kasir123', 'kasir');
+
+-- =============================================
+-- MIGRASI (jalankan jika DB sudah ada sebelumnya)
+-- =============================================
+-- ALTER TABLE users MODIFY role ENUM('admin','kasir','user') DEFAULT 'user';
+-- ALTER TABLE orders ADD COLUMN source ENUM('online','offline') DEFAULT 'online' AFTER type;
+-- ALTER TABLE orders ADD COLUMN customer_name VARCHAR(100) DEFAULT NULL AFTER source;
+
 
 
 -- =============================================

@@ -9,4 +9,11 @@ function checkAdmin() {
         exit;
     }
 }
+
+function checkKasirOrAdmin() {
+    if (!isset($_SESSION['user_id']) || !in_array($_SESSION['role'], ['admin', 'kasir'])) {
+        header('Location: ../auth/login.php');
+        exit;
+    }
+}
 ?>

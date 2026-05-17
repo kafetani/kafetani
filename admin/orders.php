@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['order_id'], $_POST['s
 }
 
 // Ambil daftar orders
-$query = "SELECT o.*, u.nama AS customer_name
+$query = "SELECT o.*, u.nama AS user_nama
           FROM orders o
           JOIN users u ON o.user_id = u.id";
 
@@ -57,7 +57,7 @@ include '../includes/header.php';
                     <th style="padding:1rem;font-size:.85rem;border-bottom:1px solid var(--border);">Pelanggan</th>
                     <th style="padding:1rem;font-size:.85rem;border-bottom:1px solid var(--border);">Total</th>
                     <th style="padding:1rem;font-size:.85rem;border-bottom:1px solid var(--border);">Waktu</th>
-                    <th style="padding:1rem;font-size:.85rem;border-bottom:1px solid var(--border);">Tipe</th>
+                    <th style="padding:1rem;font-size:.85rem;border-bottom:1px solid var(--border);">Sumber</th>
                     <th style="padding:1rem;font-size:.85rem;border-bottom:1px solid var(--border);">Status</th>
                     <th style="padding:1rem;font-size:.85rem;border-bottom:1px solid var(--border);">Item</th>
                 </tr>
@@ -83,10 +83,17 @@ include '../includes/header.php';
                 ?>
                 <tr style="border-bottom:1px solid var(--border);">
                     <td style="padding:1rem;font-weight:600;">#<?= $o['id'] ?></td>
-                    <td style="padding:1rem;"><?= htmlspecialchars($o['customer_name']) ?></td>
+                    <td style="padding:1rem;"><?= htmlspecialchars($o['customer_name'] ?: $o['user_nama']) ?></td>
                     <td style="padding:1rem;font-weight:500;">Rp <?= number_format($o['total'], 0, ',', '.') ?></td>
                     <td style="padding:1rem;font-size:.8rem;color:var(--text-mid);"><?= date('d M, H:i', strtotime($o['created_at'])) ?></td>
-                    <td style="padding:1rem;"><span style="font-size:.7rem;padding:.2rem .6rem;background:var(--cream2);border-radius:20px;text-transform:uppercase;"><?= htmlspecialchars($o['type']) ?></span></td>
+                    <td style="padding:1rem;">
+                        <?php $src = $o['source'] ?? 'online'; ?>
+                        <span style="font-size:.7rem;padding:.2rem .6rem;border-radius:20px;text-transform:uppercase;
+                              background:<?= $src === 'offline' ? 'var(--amber-light)' : 'var(--cream2)' ?>;
+                              color:<?= $src === 'offline' ? 'var(--amber)' : 'var(--text-mid)' ?>;">
+                            <?= $src === 'offline' ? '&#128421; Kasir' : '&#127760; Online' ?>
+                        </span>
+                    </td>
                     <td style="padding:1rem;">
                         <form method="POST" style="display:inline;">
                             <input type="hidden" name="order_id" value="<?= $o['id'] ?>">

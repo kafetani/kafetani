@@ -17,6 +17,7 @@ $nav_items = [
     'products'  => ['href' => 'products.php',  'label' => 'Produk'],
     'farmers'   => ['href' => 'farmers.php',   'label' => 'Petani'],
     'orders'    => ['href' => 'orders.php',    'label' => 'Pesanan'],
+    'kasir'     => ['href' => 'kasir.php',     'label' => '🖥 Kasir POS'],
 ];
 ?>
 <aside style="background:var(--brown);color:#fff;padding:2rem;">
