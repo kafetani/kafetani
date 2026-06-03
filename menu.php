@@ -1,7 +1,6 @@
 <?php
 session_start();
 include 'config/koneksi.php';
-
 // Ambil semua menu kafe dari database
 $result = mysqli_query($conn, "
     SELECT p.nama_produk, p.deskripsi, p.harga, p.gambar, c.name AS kategori
@@ -11,7 +10,6 @@ $result = mysqli_query($conn, "
     ORDER BY c.name, p.nama_produk
 ");
 $menu_items = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
 // Ambil kategori unik untuk filter tab
 $cat_result = mysqli_query($conn, "
     SELECT DISTINCT c.name
@@ -20,89 +18,62 @@ $cat_result = mysqli_query($conn, "
     WHERE p.type = 'cafe' AND p.stok > 0
     ORDER BY c.name
 ");
-$categories = ["Semua"];
+$categories = ['Semua'];
 while ($row = mysqli_fetch_assoc($cat_result)) {
     if ($row['name']) $categories[] = $row['name'];
 }
+$page_title = 'Menu Kafe';
+include 'includes/header.php';
+include 'includes/navbar.php';
 ?>
-
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kafetani - Menu Kafe</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style_menu.css">
-    <script src="assets/js/menu.js" defer></script>
-</head>
-<body>
-    <!-- Header -->
-    <header>
-        <nav>
-            <a href="index.php">BERANDA</a>
-            <a href="menu.php">MENU KAFE</a>
-            <a href="marketplace.php">MARKETPLACE</a>
-            <?php if (isset($_SESSION['user_id'])): ?>
-                <?php if ($_SESSION['role'] == 'admin'): ?>
-                    <a href="/kafetani/admin/dashboard.php" class="nav-link">ADMIN</a>
-                <?php endif; ?>
-                <a href="/kafetani/auth/logout.php" class="nav-link">LOGOUT</a>
-            <?php else: ?>
-                <a href="/kafetani/auth/login.php" class="nav-link">LOGIN</a>
-            <?php endif; ?>
-        </nav>
-        <button class="cart" onclick="openCart()">
-            🛒 Keranjang <span id="cart-badge" class="cart-badge">0</span>
-        </button>
-    </header>
-
-    <!-- Menu Section -->
-    <section class="menu-section">
-        </tr>
-        <thread>
-            <h1>Menu Kafe</h1>
-            <p>Minuman, bakeri, dan camilan buatan sendiri dari bahan lokal</p>
-        </thread>
-        <tr>
-            
-
-        <!-- Tabs Kategori -->
-        <div class="tabs">
-            <?php foreach ($categories as $index => $cat): ?>
-                <button class="<?= $index === 0 ? 'active' : '' ?>">
-                    <?= $cat ?>
-                </button>
-            <?php endforeach; ?>
+<div class="page" id="page-menu">
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="page-header-label">Kafetani · Menu Kafe</div>
+    <h1 class="page-header-title">Menu Kafe</h1>
+    <p class="page-header-sub">Minuman, bakeri, dan camilan buatan sendiri dari bahan lokal</p>
+  </div>
+  <!-- Filter Tabs Kategori -->
+  <div class="filter-bar">
+    <?php foreach ($categories as $index => $cat): ?>
+      <button class="filter-tab <?= $index === 0 ? 'active' : '' ?>"
+              data-cat="<?= htmlspecialchars($cat) ?>">
+        <?= htmlspecialchars($cat) ?>
+      </button>
+    <?php endforeach; ?>
+  </div>
+  <!-- Grid Produk -->
+  <div class="products-grid" id="menu-grid">
+    <?php if (empty($menu_items)): ?>
+      <p style="grid-column:1/-1;text-align:center;color:var(--text-light);padding:4rem">
+        Menu belum tersedia.
+      </p>
+    <?php endif; ?>
+    <?php foreach ($menu_items as $item): ?>
+      <div class="product-card" data-cat="<?= htmlspecialchars($item['kategori']) ?>">
+        <div class="product-thumb">
+          <img src="assets/img/products/<?= htmlspecialchars($item['gambar']) ?>"
+               alt="<?= htmlspecialchars($item['nama_produk']) ?>">
         </div>
-
-        <!-- Menu Items -->
-        <div class="menu-items">
-            <?php if (empty($menu_items)): ?>
-                <p style="text-align:center; color:#888;">Menu belum tersedia.</p>
-            <?php endif; ?>
-            <?php foreach ($menu_items as $item): ?>
-                <div class="item-card <?= htmlspecialchars($item['kategori']) ?>">
-                    <img src="assets/img/products/<?= htmlspecialchars($item['gambar']) ?>" alt="<?= htmlspecialchars($item['nama_produk']) ?>">
-                    <h3><?= htmlspecialchars($item['nama_produk']) ?></h3>
-                    <p><?= htmlspecialchars($item['deskripsi']) ?></p>
-                    <div class="price">Rp <?= number_format($item['harga'], 0, ',', '.') ?></div>
-                    <button class="add-btn"
-                        data-id="<?= htmlspecialchars($item['nama_produk']) ?>"
-                        data-name="<?= htmlspecialchars($item['nama_produk']) ?>"
-                        data-price="<?= (int)$item['harga'] ?>"
-                        data-image="<?= htmlspecialchars($item['gambar']) ?>">+</button>
-                </div>
-            <?php endforeach; ?>
+        <div class="product-body">
+          <div class="product-cat"><?= htmlspecialchars($item['kategori']) ?></div>
+          <div class="product-name"><?= htmlspecialchars($item['nama_produk']) ?></div>
+          <p class="product-desc"><?= htmlspecialchars($item['deskripsi']) ?></p>
+          <div class="product-footer">
+            <span class="product-price">
+              Rp <?= number_format($item['harga'], 0, ',', '.') ?>
+            </span>
+            <button class="add-btn"
+              data-id="<?= htmlspecialchars($item['nama_produk']) ?>"
+              data-name="<?= htmlspecialchars($item['nama_produk']) ?>"
+              data-price="<?= (int)$item['harga'] ?>"
+              data-image="<?= htmlspecialchars($item['gambar']) ?>">+</button>
+          </div>
         </div>
-    </section>
-
-    <footer>
-        © <?= date('Y') ?> Kafetani - Semua hak dilindungi
-    </footer>
-
-    <?php include 'includes/cart.php'; ?>
-    <script src="assets/js/app.js"></script>
-</body>
-</html>
+      </div>
+    <?php endforeach; ?>
+  </div>
+</div>
+<?php include 'includes/footer.php'; ?>
+<script src="assets/js/app.js?v=1.1"></script>
+<script src="assets/js/menu.js?v=1.1"></script>
