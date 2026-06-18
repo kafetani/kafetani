@@ -1,16 +1,26 @@
 <?php
-include '../config/koneksi.php';
+/**
+ * auth/proses_register.php — Router tipis (MVC)
+ *
+ * File ini hanya bertugas:
+ * 1. Memuat class yang dibutuhkan
+ * 2. Mendelegasikan ke RegisterController
+ *
+ * Perbaikan dari versi asli:
+ * - Tidak ada SQL injection (pakai PDO + prepared statement)
+ * - Password di-hash dengan bcrypt (password_hash)
+ * - Validasi input lengkap (email, panjang password, kecocokan)
+ * - Cek duplikat email sebelum INSERT
+ *
+ * Logika bisnis ada di : app/controllers/RegisterController.php
+ * Query database ada di : app/models/User.php
+ */
 
-$nama_lengkap = $_POST['nama_lengkap'];
-$email        = $_POST['email'];
-$password     = $_POST['password'];
+session_start();
 
-$query = "INSERT INTO users (nama, email, password, role)
-VALUES ('$nama_lengkap', '$email', '$password', 'user')";
+require_once '../app/config/Database.php';
+require_once '../app/models/User.php';
+require_once '../app/controllers/RegisterController.php';
 
-if (mysqli_query($conn, $query)) {
-    header("Location: login.php");
-} else {
-    echo "Register gagal. <a href='register.php'>Coba lagi</a>";
-}
-?>
+$controller = new RegisterController();
+$controller->register();
