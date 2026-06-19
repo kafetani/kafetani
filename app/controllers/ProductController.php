@@ -13,7 +13,7 @@ class ProductController
         $this->model = new Product($db);
     }
 
-    // Tampilkan halaman daftar produk
+    // tampilin halaman daftar produk
     public function index()
     {
         $ft           = $_GET['type'] ?? 'all';
@@ -26,7 +26,7 @@ class ProductController
         require_once __DIR__ . '/../views/products/index.php';
     }
 
-    // Simpan produk (tambah atau edit)
+    // simpen produk (tambah atau edit)
     public function save()
     {
         $id          = (isset($_POST['id']) && ctype_digit($_POST['id'])) ? (int)$_POST['id'] : 0;
@@ -40,12 +40,12 @@ class ProductController
         $petani      = trim($_POST['petani']       ?? '');
         $gambar      = $_POST['gambar_lama']       ?? null;
 
-        // Validasi input wajib
+        // validasi input wajib
         if (!$nama || $harga <= 0) {
             $this->error = 'Nama produk dan harga wajib diisi.';
         }
 
-        // Proses upload gambar jika ada
+        // proses upload gambar jika ada
         if (!$this->error && !empty($_FILES['gambar']['name'])) {
             $ext     = strtolower(pathinfo($_FILES['gambar']['name'], PATHINFO_EXTENSION));
             $allowed = ['jpg', 'jpeg', 'png', 'webp'];
@@ -54,7 +54,7 @@ class ProductController
                 $this->error = 'Format gambar tidak didukung. Gunakan JPG, PNG, atau WEBP.';
             } else {
                 $filename = uniqid('prod_', true) . '.' . $ext;
-                // Path relatif dari letak file ini: app/controllers/ → naik 3 level ke root
+                // path relatif dari letak file ini: app/controllers/ → naik 3 level ke root
                 $dest = __DIR__ . '/../../../assets/img/products/' . $filename;
 
                 if (move_uploaded_file($_FILES['gambar']['tmp_name'], $dest)) {
