@@ -1,0 +1,9 @@
+# Abaikan semua file upload dari user (hasil move_uploaded_file)
+*
+
+# Kecualikan file seed/default yang memang disertakan di repo
+!.gitignore
+!pak_budi.webp
+!bu_sari.webp
+!pak_yusuf.webp
+!semua_petani.webp

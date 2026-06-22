@@ -1,108 +1,88 @@
 <?php
+session_start();
 include 'config/koneksi.php';
-
-// mengambil data product dari database
-$query = mysqli_query($conn, "SELECT * FROM product");
+// Ambil semua produk marketplace dari database
+$query  = mysqli_query($conn, "SELECT * FROM product WHERE type = 'market'");
+$products = mysqli_fetch_all($query, MYSQLI_ASSOC);
+// Data petani mitra (statis)
+$farmers = [
+    ['name' => 'Semua Petani',  'loc' => 'Semua Wilayah',       'img' => 'semua_petani.webp', 'active' => true],
+    ['name' => 'Pak Budi',      'loc' => 'Gayo, Aceh',          'img' => 'pak_budi.webp',     'active' => false],
+    ['name' => 'Bu Sari',       'loc' => 'Temanggung, Jateng',  'img' => 'bu_sari.webp',      'active' => false],
+    ['name' => 'Pak Yusuf',     'loc' => 'Pangalengan, Jabar',  'img' => 'pak_yusuf.webp',    'active' => false],
+];
+$page_title = 'Marketplace';
+include 'includes/header.php';
+include 'includes/navbar.php';
 ?>
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Marketplace Petani - Kafetani</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="assets/css/marketplace.css">
-</head>
-<body>
-
-    <!-- Navbar -->
-    <header>
-        <img src="assets/img/logo_v3.svg" alt="Kafetani Logo" class="logo">
-        <nav>
-            <a href="index.php">BERANDA</a> 
-            <a href="menu.php">MENU KAFE</a> 
-            <a href="marketplace.php">MARKETPLACE</a> 
-            <a href="auth/login.php">LOGIN</a>
-        </nav>
-        <button class="cart-btn">🛒 Keranjang (0)</button>
-    </header>
-
-    <!-- Judul / Hero -->
-    <section class="hero">
-        <p>Kafetani · Marketplace</p>
-        <h1>Marketplace Petani</h1>
-        <p>Beli langsung dari petani lokal — biji kopi, gula aren, dan produk segar pilihan</p>
-    </section>
-
-    <!-- Sidebar petani -->
-    <aside class="sidebar">
-        <h3>PETANI MITRA</h3>
-        <!-- Semua Petani -->
-        <li class="active">
-            <img src="assets/img/farmers/semua_petani.webp" class="petani-img">
-            Semua Petani - Semua Wilayah
-        </li>
-        <ul>
-            <li>
-                <img src="assets/img/farmers/pak_budi.webp" class="petani-img">
-                Pak Budi - Gayo, Aceh
-            </li><br>
-            <li>
-                <img src="assets/img/farmers/bu_sari.webp" class="petani-img">
-                Bu Sari - Temanggung, Jateng
-            </li><br>
-            <li>
-                <img src="assets/img/farmers/pak_yusuf.webp" class="petani-img">
-                Pak Yusuf - Pangalengan, Jabar
-            </li>
-        </ul>
+<div class="page" id="page-market">
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="page-header-label">Kafetani · Marketplace</div>
+    <h1 class="page-header-title">Marketplace Petani</h1>
+    <p class="page-header-sub">Beli langsung dari petani lokal — biji kopi, gula aren, dan produk segar pilihan</p>
+  </div>
+  <!-- Layout: Sidebar + Konten -->
+  <div class="market-layout">
+    <!-- Sidebar Petani Mitra -->
+    <aside class="market-sidebar">
+      <div class="sidebar-title">Petani Mitra</div>
+      <?php foreach ($farmers as $farmer): ?>
+        <div class="farmer-card <?= $farmer['active'] ? 'active' : '' ?>">
+          <div class="farmer-avatar">
+            <img src="assets/img/farmers/<?= htmlspecialchars($farmer['img']) ?>"
+                 alt="<?= htmlspecialchars($farmer['name']) ?>">
+          </div>
+          <div>
+            <div class="farmer-info-name"><?= htmlspecialchars($farmer['name']) ?></div>
+            <div class="farmer-info-loc"><?= htmlspecialchars($farmer['loc']) ?></div>
+          </div>
+        </div>
+      <?php endforeach; ?>
     </aside>
-
-    <!-- Highlight -->
-    <section class="highlight">
-        <h2>Langsung dari Kebun</h2>
-        <p>Setiap produk dikirim segar, tanpa perantara</p>
-    </section>
-
-    <!-- Produk -->
-    <section class="produk">
-
-        <!-- Menampilkan semua data produk dari database -->
-        <?php while($data = mysqli_fetch_assoc($query)) { ?>
-
-            <!-- Card produk -->
-            <div class="card">
-                
-            <!-- Gambar produk -->
-                <img src="assets/img/products/<?php echo $data['gambar']; ?>">
-
-                <div class="content">
-
-                    <!-- Nama petani -->
-                    <p>
-                        <strong>
-                            <?php echo $data['petani']; ?>
-                        </strong>
-                    </p>
-
-                    <!-- Nama produk -->
-                    <h3> <?php echo $data['nama_produk']; ?> </h3>
-
-                    <!-- Deskripsi produk -->
-                    <p> <?php echo $data['deskripsi']; ?> </p>
-
-                    <!-- Harga dan tombol keranjang -->
-                    <div class="row">
-                        <!-- Harga produk -->
-                        <p class="harga"> Rp <?php echo number_format($data['harga']); ?> </p>
-
-                        <!-- Tombol tambah ke keranjang -->
-                        <button class="add-to-cart">+</button>
-                    </div>
-                </div>
+    <!-- Konten Produk -->
+    <div class="market-products">
+      <!-- Banner -->
+      <div class="market-banner">
+        <div class="market-banner-text">
+          <h3>Langsung dari Kebun</h3>
+          <p>Setiap produk dikirim segar, tanpa perantara</p>
+        </div>
+        <div class="market-banner-icon">🌿</div>
+      </div>
+      <!-- Grid Produk -->
+      <div class="market-grid">
+        <?php if (empty($products)): ?>
+          <p style="grid-column:1/-1;text-align:center;color:var(--text-light);padding:4rem">
+            Produk belum tersedia.
+          </p>
+        <?php endif; ?>
+        <?php foreach ($products as $data): ?>
+          <div class="product-card">
+            <div class="product-thumb green">
+              <img src="assets/img/products/<?= htmlspecialchars($data['gambar']) ?>"
+                   alt="<?= htmlspecialchars($data['nama_produk']) ?>">
             </div>
-        <?php } ?>
-
-    </section>
-    <script src="assets/js/script.js"></script>
-</body>
-</html>
+            <div class="product-body">
+              <div class="product-cat"><?= htmlspecialchars($data['petani']) ?></div>
+              <div class="product-name"><?= htmlspecialchars($data['nama_produk']) ?></div>
+              <p class="product-desc"><?= htmlspecialchars($data['deskripsi']) ?></p>
+              <div class="product-footer">
+                <span class="product-price">
+                  Rp <?= number_format($data['harga'], 0, ',', '.') ?>
+                </span>
+                <button class="add-btn"
+                  data-id="<?= (int)$data['id_product'] ?>"
+                  data-name="<?= htmlspecialchars($data['nama_produk']) ?>"
+                  data-price="<?= (int)$data['harga'] ?>"
+                  data-image="<?= htmlspecialchars($data['gambar']) ?>">+</button>
+              </div>
+            </div>
+          </div>
+        <?php endforeach; ?>
+      </div>
+    </div>
+  </div>
+</div>
+<?php include 'includes/footer.php'; ?>
+<script src="assets/js/app.js?v=1.1"></script>

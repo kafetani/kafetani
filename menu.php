@@ -1,107 +1,79 @@
 <?php
-// Data Menu (Simulasi Database)
-$menu_items = [
-    [
-        "nama"      => "Kopi Susu Gula Aren",
-        "kategori"  => "Kopi",
-        "deskripsi" => "Espresso + susu segar + gula aren petani lokal",
-        "harga"     => 28000,
-        "gambar"    => "assets/img/products/kopi_susu_gula_aren.webp"
-    ],
-    [
-        "nama"      => "Americano Arabica",
-        "kategori"  => "Kopi",
-        "deskripsi" => "Single origin biji kopi Arabica Gayo",
-        "harga"     => 22000,
-        "gambar"    => "assets/img/products/americano_arabica.webp"
-    ],
-    [
-        "nama"      => "Cappuccino",
-        "kategori"  => "Kopi",
-        "deskripsi" => "Double shot espresso dengan microfoam susu",
-        "harga"     => 26000,
-        "gambar"    => "assets/img/products/cappuccino.webp"
-    ],
-    [
-        "nama"      => "Croissant Butter",
-        "kategori"  => "Bakeri",
-        "deskripsi" => "Berlapis-lapis, renyah di luar lembut di dalam",
-        "harga"     => 22000,
-        "gambar"    => "assets/img/products/croissant_butter.webp"
-    ],
-    [
-        "nama"      => "Roti Gandum",
-        "kategori"  => "Bakeri",
-        "deskripsi" => "Roti gandum utuh homemade tanpa pengawet",
-        "harga"     => 16000,
-        "gambar"    => "assets/img/products/roti_gandum.webp"
-    ],
-    [
-        "nama"      => "Chocolate Cake",
-        "kategori"  => "Camilan",
-        "deskripsi" => "Kue cokelat lembut dengan taburan cokelat",
-        "harga"     => 25000,
-        "gambar"    => "assets/img/products/chocolate_cake.webp"
-    ]
-];
-
+session_start();
+include 'config/koneksi.php';
+// Ambil semua menu kafe dari database
+$result = mysqli_query($conn, "
+    SELECT p.nama_produk, p.deskripsi, p.harga, p.gambar, c.name AS kategori
+    FROM product p
+    LEFT JOIN categories c ON p.category_id = c.id
+    WHERE p.type = 'cafe' AND p.stok > 0
+    ORDER BY c.name, p.nama_produk
+");
+$menu_items = mysqli_fetch_all($result, MYSQLI_ASSOC);
 // Ambil kategori unik untuk filter tab
-$categories = ["Semua", "Kopi", "Non-Kopi", "Bakeri", "Camilan"];
+$cat_result = mysqli_query($conn, "
+    SELECT DISTINCT c.name
+    FROM product p
+    LEFT JOIN categories c ON p.category_id = c.id
+    WHERE p.type = 'cafe' AND p.stok > 0
+    ORDER BY c.name
+");
+$categories = ['Semua'];
+while ($row = mysqli_fetch_assoc($cat_result)) {
+    if ($row['name']) $categories[] = $row['name'];
+}
+$page_title = 'Menu Kafe';
+include 'includes/header.php';
+include 'includes/navbar.php';
 ?>
-
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kafetani - Menu Kafe</title>
-    <link rel="stylesheet" href="assets/css/style_menu.css">
-    <script src="assets/js/menu.js" defer></script>
-</head>
-<body>
-    <!-- Header -->
-    <header>
-        <nav>
-            <a href="index.php">BERANDA</a>
-            <a href="menu.php">MENU KAFE</a>
-            <a href="marketplace.php">MARKETPLACE</a>
-            <a href="auth/login.php">LOGIN</a>
-        </nav>
-        <button class="cart">🛒 Keranjang (0)</button>
-    </header>
-
-    <!-- Menu Section -->
-    <section class="menu-section">
-        <header class="section-header">
-            <h1>Menu Kafe</h1>
-            <p>Minuman, bakeri, dan camilan buatan sendiri dari bahan lokal</p>
-        </header>
-
-        <!-- Tabs Kategori -->
-        <div class="tabs">
-            <?php foreach ($categories as $index => $cat): ?>
-                <button class="<?= $index === 0 ? 'active' : '' ?>">
-                    <?= $cat ?>
-                </button>
-            <?php endforeach; ?>
+<div class="page" id="page-menu">
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="page-header-label">Kafetani · Menu Kafe</div>
+    <h1 class="page-header-title">Menu Kafe</h1>
+    <p class="page-header-sub">Minuman, bakeri, dan camilan buatan sendiri dari bahan lokal</p>
+  </div>
+  <!-- Filter Tabs Kategori -->
+  <div class="filter-bar">
+    <?php foreach ($categories as $index => $cat): ?>
+      <button class="filter-tab <?= $index === 0 ? 'active' : '' ?>"
+              data-cat="<?= htmlspecialchars($cat) ?>">
+        <?= htmlspecialchars($cat) ?>
+      </button>
+    <?php endforeach; ?>
+  </div>
+  <!-- Grid Produk -->
+  <div class="products-grid" id="menu-grid">
+    <?php if (empty($menu_items)): ?>
+      <p style="grid-column:1/-1;text-align:center;color:var(--text-light);padding:4rem">
+        Menu belum tersedia.
+      </p>
+    <?php endif; ?>
+    <?php foreach ($menu_items as $item): ?>
+      <div class="product-card" data-cat="<?= htmlspecialchars($item['kategori']) ?>">
+        <div class="product-thumb">
+          <img src="assets/img/products/<?= htmlspecialchars($item['gambar']) ?>"
+               alt="<?= htmlspecialchars($item['nama_produk']) ?>">
         </div>
-
-        <!-- Menu Items -->
-        <div class="menu-items">
-            <?php foreach ($menu_items as $item): ?>
-                <div class="item-card <?= $item['kategori'] ?>">
-                    <img src="<?= $item['gambar'] ?>" alt="<?= $item['nama'] ?>">
-                    <h3><?= $item['nama'] ?></h3>
-                    <p><?= $item['deskripsi'] ?></p>
-                    <div class="price">Rp <?= number_format($item['harga'], 0, ',', '.') ?></div>
-                    <button class="add-btn">+</button>
-                </div>
-            <?php endforeach; ?>
+        <div class="product-body">
+          <div class="product-cat"><?= htmlspecialchars($item['kategori']) ?></div>
+          <div class="product-name"><?= htmlspecialchars($item['nama_produk']) ?></div>
+          <p class="product-desc"><?= htmlspecialchars($item['deskripsi']) ?></p>
+          <div class="product-footer">
+            <span class="product-price">
+              Rp <?= number_format($item['harga'], 0, ',', '.') ?>
+            </span>
+            <button class="add-btn"
+              data-id="<?= htmlspecialchars($item['nama_produk']) ?>"
+              data-name="<?= htmlspecialchars($item['nama_produk']) ?>"
+              data-price="<?= (int)$item['harga'] ?>"
+              data-image="<?= htmlspecialchars($item['gambar']) ?>">+</button>
+          </div>
         </div>
-    </section>
-
-    <footer>
-        © <?= date('Y') ?> Kafetani - Semua hak dilindungi
-    </footer>
-</body>
-</html>
+      </div>
+    <?php endforeach; ?>
+  </div>
+</div>
+<?php include 'includes/footer.php'; ?>
+<script src="assets/js/app.js?v=1.1"></script>
+<script src="assets/js/menu.js?v=1.1"></script>

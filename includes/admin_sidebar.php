@@ -1,22 +1,39 @@
 <?php
-$admin_current_page = basename($_SERVER['PHP_SELF']);
-?>
-<aside class="admin-sidebar">
-    <div class="sidebar-brand">
-        <h2 style="font-family:var(--ff-display);font-size:1.5rem;">Admin Panel</h2>
-        <div style="font-size:0.7rem;opacity:0.6;letter-spacing:0.1em;text-transform:uppercase;margin-top:0.2rem;">Kafetani Dashboard</div>
-    </div>
-    
-    <nav class="admin-nav">
-        <a href="<?= BASE_URL ?>admin/dashboard.php" class="admin-nav-link <?= ($admin_current_page == 'dashboard.php') ? 'active' : '' ?>">Dashboard</a>
-        <a href="<?= BASE_URL ?>admin/products.php" class="admin-nav-link <?= ($admin_current_page == 'products.php') ? 'active' : '' ?>">Produk</a>
-        <a href="<?= BASE_URL ?>admin/farmers.php" class="admin-nav-link <?= ($admin_current_page == 'farmers.php') ? 'active' : '' ?>">Petani</a>
-        <a href="<?= BASE_URL ?>admin/orders.php" class="admin-nav-link <?= ($admin_current_page == 'orders.php') ? 'active' : '' ?>">Pesanan</a>
-        <a href="<?= BASE_URL ?>admin/kasir.php" class="admin-nav-link <?= ($admin_current_page == 'kasir.php') ? 'active' : '' ?>">Kasir</a>
-    </nav>
+/**
+ * Admin Sidebar
+ * 
+ * Cara pakai: set variabel $current_page sebelum include file ini.
+ * Nilai yang valid: 'dashboard', 'products', 'farmers', 'orders'
+ *
+ * Contoh:
+ *   $current_page = 'dashboard';
+ *   include '../includes/admin_sidebar.php';
+ */
 
-    <div style="margin-top:auto;">
-        <hr style="opacity:.1;margin-bottom:1.5rem;">
-        <a href="<?= BASE_URL ?>index.php" class="admin-nav-link">← Lihat Situs</a>
-    </div>
+$current_page = $current_page ?? '';
+
+$nav_items = [
+    'dashboard' => ['href' => 'dashboard.php', 'label' => 'Dashboard'],
+    'products'  => ['href' => 'products.php',  'label' => 'Produk'],
+    'farmers'   => ['href' => 'farmers.php',   'label' => 'Petani'],
+    'orders'    => ['href' => 'orders.php',    'label' => 'Pesanan'],
+    'kasir'     => ['href' => 'kasir.php',     'label' => '🖥 Kasir POS'],
+];
+?>
+<aside style="background:var(--brown);color:#fff;padding:2rem;">
+    <h2 style="font-family:var(--ff-display);font-size:1.5rem;margin-bottom:1rem;">Kafetani Admin</h2>
+    <nav style="display:flex;flex-direction:column;gap:.8rem;">
+        <?php foreach ($nav_items as $key => $item): ?>
+            <?php $is_active = ($current_page === $key); ?>
+            <a href="<?= $item['href'] ?>"
+               style="color:<?= $is_active ? 'var(--amber)' : '#fff' ?>;
+                      text-decoration:none;
+                      font-size:.9rem;
+                      <?= $is_active ? '' : 'opacity:.7;' ?>">
+                <?= $item['label'] ?>
+            </a>
+        <?php endforeach; ?>
+        <hr style="opacity:.2;margin:1rem 0;">
+        <a href="../index.php" style="color:#fff;text-decoration:none;font-size:.9rem;opacity:.7;">&#8592; Lihat Situs</a>
+    </nav>
 </aside>

@@ -56,8 +56,8 @@ function renderCart() {
   el.innerHTML = cart.map((item, i) => `
     <div class="cart-item">
       <div class="cart-item-icon">
-        ${item.image 
-          ? `<img src="assets/img/products/${item.image}" style="width:100%;height:100%;object-fit:cover;border-radius:4px;">` 
+      ${item.image 
+          ? `<img src="/kafetani/assets/img/products/${item.image}" style="width:100%;height:100%;object-fit:cover;border-radius:2px;">` 
           : (item.icon || '📦')}
       </div>
       <div class="cart-item-info">
@@ -141,7 +141,21 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2200);
 }
 
-// ── PAGE SPECIFIC INITIALIZATION ──────────────────────────────────────────────
+// ── INISIALISASI HALAMAN ───────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
     updateCartBadge();
+
+    // Auto-bind semua tombol + yang punya data-name & data-price
+    // Berlaku untuk menu.php (.add-btn) maupun marketplace.php (.add-to-cart)
+    document.querySelectorAll('[data-name][data-price]').forEach(btn => {
+        btn.addEventListener('click', function () {
+            addToCart({
+                id:    this.dataset.id    || this.dataset.name,
+                name:  this.dataset.name,
+                price: parseInt(this.dataset.price, 10),
+                image: this.dataset.image || null,
+                icon:  this.dataset.icon  || '📦'
+            }, this);
+        });
+    });
 });

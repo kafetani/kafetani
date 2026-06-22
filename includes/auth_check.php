@@ -10,8 +10,8 @@ function checkAdmin() {
     }
 }
 
-function checkLogin() {
-    if (!isset($_SESSION['user_id'])) {
+function checkKasirOrAdmin() {
+    if (!isset($_SESSION['user_id']) || !in_array($_SESSION['role'], ['admin', 'kasir'])) {
         header('Location: ../auth/login.php');
         exit;
     }
