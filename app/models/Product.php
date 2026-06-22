@@ -10,7 +10,7 @@ class Product
         $this->conn = $db;
     }
 
-    // Ambil semua produk, bisa difilter by type
+    // ambil semua produk, bisa difilter by type
     public function getAll($type = 'all')
     {
         $sql = "SELECT p.*, c.name AS cat_name
@@ -33,7 +33,7 @@ class Product
         return $stmt->fetchAll();
     }
 
-    // Ambil semua kategori untuk dropdown
+    // ambil semua kategori buat dropdown
     public function getCategories()
     {
         $stmt = $this->conn->prepare("SELECT * FROM categories ORDER BY name");
@@ -41,7 +41,7 @@ class Product
         return $stmt->fetchAll();
     }
 
-    // Ambil nama file gambar berdasarkan id (untuk hapus file lama)
+    // ambil nama file gambar dari id (buat apus file lama)
     public function getGambarById($id)
     {
         $stmt = $this->conn->prepare(
@@ -53,7 +53,7 @@ class Product
         return $row ? $row['gambar'] : null;
     }
 
-    // Tambah produk baru
+    // tambah produk baru
     public function create($nama, $harga, $stok, $deskripsi, $category_id, $type, $petani, $gambar)
     {
         $stmt = $this->conn->prepare(
@@ -74,7 +74,7 @@ class Product
         return $stmt->execute();
     }
 
-    // Update produk yang sudah ada
+    // update produk yang udah ada
     public function update($id, $nama, $harga, $stok, $deskripsi, $category_id, $type, $petani, $gambar)
     {
         $stmt = $this->conn->prepare(
