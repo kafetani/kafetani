@@ -1,115 +1,84 @@
 <?php
 
-class Product
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Product extends Model
 {
-    private $conn;
-    private $table = "product";
+    // Nama tabel tidak mengikuti konvensi Laravel (bukan 'products')
+    protected $table = 'product';
 
-    public function __construct($db)
+    // Primary key tidak mengikuti konvensi Laravel
+    protected $primaryKey = 'id_product';
+
+    public $timestamps = false;
+
+    protected $fillable = [
+        'nama_produk',
+        'harga',
+        'stok',
+        'deskripsi',
+        'petani',
+        'gambar',
+        'category_id',
+        'type',
+    ];
+
+    protected $casts = [
+        'harga' => 'integer',
+        'stok'  => 'integer',
+    ];
+
+    /**
+     * Scope: filter by type (cafe / market)
+     */
+    public function scopeType($query, string $type)
     {
-        $this->conn = $db;
+        return in_array($type, ['cafe', 'market'])
+            ? $query->where('type', $type)
+            : $query;
     }
 
-    // ambil semua produk, bisa difilter by type
-    public function getAll($type = 'all')
+    /**
+     * Scope: hanya yang masih ada stok
+     */
+    public function scopeAvailable($query)
     {
-        $sql = "SELECT p.*, c.name AS cat_name
-                FROM " . $this->table . " p
-                LEFT JOIN categories c ON p.category_id = c.id";
-
-        if ($type === 'cafe' || $type === 'market') {
-            $sql .= " WHERE p.type = :type";
-        }
-
-        $sql .= " ORDER BY p.type, p.nama_produk";
-
-        $stmt = $this->conn->prepare($sql);
-
-        if ($type === 'cafe' || $type === 'market') {
-            $stmt->bindParam(':type', $type);
-        }
-
-        $stmt->execute();
-        return $stmt->fetchAll();
+        return $query->where('stok', '>', 0);
     }
 
-    // ambil semua kategori buat dropdown
-    public function getCategories()
+    /**
+     * Relasi: produk milik satu kategori
+     */
+    public function category()
     {
-        $stmt = $this->conn->prepare("SELECT * FROM categories ORDER BY name");
-        $stmt->execute();
-        return $stmt->fetchAll();
+        return $this->belongsTo(Category::class);
     }
 
-    // ambil nama file gambar dari id (buat apus file lama)
-    public function getGambarById($id)
+    /**
+     * Relasi: produk bisa ada di banyak order items
+     */
+    public function orderItems()
     {
-        $stmt = $this->conn->prepare(
-            "SELECT gambar FROM " . $this->table . " WHERE id_product = :id LIMIT 1"
-        );
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        $stmt->execute();
-        $row = $stmt->fetch();
-        return $row ? $row['gambar'] : null;
+        return $this->hasMany(OrderItem::class, 'product_id', 'id_product');
     }
 
-    // tambah produk baru
-    public function create($nama, $harga, $stok, $deskripsi, $category_id, $type, $petani, $gambar)
+    /**
+     * Accessor: URL gambar lengkap
+     */
+    public function getGambarUrlAttribute(): string
     {
-        $stmt = $this->conn->prepare(
-            "INSERT INTO " . $this->table . "
-             (nama_produk, harga, stok, deskripsi, category_id, type, petani, gambar)
-             VALUES (:nama, :harga, :stok, :deskripsi, :category_id, :type, :petani, :gambar)"
-        );
-
-        $stmt->bindParam(':nama',        $nama);
-        $stmt->bindParam(':harga',       $harga,       PDO::PARAM_INT);
-        $stmt->bindParam(':stok',        $stok,        PDO::PARAM_INT);
-        $stmt->bindParam(':deskripsi',   $deskripsi);
-        $stmt->bindParam(':category_id', $category_id, PDO::PARAM_INT);
-        $stmt->bindParam(':type',        $type);
-        $stmt->bindParam(':petani',      $petani);
-        $stmt->bindParam(':gambar',      $gambar);
-
-        return $stmt->execute();
+        return $this->gambar
+            ? asset('img/products/' . $this->gambar)
+            : '';
     }
 
-    // update produk yang udah ada
-    public function update($id, $nama, $harga, $stok, $deskripsi, $category_id, $type, $petani, $gambar)
+    /**
+     * Helper: format harga ke rupiah
+     */
+    public function getHargaFormatAttribute(): string
     {
-        $stmt = $this->conn->prepare(
-            "UPDATE " . $this->table . "
-             SET nama_produk  = :nama,
-                 harga        = :harga,
-                 stok         = :stok,
-                 deskripsi    = :deskripsi,
-                 category_id  = :category_id,
-                 type         = :type,
-                 petani       = :petani,
-                 gambar       = :gambar
-             WHERE id_product = :id"
-        );
-
-        $stmt->bindParam(':nama',        $nama);
-        $stmt->bindParam(':harga',       $harga,       PDO::PARAM_INT);
-        $stmt->bindParam(':stok',        $stok,        PDO::PARAM_INT);
-        $stmt->bindParam(':deskripsi',   $deskripsi);
-        $stmt->bindParam(':category_id', $category_id, PDO::PARAM_INT);
-        $stmt->bindParam(':type',        $type);
-        $stmt->bindParam(':petani',      $petani);
-        $stmt->bindParam(':gambar',      $gambar);
-        $stmt->bindParam(':id',          $id,          PDO::PARAM_INT);
-
-        return $stmt->execute();
-    }
-
-    // Hapus produk
-    public function delete($id)
-    {
-        $stmt = $this->conn->prepare(
-            "DELETE FROM " . $this->table . " WHERE id_product = :id"
-        );
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        return $stmt->execute();
+        return 'Rp ' . number_format($this->harga, 0, ',', '.');
     }
 }

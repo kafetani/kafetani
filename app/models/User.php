@@ -1,50 +1,42 @@
 <?php
 
-class User
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+
+class User extends Authenticatable
 {
-    private $conn;
-    private $table = "users";
+    use HasFactory, Notifiable;
 
-    public function __construct($db)
+    protected $fillable = ['nama', 'email', 'password', 'role'];
+
+    protected $hidden = ['password', 'remember_token'];
+
+    protected $casts = ['password' => 'hashed'];
+
+    /**
+     * Relasi: satu user bisa punya banyak orders
+     */
+    public function orders()
     {
-        $this->conn = $db;
+        return $this->hasMany(Order::class);
     }
 
-    // Untuk login — ambil semua kolom supaya bisa password_verify()
-    public function findByEmail($email)
+    /**
+     * Cek apakah user adalah admin
+     */
+    public function isAdmin(): bool
     {
-        $stmt = $this->conn->prepare(
-            "SELECT * FROM " . $this->table . " WHERE email = :email LIMIT 1"
-        );
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
-        return $stmt->fetch();
+        return $this->role === 'admin';
     }
 
-    // Untuk register — cek apakah email sudah dipakai
-    public function emailExists($email)
+    /**
+     * Cek apakah user adalah kasir atau admin
+     */
+    public function isKasirOrAdmin(): bool
     {
-        $stmt = $this->conn->prepare(
-            "SELECT id FROM " . $this->table . " WHERE email = :email LIMIT 1"
-        );
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
-        return $stmt->fetch() !== false;
-    }
-
-    // Tambah user baru dengan role 'user'
-    public function create($nama, $email, $password)
-    {
-        $stmt = $this->conn->prepare(
-            "INSERT INTO " . $this->table . "
-             (nama, email, password, role)
-             VALUES (:nama, :email, :password, 'user')"
-        );
-
-        $stmt->bindParam(':nama',     $nama);
-        $stmt->bindParam(':email',    $email);
-        $stmt->bindParam(':password', $password);
-
-        return $stmt->execute();
+        return in_array($this->role, ['admin', 'kasir']);
     }
 }

@@ -1,122 +1,58 @@
-# Kafetani — Refactoring ke MVC
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-Folder ini berisi hasil **refactoring** tiga file utama dari proyek Kafetani ke pola arsitektur **MVC (Model-View-Controller)**.
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
----
+## About Laravel
 
-## File yang Diubah / Ditambahkan
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-```
-kafetani/
-├── app/                              ← FOLDER BARU
-│   ├── config/
-│   │   └── Database.php             ← BARU: Koneksi PDO (ganti koneksi.php MySQLi)
-│   ├── models/
-│   │   ├── Product.php              ← BARU: Semua query SQL produk
-│   │   ├── Farmer.php               ← BARU: Semua query SQL petani
-│   │   └── User.php                 ← BARU: Query cek email & insert user
-│   ├── controllers/
-│   │   ├── ProductController.php    ← BARU: Logika bisnis produk (CRUD + upload)
-│   │   ├── FarmerController.php     ← BARU: Logika bisnis petani (CRUD + upload)
-│   │   └── RegisterController.php  ← BARU: Validasi & proses registrasi
-│   └── views/
-│       ├── products/
-│       │   └── index.php            ← BARU: HTML/CSS tabel & modal produk
-│       └── farmers/
-│           ├── index.php            ← BARU: HTML tabel daftar petani
-│           └── form.php             ← BARU: HTML form tambah/edit petani
-│
-├── admin/
-│   ├── products.php                 ← DIUBAH: Sekarang hanya router tipis (10 baris)
-│   └── farmers.php                  ← DIUBAH: Sekarang hanya router tipis (10 baris)
-│
-└── auth/
-    └── proses_register.php          ← DIUBAH: Sekarang hanya router tipis (5 baris)
-```
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
----
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Perbandingan Sebelum vs Sesudah
+## Learning Laravel
 
-| Aspek               | Sebelum (Original)                  | Sesudah (MVC)                         |
-|---------------------|-------------------------------------|---------------------------------------|
-| **Arsitektur**      | Spaghetti (logika + HTML bercampur) | MVC (Model / View / Controller)       |
-| **Database driver** | MySQLi                              | PDO + Prepared Statements             |
-| **Password**        | Plain text (tidak aman!)            | Bcrypt via `password_hash()`          |
-| **SQL injection**   | Rentan (string interpolation)       | Aman (`:named` placeholders)          |
-| **Duplikat email**  | Tidak dicek                         | Dicek sebelum INSERT                  |
-| **Validasi input**  | Tidak ada                           | Validasi lengkap di Controller        |
-| **Ukuran file**     | admin/products.php: 120+ baris campur | Router: 20 baris, sisanya terpisah  |
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
----
+In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Cara Instalasi
+You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
 
-### 1. Salin folder `app/` ke root proyek Kafetani
-```
-kafetani-main/
-└── app/          ← salin ke sini
-```
+## Agentic Development
 
-### 2. Ganti tiga file lama dengan versi baru
+Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+
 ```bash
-cp admin/products.php        /path/to/kafetani-main/admin/products.php
-cp admin/farmers.php         /path/to/kafetani-main/admin/farmers.php
-cp auth/proses_register.php  /path/to/kafetani-main/auth/proses_register.php
+composer require laravel/boost --dev
+
+php artisan boost:install
 ```
 
-### 3. Tidak perlu ubah database
-Skema database (`db_schema.sql`) tidak berubah sama sekali. Nama tabel dan kolom tetap sama.
+Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
 
-### 4. Koneksi database
-Edit `app/config/Database.php` jika nama database atau password berbeda:
-```php
-private $db_name  = "db_kafetani"; // sesuaikan
-private $username = "root";        // sesuaikan
-private $password = "";            // sesuaikan
-```
+## Contributing
 
----
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Penjelasan Pola MVC
+## Code of Conduct
 
-### Model (`app/models/`)
-Berisi **hanya query SQL**. Tidak ada HTML, tidak ada logika bisnis.
-```php
-// Contoh: Product.php
-public function getAll($type = 'all') {
-    $stmt = $this->conn->prepare("SELECT * FROM product ...");
-    $stmt->execute();
-    return $stmt->fetchAll();
-}
-```
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-### View (`app/views/`)
-Berisi **hanya HTML/CSS**. Tidak ada query SQL, tidak ada logika bisnis.
-Menerima data dari controller melalui variabel PHP (`$products`, `$farmers`, dll).
+## Security Vulnerabilities
 
-### Controller (`app/controllers/`)
-**Jembatan** antara Model dan View.
-- Menerima input dari user (`$_GET`, `$_POST`, `$_FILES`)
-- Memanggil Model untuk baca/tulis data
-- Menyiapkan variabel untuk View
-- Meload file View yang sesuai
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-### Router (file `admin/*.php` dan `auth/proses_register.php`)
-File lama yang URL-nya tidak boleh berubah, sekarang menjadi **router tipis**:
-- Cek autentikasi
-- Load class yang dibutuhkan
-- Delegasikan ke Controller
+## License
 
----
-
-## Referensi
-
-Pola ini mengikuti struktur yang sama seperti contoh `crud-mahasiswa-mvc` di mata kuliah:
-
-```
-public/index.php  → router tipis
-app/controllers/MahasiswaController.php  → logika
-app/models/Mahasiswa.php                 → database
-app/views/mahasiswa/*.php                → tampilan
-```
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
