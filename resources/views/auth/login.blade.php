@@ -29,7 +29,7 @@
 
         <div class="password-row">
             <label for="password">Password:</label>
-            <a href="{{ route('password.request') }}" class="forgot">Lupa password?</a>
+            <a href="#" class="forgot">Lupa password?</a>
         </div>
         <div class="password-row">
             <input type="password" id="password" name="password"
@@ -42,7 +42,7 @@
         <input type="submit" value="Masuk">
         <p>Atau</p>
 
-        <a href="{{ route('auth.google') }}" class="google-btn">
+        <a href="#" class="google-btn">
             <img src="{{ asset('assets/img/google-symbol.png') }}">
             <span>Login dengan Google</span>
         </a>
