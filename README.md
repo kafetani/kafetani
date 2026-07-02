@@ -7,6 +7,54 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+# Kafetani
+
+Aplikasi Laravel untuk kafe sekaligus marketplace hasil tani — pelanggan bisa pesan menu kafe atau beli produk segar langsung dari petani lokal, sementara admin/kasir mengelola pesanan, produk, dan data petani dari satu dashboard.
+
+## Quickstart
+
+**Prasyarat:** PHP 8.3+, Composer, Node.js + npm. Database pakai SQLite secara default, jadi tidak wajib install database server terpisah.
+
+```bash
+# 1. Install dependency
+composer install
+npm install
+
+# 2. Siapkan environment
+cp .env.example .env        # Windows (PowerShell): copy .env.example .env
+php artisan key:generate
+
+# 3. Siapkan database (tabel sessions perlu digenerate manual dulu)
+php artisan make:session-table
+php artisan migrate --seed  # kalau ditanya bikin file SQLite, pilih "yes"
+
+# 4. Build asset frontend
+npm run build
+
+# 5. Jalankan server
+php artisan serve
+```
+
+Buka **http://127.0.0.1:8000** di browser. `--seed` di atas otomatis mengisi kategori, petani, produk contoh, dan dua akun berikut:
+
+| Role  | Email               | Password     |
+|-------|---------------------|--------------|
+| Admin | admin@gmail.com     | kafetani2025 |
+| Kasir | kasir@kafetani.com  | kasir123     |
+
+**Pakai MySQL?** Ganti baris berikut di `.env` sebelum langkah migrasi:
+```env
+DB_CONNECTION=mysql
+DB_DATABASE=db_kafetani
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+**Development sehari-hari:** `npm run dev` (bukan `build`) supaya asset auto-reload. Atau jalankan server, queue worker, log viewer, dan Vite sekaligus dengan satu perintah:
+```bash
+composer run dev
+```
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:

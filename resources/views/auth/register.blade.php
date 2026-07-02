@@ -7,7 +7,7 @@
 <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
+<!-- <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--cream:#F7F3EC;--brown:#3B2A1A;--green:#2D5016;--green2:#4A7C23;--text:#2A1F12;--text-mid:#7A6550;--border:#D9CEBC;--ff-display:'Cormorant Garamond',serif;--ff-body:'DM Sans',sans-serif}
 body{background:var(--cream);font-family:var(--ff-body);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1.5rem}
@@ -32,7 +32,7 @@ body{background:var(--cream);font-family:var(--ff-body);min-height:100vh;display
 .auth-links a:hover{text-decoration:underline}
 .alert-err{background:#FCEBEB;border-left:3px solid #c0392b;color:#7b2d1e;padding:.7rem .9rem;font-size:.83rem;margin-bottom:1.2rem}
 .field-err{font-size:.75rem;color:#c0392b;margin-top:.25rem}
-</style>
+</style> -->
 </head>
 <body>
 <div class="auth-wrap">
