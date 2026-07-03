@@ -57,7 +57,7 @@ function renderCart() {
     <div class="cart-item">
       <div class="cart-item-icon">
       ${item.image 
-          ? `<img src="/kafetani/assets/img/products/${item.image}" style="width:100%;height:100%;object-fit:cover;border-radius:2px;">` 
+          ? `<img src="/products/${item.image}" style="width:100%;height:100%;object-fit:cover;border-radius:2px;">` 
           : (item.icon || '📦')}
       </div>
       <div class="cart-item-info">

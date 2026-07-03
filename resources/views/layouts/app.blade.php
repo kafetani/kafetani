@@ -227,7 +227,7 @@ footer{background:var(--brown);color:#fff;padding:4rem 3.5rem 2rem;margin-top:2r
   </div>
 </footer>
 
-<script src="{{ asset('js/app.js') }}?v=1.1"></script>
+<script src="{{ asset('app.js') }}?v=1.1"></script>
 @stack('scripts')
 </body>
 </html>
