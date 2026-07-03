@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\FarmerController;
 use App\Http\Controllers\Admin\KasirController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Api\OrderController as ApiOrderController;
 use Illuminate\Support\Facades\Route;
 
 // ─── Auth ─────────────────────────────────────────────────────────────────────
@@ -22,6 +23,16 @@ Route::middleware('guest')->group(function () {
 Route::post('/logout', [LoginController::class, 'logout'])
      ->middleware('auth')
      ->name('logout');
+
+// ─── Orders API (dipanggil via fetch dari app.js saat checkout) ───────────────
+// Didaftarkan di web.php (bukan routes/api.php) supaya route ini ikut masuk
+// grup middleware 'web' — artinya sesi & verifikasi CSRF aktif, dan guard
+// 'auth' di sini otomatis memakai guard default 'web' (session), sama seperti
+// login/logout di atas. Aplikasi ini tidak memakai Sanctum, jadi 'auth:sanctum'
+// akan selalu gagal karena guard tersebut tidak pernah didefinisikan.
+Route::post('/api/orders', [ApiOrderController::class, 'store'])
+     ->middleware('auth')
+     ->name('api.orders.store');
 
 // ─── Admin (hanya admin) ───────────────────────────────────────────────────────
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->name('admin.')->group(function () {
