@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
       this.classList.add('active');
       const target = this.dataset.farmer;
       prodCards.forEach(card => {
-        card.style.display = (target === 'Semua Petani' || card.dataset.petani === target)
+        card.style.display = (target === 'Semua Petani' || card.dataset.petani.startsWith(target))
           ? '' : 'none';
       });
     });
