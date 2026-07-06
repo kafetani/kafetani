@@ -52,10 +52,14 @@ class OrderController extends Controller
             $pid   = null;
             $price = 0;
             $name  = '';
+            $prod  = null;
 
-            if (is_numeric($item['id']) && isset($dbProds[(int)$item['id']])) {
+            if (is_numeric($item['id'])) {
+                $prod = $dbProds->get((int)$item['id']);
+            }
+
+            if ($prod) {
                 // Dari marketplace — ID numerik langsung
-                $prod  = $dbProds[(int)$item['id']];
                 $pid   = $prod->id_product;
                 $price = $prod->harga;
                 $name  = $prod->nama_produk;
