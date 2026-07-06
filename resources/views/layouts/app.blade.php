@@ -122,6 +122,8 @@ footer{background:var(--brown);color:#fff;padding:4rem 3.5rem 2rem;margin-top:2r
 .footer-bottom{padding-top:2rem;border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;align-items:center;font-size:.75rem;color:rgba(255,255,255,.4)}
 @media(max-width:968px){.footer-grid{grid-template-columns:1fr 1fr;gap:2rem}}
 </style>
+<!-- Midtrans Snap.js -->
+<script src="{{ config('midtrans.snap_url') }}" data-client-key="{{ config('midtrans.client_key') }}"></script>
 @stack('styles')
 </head>
 <body>

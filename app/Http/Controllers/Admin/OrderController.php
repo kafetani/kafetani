@@ -30,7 +30,7 @@ class OrderController extends Controller
     {
         $request->validate([
             'order_id' => ['required', 'integer', 'exists:orders,id'],
-            'status'   => ['required', 'in:pending,processing,ready,completed,cancelled'],
+            'status'   => ['required', 'in:pending_payment,pending,processing,ready,completed,cancelled'],
         ]);
 
         $order = Order::findOrFail($request->input('order_id'));

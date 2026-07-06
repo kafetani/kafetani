@@ -14,7 +14,8 @@ class OrderController extends Controller
 {
     /**
      * POST /api/orders
-     * Terima pesanan dari keranjang belanja online (marketplace / menu kafe).
+     * Terima pesanan dari keranjang belanja online (marketplace / menu kafe)
+     * dan buat transaksi Midtrans Snap token.
      *
      * Payload JSON:
      *   { cart: [{id, name, price, qty, image}], total: number }
@@ -50,18 +51,21 @@ class OrderController extends Controller
             $qty   = max(1, (int) ($item['qty'] ?? 1));
             $pid   = null;
             $price = 0;
+            $name  = '';
 
             if (is_numeric($item['id']) && isset($dbProds[(int)$item['id']])) {
                 // Dari marketplace — ID numerik langsung
                 $prod  = $dbProds[(int)$item['id']];
                 $pid   = $prod->id_product;
                 $price = $prod->harga;
+                $name  = $prod->nama_produk;
             } elseif (!empty($item['name'])) {
                 // Dari menu kafe — cari by nama
                 $prod = Product::where('nama_produk', $item['name'])->first();
                 if ($prod) {
                     $pid   = $prod->id_product;
                     $price = $prod->harga;
+                    $name  = $prod->nama_produk;
                 }
             }
 
@@ -75,6 +79,7 @@ class OrderController extends Controller
                 'quantity'   => $qty,
                 'price'      => $price,
                 'subtotal'   => $subtotal,
+                'name'       => $name,
             ];
         }
 
@@ -84,18 +89,31 @@ class OrderController extends Controller
 
         $realTotal += 2000; // biaya layanan
 
+        // Setup konfigurasi Midtrans
+        \Midtrans\Config::$serverKey = config('midtrans.server_key');
+        \Midtrans\Config::$isProduction = config('midtrans.is_production');
+        \Midtrans\Config::$isSanitized = config('midtrans.is_sanitized');
+        \Midtrans\Config::$is3ds = config('midtrans.is_3ds');
+
         try {
             $order = DB::transaction(function () use ($userId, $realTotal, $lineItems) {
+                // Status awal adalah pending_payment karena diintegrasikan dengan Payment Gateway
                 $order = Order::create([
                     'user_id' => $userId,
                     'total'   => $realTotal,
                     'type'    => 'mixed',
                     'source'  => 'online',
-                    'status'  => 'pending',
+                    'status'  => 'pending_payment',
                 ]);
 
                 foreach ($lineItems as $li) {
-                    OrderItem::create(array_merge(['order_id' => $order->id], $li));
+                    OrderItem::create([
+                        'order_id'   => $order->id,
+                        'product_id' => $li['product_id'],
+                        'quantity'   => $li['quantity'],
+                        'price'      => $li['price'],
+                        'subtotal'   => $li['subtotal'],
+                    ]);
                     // Kurangi stok
                     Product::where('id_product', $li['product_id'])
                            ->decrement('stok', $li['quantity']);
@@ -104,15 +122,57 @@ class OrderController extends Controller
                 return $order;
             });
 
+            // Persiapkan payload item details untuk Midtrans
+            $midtransItems = [];
+            foreach ($lineItems as $li) {
+                $midtransItems[] = [
+                    'id'       => (string) $li['product_id'],
+                    'price'    => $li['price'],
+                    'quantity' => $li['quantity'],
+                    'name'     => substr($li['name'], 0, 50),
+                ];
+            }
+            
+            // Tambahkan biaya layanan ke item details Midtrans
+            $midtransItems[] = [
+                'id'       => 'service_fee',
+                'price'    => 2000,
+                'quantity' => 1,
+                'name'     => 'Biaya Layanan',
+            ];
+
+            $transactionDetails = [
+                'order_id'     => (string) $order->id,
+                'gross_amount' => $realTotal,
+            ];
+
+            $customerDetails = [
+                'first_name' => auth()->user()->nama,
+                'email'      => auth()->user()->email,
+            ];
+
+            $params = [
+                'transaction_details' => $transactionDetails,
+                'customer_details'    => $customerDetails,
+                'item_details'        => $midtransItems,
+            ];
+
+            // Dapatkan Snap Token dari Midtrans
+            $snapToken = \Midtrans\Snap::getSnapToken($params);
+
+            // Simpan snap token ke database
+            $order->update(['snap_token' => $snapToken]);
+
             return response()->json([
-                'success'  => true,
-                'message'  => 'Pesanan berhasil dibuat.',
-                'order_id' => $order->id,
+                'success'    => true,
+                'message'    => 'Pesanan berhasil dibuat. Silakan lakukan pembayaran.',
+                'order_id'   => $order->id,
+                'snap_token' => $snapToken,
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Terjadi kesalahan: ' . $e->getMessage(),
+                'message' => 'Terjadi kesalahan saat memproses pesanan: ' . $e->getMessage(),
             ], 500);
         }
     }

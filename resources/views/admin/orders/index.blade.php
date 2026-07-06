@@ -7,6 +7,7 @@
 .status-tab{padding:.7rem 1.1rem;font-size:.82rem;cursor:pointer;color:var(--text-mid);border-bottom:2px solid transparent;text-decoration:none;white-space:nowrap;transition:all .2s}
 .status-tab.active{color:var(--green);border-bottom-color:var(--green);font-weight:500}
 .badge{display:inline-block;padding:.2rem .6rem;font-size:.7rem;font-weight:500;border-radius:2px;letter-spacing:.04em;text-transform:uppercase}
+.badge-pending_payment{background:#EDE9FE;color:#5B21B6}
 .badge-pending{background:#FEF3C7;color:#92400E}
 .badge-processing{background:#DBEAFE;color:#1E40AF}
 .badge-ready{background:#D1FAE5;color:#065F46}
@@ -42,7 +43,7 @@ select.status-select:focus{border-color:var(--green)}
 
 {{-- Status filter tabs --}}
 <div class="status-tabs">
-  @foreach(['all' => 'Semua', 'pending' => 'Masuk', 'processing' => 'Proses', 'ready' => 'Siap', 'completed' => 'Selesai', 'cancelled' => 'Dibatalkan'] as $val => $label)
+  @foreach(['all' => 'Semua', 'pending_payment' => 'Belum Bayar', 'pending' => 'Masuk', 'processing' => 'Proses', 'ready' => 'Siap', 'completed' => 'Selesai', 'cancelled' => 'Dibatalkan'] as $val => $label)
     <a href="{{ route('admin.orders.index', ['status' => $val]) }}"
        class="status-tab {{ $statusFilter === $val ? 'active' : '' }}">
       {{ $label }}
@@ -95,6 +96,14 @@ select.status-select:focus{border-color:var(--green)}
       </td>
       <td>
         <span class="badge badge-{{ $order->status }}">{{ $order->status_label }}</span>
+        @if($order->payment_type)
+          <div style="font-size:.7rem;margin-top:.25rem;color:var(--text-mid);font-weight:500;">
+            {{ strtoupper(str_replace('_', ' ', $order->payment_type)) }}
+            <span style="color:{{ $order->payment_status === 'paid' ? 'var(--green)' : 'var(--amber)' }}">
+              ({{ strtoupper($order->payment_status) }})
+            </span>
+          </div>
+        @endif
       </td>
       <td>
         @if(!in_array($order->status, ['completed', 'cancelled']))
@@ -105,6 +114,7 @@ select.status-select:focus{border-color:var(--green)}
             <input type="hidden" name="status" id="status-{{ $order->id }}" value="{{ $order->status }}">
             <select class="status-select"
                     onchange="document.getElementById('status-{{ $order->id }}').value = this.value">
+              <option value="pending_payment" {{ $order->status === 'pending_payment' ? 'selected' : '' }}>Belum Bayar</option>
               <option value="pending"    {{ $order->status === 'pending'    ? 'selected' : '' }}>Masuk</option>
               <option value="processing" {{ $order->status === 'processing' ? 'selected' : '' }}>Proses</option>
               <option value="ready"      {{ $order->status === 'ready'      ? 'selected' : '' }}>Siap</option>

@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\KasirController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Api\OrderController as ApiOrderController;
+use App\Http\Controllers\Api\MidtransController;
 use Illuminate\Support\Facades\Route;
 
 // ─── Auth ─────────────────────────────────────────────────────────────────────
@@ -23,6 +24,9 @@ Route::middleware('guest')->group(function () {
 Route::post('/logout', [LoginController::class, 'logout'])
      ->middleware('auth')
      ->name('logout');
+
+// Webhook Midtrans (diakses oleh server Midtrans, dikecualikan dari CSRF & Auth)
+Route::post('/midtrans/notification', [MidtransController::class, 'notification'])->name('midtrans.notification');
 
 // ─── Orders API (dipanggil via fetch dari app.js saat checkout) ───────────────
 // Didaftarkan di web.php (bukan routes/api.php) supaya route ini ikut masuk

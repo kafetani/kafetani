@@ -15,11 +15,17 @@ class Order extends Model
         'source',
         'customer_name',
         'status',
+        'snap_token',
+        'payment_type',
+        'payment_status',
+        'transaction_id',
+        'paid_at',
     ];
 
     protected $casts = [
         'total'      => 'integer',
         'created_at' => 'datetime',
+        'paid_at'    => 'datetime',
     ];
 
     /**
@@ -44,12 +50,13 @@ class Order extends Model
     public function getStatusLabelAttribute(): string
     {
         return match ($this->status) {
-            'pending'    => 'Masuk',
-            'processing' => 'Proses',
-            'ready'      => 'Siap',
-            'completed'  => 'Selesai',
-            'cancelled'  => 'Dibatalkan',
-            default      => ucfirst($this->status),
+            'pending_payment' => 'Menunggu Pembayaran',
+            'pending'         => 'Masuk',
+            'processing'      => 'Proses',
+            'ready'           => 'Siap',
+            'completed'       => 'Selesai',
+            'cancelled'       => 'Dibatalkan',
+            default           => ucfirst($this->status),
         };
     }
 
