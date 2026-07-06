@@ -10,6 +10,8 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    public $timestamps = false;
+
     protected $fillable = ['nama', 'email', 'password', 'role'];
 
     protected $hidden = ['password', 'remember_token'];
