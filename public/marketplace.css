@@ -19,7 +19,13 @@
 }
 
 /* ─── Reset ────────────────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
 body {
     font-family: var(--ff);
@@ -28,8 +34,14 @@ body {
     line-height: 1.5;
 }
 
-a { color: var(--green); text-decoration: none; }
-a:hover { text-decoration: underline; }
+a {
+    color: var(--green);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
 
 /* ─── Navbar ────────────────────────────────────────────────── */
 .main-nav {
@@ -46,7 +58,10 @@ a:hover { text-decoration: underline; }
     transition: box-shadow .2s;
 }
 
-.nav-logo img { height: 32px; display: block; }
+.nav-logo img {
+    height: 32px;
+    display: block;
+}
 
 .nav-links {
     display: flex;
@@ -64,6 +79,7 @@ a:hover { text-decoration: underline; }
     padding-bottom: 2px;
     border-bottom: 1.5px solid transparent;
 }
+
 .nav-link:hover,
 .nav-link.active {
     color: var(--green);
@@ -85,7 +101,10 @@ a:hover { text-decoration: underline; }
     border-radius: 2px;
     gap: .3rem;
 }
-.nav-cart:hover { background: var(--green2); }
+
+.nav-cart:hover {
+    background: var(--green2);
+}
 
 .cart-badge {
     background: var(--amber);
@@ -102,7 +121,9 @@ a:hover { text-decoration: underline; }
 }
 
 /* ─── Page Header ───────────────────────────────────────────── */
-.page { padding-top: 0; }
+.page {
+    padding-top: 0;
+}
 
 .page-header {
     background: var(--brown);
@@ -147,7 +168,10 @@ a:hover { text-decoration: underline; }
     .market-layout {
         grid-template-columns: 1fr;
     }
-    .market-sidebar { display: none; }
+
+    .market-sidebar {
+        display: none;
+    }
 }
 
 /* ─── Sidebar ───────────────────────────────────────────────── */
@@ -178,8 +202,16 @@ a:hover { text-decoration: underline; }
     transition: all .15s;
     margin-bottom: .4rem;
 }
-.farmer-card:hover { background: var(--cream); border-color: var(--border); }
-.farmer-card.active { background: var(--cream2); border-color: var(--green); }
+
+.farmer-card:hover {
+    background: var(--cream);
+    border-color: var(--border);
+}
+
+.farmer-card.active {
+    background: var(--cream2);
+    border-color: var(--green);
+}
 
 .farmer-avatar img {
     width: 42px;
@@ -189,11 +221,22 @@ a:hover { text-decoration: underline; }
     border: 2px solid var(--border);
 }
 
-.farmer-info-name { font-size: .88rem; font-weight: 500; color: var(--text); }
-.farmer-info-loc  { font-size: .76rem; color: var(--text-light); margin-top: .1rem; }
+.farmer-info-name {
+    font-size: .88rem;
+    font-weight: 500;
+    color: var(--text);
+}
+
+.farmer-info-loc {
+    font-size: .76rem;
+    color: var(--text-light);
+    margin-top: .1rem;
+}
 
 /* ─── Market Products ───────────────────────────────────────── */
-.market-products { padding: 1.5rem; }
+.market-products {
+    padding: 1.5rem;
+}
 
 /* ─── Banner ────────────────────────────────────────────────── */
 .market-banner {
@@ -206,14 +249,22 @@ a:hover { text-decoration: underline; }
     border-radius: 2px;
     margin-bottom: 1.5rem;
 }
+
 .market-banner-text h3 {
     font-family: var(--ff-display);
     font-weight: 300;
     font-size: 1.3rem;
     margin-bottom: .2rem;
 }
-.market-banner-text p { opacity: .8; font-size: .85rem; }
-.market-banner-icon { font-size: 2rem; }
+
+.market-banner-text p {
+    opacity: .8;
+    font-size: .85rem;
+}
+
+.market-banner-icon {
+    font-size: 2rem;
+}
 
 /* ─── Product Grid ──────────────────────────────────────────── */
 .market-grid {
@@ -230,9 +281,10 @@ a:hover { text-decoration: underline; }
     overflow: hidden;
     transition: transform .2s, box-shadow .2s;
 }
+
 .product-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(42,31,18,.12);
+    box-shadow: 0 8px 24px rgba(42, 31, 18, .12);
 }
 
 .product-thumb {
@@ -241,15 +293,21 @@ a:hover { text-decoration: underline; }
     background: var(--cream2);
     position: relative;
 }
+
 .product-thumb img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform .4s;
 }
-.product-card:hover .product-thumb img { transform: scale(1.04); }
 
-.product-body { padding: 1rem; }
+.product-card:hover .product-thumb img {
+    transform: scale(1.04);
+}
+
+.product-body {
+    padding: 1rem;
+}
 
 .product-cat {
     font-size: .72rem;
@@ -305,7 +363,11 @@ a:hover { text-decoration: underline; }
     transition: background .2s, transform .15s;
     line-height: 1;
 }
-.add-btn:hover { background: var(--green2); transform: scale(1.1); }
+
+.add-btn:hover {
+    background: var(--green2);
+    transform: scale(1.1);
+}
 
 /* ─── Footer ────────────────────────────────────────────────── */
 footer {
@@ -323,10 +385,43 @@ footer {
     margin: 0 auto;
 }
 
-.footer-logo { height: 28px; margin-bottom: .8rem; filter: brightness(0) invert(1); }
-.footer-desc { font-size: .84rem; opacity: .7; line-height: 1.6; }
-.footer-title { font-family: var(--ff-display); font-weight: 300; font-size: 1.1rem; margin-bottom: .8rem; }
-.footer-links { list-style: none; }
-.footer-links li { margin-bottom: .4rem; }
-.footer-link { font-size: .82rem; color: rgba(255,255,255,.65); text-decoration: none; transition: color .15s; text-transform: none; letter-spacing: 0; }
-.footer-link:hover { color: #fff; text-decoration: none; }
+.footer-logo {
+    height: 28px;
+    margin-bottom: .8rem;
+    filter: brightness(0) invert(1);
+}
+
+.footer-desc {
+    font-size: .84rem;
+    opacity: .7;
+    line-height: 1.6;
+}
+
+.footer-title {
+    font-family: var(--ff-display);
+    font-weight: 300;
+    font-size: 1.1rem;
+    margin-bottom: .8rem;
+}
+
+.footer-links {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: .4rem;
+}
+
+.footer-link {
+    font-size: .82rem;
+    color: rgba(255, 255, 255, .65);
+    text-decoration: none;
+    transition: color .15s;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.footer-link:hover {
+    color: #fff;
+    text-decoration: none;
+}
