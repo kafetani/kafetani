@@ -27,6 +27,10 @@ class AppServiceProvider extends ServiceProvider
             \Midtrans\Config::$curlOptions = [
                 CURLOPT_SSL_VERIFYHOST => 0,
                 CURLOPT_SSL_VERIFYPEER => false,
+                // Wajib diisi walau kosong: ApiRequestor.php milik midtrans-php mengakses
+                // key ini langsung (bukan lewat isset()), jadi kalau tidak ada, PHP akan
+                // melempar "Undefined array key 10023" (10023 = nilai int CURLOPT_HTTPHEADER).
+                CURLOPT_HTTPHEADER => [],
             ];
         }
     }

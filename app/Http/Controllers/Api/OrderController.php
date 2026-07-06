@@ -93,18 +93,7 @@ class OrderController extends Controller
 
         $realTotal += 2000; // biaya layanan
 
-        // Setup konfigurasi Midtrans
-        \Midtrans\Config::$serverKey = config('midtrans.server_key');
-        \Midtrans\Config::$isProduction = config('midtrans.is_production');
-        \Midtrans\Config::$isSanitized = config('midtrans.is_sanitized');
-        \Midtrans\Config::$is3ds = config('midtrans.is_3ds');
-
-        if (!config('midtrans.is_production')) {
-            \Midtrans\Config::$curlOptions = [
-                CURLOPT_SSL_VERIFYHOST => 0,
-                CURLOPT_SSL_VERIFYPEER => false,
-            ];
-        }
+        // Konfigurasi Midtrans sudah diatur secara global di AppServiceProvider::boot()
 
         try {
             $order = DB::transaction(function () use ($userId, $realTotal, $lineItems) {
