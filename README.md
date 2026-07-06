@@ -13,12 +13,12 @@ Aplikasi Laravel untuk kafe sekaligus marketplace hasil tani — pelanggan bisa 
 
 ## Quickstart
 
-**Prasyarat:** PHP 8.3+, Composer, Node.js + npm. Database pakai SQLite secara default, jadi tidak wajib install database server terpisah.
+**Prasyarat:** PHP 8.3+, Composer, Bun. Database pakai SQLite secara default, jadi tidak wajib install database server terpisah.
 
 ```bash
 # 1. Install dependency
 composer install
-npm install
+bun install
 
 # 2. Siapkan environment
 cp .env.example .env        # Windows (PowerShell): copy .env.example .env
@@ -29,7 +29,7 @@ php artisan make:session-table
 php artisan migrate --seed  # kalau ditanya bikin file SQLite, pilih "yes"
 
 # 4. Build asset frontend
-npm run build
+bun run build
 
 # 5. Jalankan server
 php artisan serve
@@ -50,7 +50,7 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-**Development sehari-hari:** `npm run dev` (bukan `build`) supaya asset auto-reload. Atau jalankan server, queue worker, log viewer, dan Vite sekaligus dengan satu perintah:
+**Development sehari-hari:** `bun run dev` (bukan `build`) supaya asset auto-reload. Atau jalankan server, queue worker, log viewer, dan Vite sekaligus dengan satu perintah:
 ```bash
 composer run dev
 ```

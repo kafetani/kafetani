@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
       <div class="sidebar-title">Petani Mitra</div>
 
       <div class="farmer-card active" data-farmer="Semua Petani">
-        <div class="farmer-avatar" style="background:var(--green);display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:#fff;">🌿</div>
+        <div class="farmer-avatar" style="background:var(--green);display:flex;align-items:center;justify-content:center;color:#fff;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75"/></svg></div>
         <div>
           <div class="farmer-info-name">Semua Petani</div>
           <div class="farmer-info-loc">Semua Wilayah</div>
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
             @if($farmer->avatar)
               <img src="{{ asset('farmers/' . $farmer->avatar) }}" alt="{{ $farmer->name }}">
             @else
-              <div style="width:100%;height:100%;background:var(--cream2);display:flex;align-items:center;justify-content:center;font-size:1.1rem;">👨‍🌾</div>
+              <div style="width:100%;height:100%;background:var(--cream2);display:flex;align-items:center;justify-content:center;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
             @endif
           </div>
           <div>
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
           <h3>Langsung dari Kebun</h3>
           <p>Setiap produk dikirim segar, tanpa perantara</p>
         </div>
-        <div style="font-size:2rem;">🌿</div>
+        <div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75"/></svg></div>
       </div>
 
       <div class="market-grid">

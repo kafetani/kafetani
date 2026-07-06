@@ -5,10 +5,10 @@
     <div class="nav-links">
         <a href="{{ url('/') }}"
            class="nav-link {{ request()->is('/') ? 'active' : '' }}">Beranda</a>
-        <a href="{{ route('menu.index') }}"
-           class="nav-link {{ request()->routeIs('menu.*') ? 'active' : '' }}">Menu Kafe</a>
-        <a href="{{ route('marketplace.index') }}"
-           class="nav-link {{ request()->routeIs('marketplace.*') ? 'active' : '' }}">Marketplace</a>
+        <a href="{{ route('menu') }}"
+           class="nav-link {{ request()->routeIs('menu') ? 'active' : '' }}">Menu Kafe</a>
+        <a href="{{ route('marketplace') }}"
+           class="nav-link {{ request()->routeIs('marketplace') ? 'active' : '' }}">Marketplace</a>
 
         @auth
             @if (auth()->user()->role === 'admin' || auth()->user()->role === 'kasir')
