@@ -92,33 +92,62 @@ class OrderController extends Controller
             ], 422);
         }
 
-        $order = DB::transaction(function () use ($lineItems, $total, $customerName) {
-            $order = Order::create([
-                'user_id'        => auth('api')->id(),
-                'total'          => $total,
-                'type'           => 'cafe',
-                'source'         => 'offline',
-                'customer_name'  => $customerName,
-                'status'         => 'processing',
-                'payment_status' => 'paid',
-                'payment_type'   => 'cash',
-                'paid_at'        => now(),
-            ]);
+        try {
+            $order = DB::transaction(function () use ($lineItems, $total, $customerName) {
+                // Kunci baris produk & validasi kecukupan stok sebelum transaksi disimpan
+                // (mencegah race condition antara cek stok dan pengurangan stok).
+                $insufficient = [];
+                foreach ($lineItems as $li) {
+                    $locked = Product::where('id_product', $li['product']->id_product)
+                                      ->lockForUpdate()
+                                      ->first();
 
-            foreach ($lineItems as $li) {
-                OrderItem::create([
-                    'order_id'   => $order->id,
-                    'product_id' => $li['product']->id_product,
-                    'quantity'   => $li['qty'],
-                    'price'      => $li['harga'],
-                    'subtotal'   => $li['subtotal'],
+                    if (! $locked || $locked->stok < $li['qty']) {
+                        $insufficient[] = sprintf(
+                            '%s (diminta %d, tersedia %d)',
+                            $li['product']->nama_produk,
+                            $li['qty'],
+                            $locked->stok ?? 0
+                        );
+                    }
+                }
+
+                if (! empty($insufficient)) {
+                    throw new \RuntimeException('Stok tidak mencukupi untuk: ' . implode(', ', $insufficient));
+                }
+
+                $order = Order::create([
+                    'user_id'        => auth('api')->id(),
+                    'total'          => $total,
+                    'type'           => 'cafe',
+                    'source'         => 'offline',
+                    'customer_name'  => $customerName,
+                    'status'         => 'processing',
+                    'payment_status' => 'paid',
+                    'payment_type'   => 'cash',
+                    'paid_at'        => now(),
                 ]);
 
-                $li['product']->decrement('stok', $li['qty']);
-            }
+                foreach ($lineItems as $li) {
+                    OrderItem::create([
+                        'order_id'   => $order->id,
+                        'product_id' => $li['product']->id_product,
+                        'quantity'   => $li['qty'],
+                        'price'      => $li['harga'],
+                        'subtotal'   => $li['subtotal'],
+                    ]);
 
-            return $order;
-        });
+                    $li['product']->decrement('stok', $li['qty']);
+                }
+
+                return $order;
+            });
+        } catch (\RuntimeException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 422);
+        }
 
         return response()->json([
             'success'  => true,

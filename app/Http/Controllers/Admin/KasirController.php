@@ -78,29 +78,55 @@ class KasirController extends Controller
             return back()->with('error', 'Tidak ada produk kafe valid dalam pesanan.');
         }
 
-        DB::transaction(function () use ($lineItems, $total, $customerName, &$order) {
-            $order = Order::create([
-                'user_id'       => auth()->id(),
-                'total'         => $total,
-                'type'          => 'cafe',
-                'source'        => 'offline',
-                'customer_name' => $customerName,
-                'status'        => 'processing',
-            ]);
+        try {
+            DB::transaction(function () use ($lineItems, $total, $customerName, &$order) {
+                // Kunci baris produk & validasi kecukupan stok sebelum transaksi disimpan
+                // (mencegah race condition antara cek stok dan pengurangan stok).
+                $insufficient = [];
+                foreach ($lineItems as $li) {
+                    $locked = Product::where('id_product', $li['product']->id_product)
+                                      ->lockForUpdate()
+                                      ->first();
 
-            foreach ($lineItems as $li) {
-                OrderItem::create([
-                    'order_id'   => $order->id,
-                    'product_id' => $li['product']->id_product,
-                    'quantity'   => $li['qty'],
-                    'price'      => $li['harga'],
-                    'subtotal'   => $li['subtotal'],
+                    if (! $locked || $locked->stok < $li['qty']) {
+                        $insufficient[] = sprintf(
+                            '%s (diminta %d, tersedia %d)',
+                            $li['product']->nama_produk,
+                            $li['qty'],
+                            $locked->stok ?? 0
+                        );
+                    }
+                }
+
+                if (! empty($insufficient)) {
+                    throw new \RuntimeException('Stok tidak mencukupi untuk: ' . implode(', ', $insufficient));
+                }
+
+                $order = Order::create([
+                    'user_id'       => auth()->id(),
+                    'total'         => $total,
+                    'type'          => 'cafe',
+                    'source'        => 'offline',
+                    'customer_name' => $customerName,
+                    'status'        => 'processing',
                 ]);
 
-                // Kurangi stok
-                $li['product']->decrement('stok', $li['qty']);
-            }
-        });
+                foreach ($lineItems as $li) {
+                    OrderItem::create([
+                        'order_id'   => $order->id,
+                        'product_id' => $li['product']->id_product,
+                        'quantity'   => $li['qty'],
+                        'price'      => $li['harga'],
+                        'subtotal'   => $li['subtotal'],
+                    ]);
+
+                    // Kurangi stok
+                    $li['product']->decrement('stok', $li['qty']);
+                }
+            });
+        } catch (\RuntimeException $e) {
+            return back()->with('error', $e->getMessage());
+        }
 
         return redirect()->route('admin.kasir')->with('success_order', [
             'id'            => $order->id,

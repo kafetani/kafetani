@@ -141,6 +141,28 @@ class OrderController extends Controller
 
         try {
             $order = DB::transaction(function () use ($userId, $realTotal, $lineItems) {
+                // Kunci baris produk & validasi kecukupan stok sebelum transaksi disimpan
+                // (mencegah race condition antara cek stok dan pengurangan stok).
+                $insufficient = [];
+                foreach ($lineItems as $li) {
+                    $locked = Product::where('id_product', $li['product_id'])
+                                      ->lockForUpdate()
+                                      ->first();
+
+                    if (! $locked || $locked->stok < $li['quantity']) {
+                        $insufficient[] = sprintf(
+                            '%s (diminta %d, tersedia %d)',
+                            $li['name'] ?: ('#' . $li['product_id']),
+                            $li['quantity'],
+                            $locked->stok ?? 0
+                        );
+                    }
+                }
+
+                if (! empty($insufficient)) {
+                    throw new \RuntimeException('Stok tidak mencukupi untuk: ' . implode(', ', $insufficient));
+                }
+
                 // Status awal adalah pending_payment karena diintegrasikan dengan Payment Gateway
                 $order = Order::create([
                     'user_id' => $userId,
@@ -213,6 +235,12 @@ class OrderController extends Controller
                 'order_id'   => $order->id,
                 'snap_token' => $snapToken,
             ]);
+        } catch (\RuntimeException $e) {
+            // Stok tidak mencukupi
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 422);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
