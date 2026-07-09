@@ -7,20 +7,18 @@
     <meta name="description" content="Reset password akun Kafetani Anda.">
     <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset_v('style-auth.css') }}">
-    <link rel="stylesheet" href="{{ asset_v('style-forgot-password.css') }}">
+    <link rel="stylesheet" href="{{ asset('style-forgot-password.css') }}">
 </head>
 <body>
 
+    {{-- Form kirim link reset --}}
     <form action="{{ route('password.email') }}" method="POST">
         @csrf
 
-        <a href="{{ url('/') }}" class="auth-logo">
-            <img src="{{ asset('logo_v3.svg') }}" alt="Kafetani">
-        </a>
-
+        {{-- Judul halaman --}}
         <h2>Lupa Password</h2>
 
+        {{-- Teks penjelasan instruksi --}}
         <p class="info-text">
             Masukkan email yang terdaftar. Kami akan mengirimkan link untuk mengatur ulang password Anda.
         </p>
@@ -35,10 +33,12 @@
             <div class="alert-error">{{ $errors->first() }}</div>
         @endif
 
+        {{-- Pesan error tambahan session --}}
         @if (session('error'))
             <div class="alert-error">{{ session('error') }}</div>
         @endif
 
+        {{-- Input email pengguna --}}
         <label for="email">Email Address:</label>
         <input type="email" id="email" name="email"
                value="{{ old('email') }}"
@@ -46,6 +46,7 @@
                placeholder="Masukkan Email"
                autocomplete="email">
 
+        {{-- Tombol submit form --}}
         <input type="submit" value="Kirim Link Reset">
 
         {{-- DEBUG: tampilkan token & link reset (hapus di produksi) --}}
@@ -59,8 +60,10 @@
             </div>
         @endif
 
+        {{-- Link menuju halaman login --}}
         <p>Ingat password? <a href="{{ route('login') }}">Login di sini</a></p>
 
+        {{-- Link kembali ke beranda --}}
         <a href="{{ url('/') }}" class="back-link">← Kembali ke Beranda</a>
     </form>
 

@@ -3,6 +3,7 @@
    Dipakai oleh: auth/login.blade.php, auth/register.blade.php
    =========================================================== */
 
+/* Reset box model global */
 *,
 *::before,
 *::after {
@@ -11,6 +12,7 @@
     padding: 0;
 }
 
+/* Variabel warna & font */
 :root {
     --cream: #F7F3EC;
     --brown: #3B2A1A;
@@ -24,6 +26,7 @@
     --ff-body: 'DM Sans', sans-serif;
 }
 
+/* Layout tengah halaman body */
 body {
     background: var(--cream);
     font-family: var(--ff-body);
@@ -34,26 +37,16 @@ body {
     padding: 1.5rem;
 }
 
-.auth-wrap {
-    width: 100%;
-    max-width: 420px;
-}
-
-.auth-logo {
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.auth-logo img {
-    height: 40px;
-}
-
+/* Kotak utama form auth */
 .auth-box {
     background: #fff;
     border: 1px solid var(--border);
     padding: 2.5rem;
+    width: 100%;
+    max-width: 420px;
 }
 
+/* Judul besar halaman auth */
 .auth-title {
     font-family: var(--ff-display);
     font-size: 2rem;
@@ -62,16 +55,19 @@ body {
     margin-bottom: .4rem;
 }
 
+/* Subjudul kecil halaman auth */
 .auth-sub {
     font-size: .82rem;
     color: var(--text-mid);
     margin-bottom: 1.8rem;
 }
 
+/* Pembungkus tiap input form */
 .form-group {
     margin-bottom: 1.1rem;
 }
 
+/* Label di atas input */
 .form-group label {
     display: block;
     font-size: .8rem;
@@ -81,6 +77,7 @@ body {
     letter-spacing: .02em;
 }
 
+/* Styling dasar input teks */
 .form-group input {
     width: 100%;
     padding: .65rem .8rem;
@@ -93,22 +90,27 @@ body {
     transition: border-color .15s;
 }
 
+/* Border input saat fokus */
 .form-group input:focus {
     border-color: var(--green);
 }
 
+/* Border input saat error */
 .form-group input.is-invalid {
     border-color: #c0392b;
 }
 
+/* Pembungkus input password */
 .password-row {
     position: relative;
 }
 
+/* Padding kanan untuk tombol toggle */
 .password-row input {
     padding-right: 2.8rem;
 }
 
+/* Tombol tampilkan/sembunyikan password */
 .password-toggle {
     position: absolute;
     right: .7rem;
@@ -122,6 +124,7 @@ body {
     padding: .2rem;
 }
 
+/* Tombol submit utama form */
 .btn-submit {
     width: 100%;
     background: var(--green);
@@ -137,10 +140,12 @@ body {
     margin-top: 1.2rem;
 }
 
+/* Warna tombol submit saat hover */
 .btn-submit:hover {
     background: var(--green2);
 }
 
+/* Teks link navigasi bawah form */
 .auth-links {
     text-align: center;
     margin-top: 1.2rem;
@@ -148,23 +153,28 @@ body {
     color: var(--text-mid);
 }
 
+/* Warna link di auth-links */
 .auth-links a {
     color: var(--green);
     text-decoration: none;
 }
 
+/* Garis bawah link saat hover */
 .auth-links a:hover {
     text-decoration: underline;
 }
 
+/* Jarak atas link pertama */
 .auth-links--first {
     margin-top: 1.5rem;
 }
 
+/* Jarak atas link terakhir */
 .auth-links--last {
     margin-top: .6rem;
 }
 
+/* Kotak notifikasi pesan error */
 .alert-err {
     background: #FCEBEB;
     border-left: 3px solid #c0392b;
@@ -174,12 +184,14 @@ body {
     margin-bottom: 1.2rem;
 }
 
+/* Teks error di bawah input */
 .field-err {
     font-size: .75rem;
     color: #c0392b;
     margin-top: .25rem;
 }
 
+/* Garis pemisah "atau" */
 .divider {
     display: flex;
     align-items: center;
@@ -189,6 +201,7 @@ body {
     font-size: .78rem;
 }
 
+/* Garis kiri kanan pemisah */
 .divider::before,
 .divider::after {
     content: "";
@@ -197,6 +210,7 @@ body {
     background: var(--border);
 }
 
+/* Tombol login/daftar via Google */
 .btn-google {
     width: 100%;
     display: flex;
@@ -215,18 +229,20 @@ body {
     transition: background .15s, border-color .15s;
 }
 
+/* Efek hover tombol Google */
 .btn-google:hover {
     background: var(--cream);
     border-color: #bcae95;
 }
 
+/* Ukuran ikon logo Google */
 .btn-google img {
     width: 18px;
     height: 18px;
     object-fit: contain;
 }
 
-/* Login only */
+/* Baris label password & lupa password (login) */
 .password-label-row {
     display: flex;
     justify-content: space-between;
@@ -234,10 +250,12 @@ body {
     margin-bottom: .4rem;
 }
 
+/* Hilangkan margin label dalam row */
 .password-label-row label {
     margin-bottom: 0;
 }
 
+/* Link lupa password (login) */
 .forgot-link {
     font-size: .78rem;
     color: var(--green);
