@@ -2,7 +2,7 @@
 @section('title', 'Tentang Kami  Kafetani')
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset('style-tentang-kami.css') }}">
+<link rel="stylesheet" href="{{ asset_v('style-tentang-kami.css') }}">
 @endpush
 
 @section('content')

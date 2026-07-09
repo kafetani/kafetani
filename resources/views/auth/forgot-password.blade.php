@@ -7,8 +7,8 @@
     <meta name="description" content="Reset password akun Kafetani Anda.">
     <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('style-auth.css') }}">
-    <link rel="stylesheet" href="{{ asset('style-forgot-password.css') }}">
+    <link rel="stylesheet" href="{{ asset_v('style-auth.css') }}">
+    <link rel="stylesheet" href="{{ asset_v('style-forgot-password.css') }}">
 </head>
 <body>
 

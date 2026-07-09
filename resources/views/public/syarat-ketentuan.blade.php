@@ -2,7 +2,7 @@
 @section('title', 'Syarat & Ketentuan  Kafetani')
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset('style-syarat-ketentuan.css') }}">
+<link rel="stylesheet" href="{{ asset_v('style-syarat-ketentuan.css') }}">
 @endpush
 
 @section('content')

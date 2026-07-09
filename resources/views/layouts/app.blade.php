@@ -10,7 +10,7 @@
 <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{{ asset('style-app.css') }}">
+<link rel="stylesheet" href="{{ asset_v('style-app.css') }}">
 <!-- Midtrans Snap.js -->
 <script src="{{ config('midtrans.snap_url') }}" data-client-key="{{ config('midtrans.client_key') }}"></script>
 @stack('styles')
@@ -173,7 +173,7 @@
   </div>
 </footer>
 
-<script src="{{ asset('app.js') }}?v=1.1"></script>
+<script src="{{ asset_v('app.js') }}"></script>
 @stack('scripts')
 </body>
 </html>

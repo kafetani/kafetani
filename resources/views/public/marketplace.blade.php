@@ -2,7 +2,7 @@
 @section('title', 'Marketplace Petani  Kafetani')
 
 @push('scripts')
-<script src="{{ asset('script-marketplace.js') }}"></script>
+<script src="{{ asset_v('script-marketplace.js') }}"></script>
 @endpush
 
 @section('content')

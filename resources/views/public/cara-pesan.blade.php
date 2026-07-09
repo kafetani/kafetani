@@ -2,7 +2,7 @@
 @section('title', 'Cara Pesan  Kafetani')
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset('style-cara-pesan.css') }}">
+<link rel="stylesheet" href="{{ asset_v('style-cara-pesan.css') }}">
 @endpush
 
 @section('content')

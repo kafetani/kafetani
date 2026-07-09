@@ -2,7 +2,7 @@
 @section('title', 'Kasir POS')
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset('style-kasir.css') }}">
+<link rel="stylesheet" href="{{ asset_v('style-kasir.css') }}">
 @endpush
 
 @section('content')
@@ -129,5 +129,5 @@
 @endsection
 
 @push('scripts')
-<script src="{{ asset('script-kasir.js') }}"></script>
+<script src="{{ asset_v('script-kasir.js') }}"></script>
 @endpush

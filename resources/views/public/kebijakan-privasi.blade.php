@@ -2,7 +2,7 @@
 @section('title', 'Kebijakan Privasi  Kafetani')
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset('style-kebijakan-privasi.css') }}">
+<link rel="stylesheet" href="{{ asset_v('style-kebijakan-privasi.css') }}">
 @endpush
 
 @section('content')
