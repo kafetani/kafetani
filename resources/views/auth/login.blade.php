@@ -17,7 +17,7 @@
     </a>
   </div>
   <div class="auth-box">
-    <h1 class="auth-title">Masuk</h1>
+    <h1 class="auth-title">HAiiiii</h1>
     <p class="auth-sub">Selamat datang kembali di Kafetani</p>
 
     @if($errors->any())
