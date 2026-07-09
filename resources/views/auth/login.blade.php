@@ -8,33 +8,235 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--cream:#F7F3EC;--brown:#3B2A1A;--green:#2D5016;--green2:#4A7C23;--amber:#C8883A;--text:#2A1F12;--text-mid:#7A6550;--border:#D9CEBC;--ff-display:'Cormorant Garamond',serif;--ff-body:'DM Sans',sans-serif}
-body{background:var(--cream);font-family:var(--ff-body);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1.5rem}
-.auth-wrap{width:100%;max-width:420px}
-.auth-logo{text-align:center;margin-bottom:2rem}
-.auth-logo img{height:40px}
-.auth-box{background:#fff;border:1px solid var(--border);padding:2.5rem}
-.auth-title{font-family:var(--ff-display);font-size:2rem;font-weight:300;color:var(--brown);margin-bottom:.4rem}
-.auth-sub{font-size:.82rem;color:var(--text-mid);margin-bottom:1.8rem}
-.form-group{margin-bottom:1.1rem}
-.form-group label{display:block;font-size:.8rem;font-weight:500;color:var(--text-mid);margin-bottom:.4rem;letter-spacing:.02em}
-.form-group input{width:100%;padding:.65rem .8rem;border:1px solid var(--border);font-family:var(--ff-body);font-size:.9rem;color:var(--text);background:var(--cream);outline:none;transition:border-color .15s}
-.form-group input:focus{border-color:var(--green)}
-.password-row{position:relative}
-.password-row input{padding-right:2.8rem}
-.password-toggle{position:absolute;right:.7rem;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text-mid);font-size:1rem;padding:.2rem}
-.btn-submit{width:100%;background:var(--green);color:#fff;border:none;padding:.85rem;font-family:var(--ff-body);font-size:.9rem;font-weight:500;cursor:pointer;letter-spacing:.04em;transition:background .2s;margin-top:1.2rem}
-.btn-submit:hover{background:var(--green2)}
-.auth-links{text-align:center;margin-top:1.2rem;font-size:.82rem;color:var(--text-mid)}
-.auth-links a{color:var(--green);text-decoration:none}
-.auth-links a:hover{text-decoration:underline}
-.alert-err{background:#FCEBEB;border-left:3px solid #c0392b;color:#7b2d1e;padding:.7rem .9rem;font-size:.83rem;margin-bottom:1.2rem}
-.divider{display:flex;align-items:center;gap:.8rem;margin:1.4rem 0;color:var(--text-mid);font-size:.78rem}
-.divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--border)}
-.btn-google{width:100%;display:flex;align-items:center;justify-content:center;gap:.6rem;background:#fff;border:1px solid var(--border);padding:.75rem;font-family:var(--ff-body);font-size:.88rem;font-weight:500;color:var(--text);cursor:pointer;text-decoration:none;transition:background .15s,border-color .15s}
-.btn-google:hover{background:var(--cream);border-color:#bcae95}
-.btn-google img{width:18px;height:18px;object-fit:contain}
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    :root {
+        --cream: #F7F3EC;
+        --brown: #3B2A1A;
+        --green: #2D5016;
+        --green2: #4A7C23;
+        --amber: #C8883A;
+        --text: #2A1F12;
+        --text-mid: #7A6550;
+        --border: #D9CEBC;
+        --ff-display: 'Cormorant Garamond', serif;
+        --ff-body: 'DM Sans', sans-serif;
+    }
+
+    body {
+        background: var(--cream);
+        font-family: var(--ff-body);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+    }
+
+    .auth-wrap {
+        width: 100%;
+        max-width: 420px;
+    }
+
+    .auth-logo {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .auth-logo img {
+        height: 40px;
+    }
+
+    .auth-box {
+        background: #fff;
+        border: 1px solid var(--border);
+        padding: 2.5rem;
+    }
+
+    .auth-title {
+        font-family: var(--ff-display);
+        font-size: 2rem;
+        font-weight: 300;
+        color: var(--brown);
+        margin-bottom: .4rem;
+    }
+
+    .auth-sub {
+        font-size: .82rem;
+        color: var(--text-mid);
+        margin-bottom: 1.8rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.1rem;
+    }
+
+    .form-group label {
+        display: block;
+        font-size: .8rem;
+        font-weight: 500;
+        color: var(--text-mid);
+        margin-bottom: .4rem;
+        letter-spacing: .02em;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: .65rem .8rem;
+        border: 1px solid var(--border);
+        font-family: var(--ff-body);
+        font-size: .9rem;
+        color: var(--text);
+        background: var(--cream);
+        outline: none;
+        transition: border-color .15s;
+    }
+
+    .form-group input:focus {
+        border-color: var(--green);
+    }
+
+    .password-row {
+        position: relative;
+    }
+
+    .password-row input {
+        padding-right: 2.8rem;
+    }
+
+    .password-toggle {
+        position: absolute;
+        right: .7rem;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--text-mid);
+        font-size: 1rem;
+        padding: .2rem;
+    }
+
+    .btn-submit {
+        width: 100%;
+        background: var(--green);
+        color: #fff;
+        border: none;
+        padding: .85rem;
+        font-family: var(--ff-body);
+        font-size: .9rem;
+        font-weight: 500;
+        cursor: pointer;
+        letter-spacing: .04em;
+        transition: background .2s;
+        margin-top: 1.2rem;
+    }
+
+    .btn-submit:hover {
+        background: var(--green2);
+    }
+
+    .auth-links {
+        text-align: center;
+        margin-top: 1.2rem;
+        font-size: .82rem;
+        color: var(--text-mid);
+    }
+
+    .auth-links a {
+        color: var(--green);
+        text-decoration: none;
+    }
+
+    .auth-links a:hover {
+        text-decoration: underline;
+    }
+
+    .alert-err {
+        background: #FCEBEB;
+        border-left: 3px solid #c0392b;
+        color: #7b2d1e;
+        padding: .7rem .9rem;
+        font-size: .83rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .divider {
+        display: flex;
+        align-items: center;
+        gap: .8rem;
+        margin: 1.4rem 0;
+        color: var(--text-mid);
+        font-size: .78rem;
+    }
+
+    .divider::before,
+    .divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--border);
+    }
+
+    .btn-google {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: .6rem;
+        background: #fff;
+        border: 1px solid var(--border);
+        padding: .75rem;
+        font-family: var(--ff-body);
+        font-size: .88rem;
+        font-weight: 500;
+        color: var(--text);
+        cursor: pointer;
+        text-decoration: none;
+        transition: background .15s, border-color .15s;
+    }
+
+    .btn-google:hover {
+        background: var(--cream);
+        border-color: #bcae95;
+    }
+
+    .btn-google img {
+        width: 18px;
+        height: 18px;
+        object-fit: contain;
+    }
+
+    .password-label-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: .4rem;
+    }
+
+    .password-label-row label {
+        margin-bottom: 0;
+    }
+
+    .forgot-link {
+        font-size: .78rem;
+        color: var(--green);
+        text-decoration: none;
+    }
+
+    .auth-links--first {
+        margin-top: 1.5rem;
+    }
+
+    .auth-links--last {
+        margin-top: .6rem;
+    }
 </style>
 </head>
 <body>
@@ -64,9 +266,9 @@ body{background:var(--cream);font-family:var(--ff-body);min-height:100vh;display
       </div>
 
       <div class="form-group">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem;">
-          <label for="password" style="margin-bottom:0;">Password</label>
-          <a href="{{ route('password.request') }}" style="font-size:.78rem;color:var(--green);text-decoration:none;">Lupa Password?</a>
+        <div class="password-label-row">
+          <label for="password">Password</label>
+          <a href="{{ route('password.request') }}" class="forgot-link">Lupa Password?</a>
         </div>
         <div class="password-row">
           <input type="password" id="password" name="password"
@@ -86,10 +288,10 @@ body{background:var(--cream);font-family:var(--ff-body);min-height:100vh;display
       Masuk dengan Google
     </a>
 
-    <div class="auth-links" style="margin-top:1.5rem">
+    <div class="auth-links auth-links--first">
       Belum punya akun? <a href="{{ route('register') }}">Daftar Gratis</a>
     </div>
-    <div class="auth-links" style="margin-top:.6rem">
+    <div class="auth-links auth-links--last">
       <a href="{{ route('home') }}">← Kembali ke Beranda</a>
     </div>
   </div>
