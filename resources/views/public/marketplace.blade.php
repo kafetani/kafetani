@@ -1,6 +1,10 @@
 @extends('layouts.app')
 @section('title', 'Marketplace Petani  Kafetani')
 
+@push('styles')
+<link rel="stylesheet" href="{{ asset_v('marketplace.css') }}">
+@endpush
+
 @push('scripts')
 <script src="{{ asset_v('script-marketplace.js') }}"></script>
 @endpush

@@ -1,5 +1,5 @@
 /* ===========================================================
-   KAFETANI — Layout Publik (navbar, footer, cart, product grid, marketplace)
+   KAFETANI — Layout Publik (navbar, footer, cart, product grid)
    Dipakai oleh: layouts/app.blade.php (semua halaman publik)
    =========================================================== */
 
@@ -361,102 +361,6 @@ img {
     background: var(--green2);
 }
 
-/* ─── Marketplace ──────────────────────────────────── */
-.market-layout {
-    display: grid;
-    grid-template-columns: 260px 1fr;
-}
-
-.market-sidebar {
-    background: #fff;
-    border-right: 1px solid var(--border);
-    padding: 2rem;
-    min-height: calc(100vh - 60px - 140px);
-}
-
-.sidebar-title {
-    font-size: .72rem;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--text-light);
-    margin-bottom: 1rem;
-}
-
-.farmer-card {
-    display: flex;
-    align-items: center;
-    gap: .8rem;
-    padding: .8rem;
-    border: 1px solid transparent;
-    cursor: pointer;
-    transition: all .2s;
-    margin-bottom: .5rem;
-}
-
-.farmer-card:hover,
-.farmer-card.active {
-    background: var(--green-light);
-    border-color: var(--border);
-}
-
-.farmer-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    overflow: hidden;
-    flex-shrink: 0;
-}
-
-.farmer-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.farmer-info-name {
-    font-size: .9rem;
-    font-weight: 500;
-    color: var(--brown);
-}
-
-.farmer-info-loc {
-    font-size: .75rem;
-    color: var(--text-light);
-}
-
-.market-products {
-    padding: 2rem 2.5rem;
-}
-
-.market-banner {
-    background: var(--green);
-    color: #fff;
-    padding: 1.5rem 2rem;
-    margin-bottom: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.market-banner-text h3 {
-    font-family: var(--ff-display);
-    font-size: 1.5rem;
-    font-weight: 300;
-    margin-bottom: .2rem;
-}
-
-.market-banner-text p {
-    font-size: .82rem;
-    opacity: .75;
-    font-weight: 300;
-}
-
-.market-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1.2rem;
-}
-
 /* ─── Cart ──────────────────────────────────────────── */
 #cart-overlay {
     position: fixed;
@@ -815,66 +719,6 @@ footer {
 /* ===========================================================
    RESPONSIVE — Tablet & Mobile
    =========================================================== */
-@media (max-width: 900px) {
-    .market-layout {
-        grid-template-columns: 1fr;
-    }
-
-    .market-sidebar {
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-        min-height: auto;
-        display: flex;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        gap: .6rem;
-        padding: 1rem 1.2rem;
-        align-items: center;
-    }
-
-    .market-sidebar::-webkit-scrollbar {
-        display: none;
-    }
-
-    .sidebar-title {
-        display: none;
-    }
-
-    .farmer-card {
-        margin-bottom: 0;
-        flex: 0 0 auto;
-        flex-direction: column;
-        text-align: center;
-        gap: .35rem;
-        padding: .5rem .3rem;
-        width: 68px;
-    }
-
-    .farmer-avatar {
-        width: 44px;
-        height: 44px;
-    }
-
-    .farmer-info-name {
-        font-size: .68rem;
-        line-height: 1.2;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 68px;
-    }
-
-    .farmer-info-loc {
-        display: none;
-    }
-
-    .market-products {
-        padding: 1.5rem 1.2rem;
-    }
-}
-
 @media (max-width: 768px) {
     .main-nav {
         padding: 0 1rem;
@@ -939,8 +783,7 @@ footer {
         padding: 0 1.2rem;
     }
 
-    .products-grid,
-    .market-grid {
+    .products-grid {
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         gap: 1rem;
         padding: 1.5rem 1.2rem;
@@ -948,13 +791,6 @@ footer {
 
     .product-thumb {
         height: 120px;
-    }
-
-    .market-banner {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: .8rem;
-        padding: 1.2rem 1.4rem;
     }
 
     #cart-panel {
@@ -987,8 +823,7 @@ footer {
         font-size: 1.7rem;
     }
 
-    .products-grid,
-    .market-grid {
+    .products-grid {
         grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
     }
 }

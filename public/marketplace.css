@@ -1,427 +1,189 @@
 /* ============================================================
-   KAFETANI — CSS UTAMA (MARKETPLACE + MENU + LAYOUT)
+   KAFETANI — Marketplace Petani
+   Loaded only on resources/views/public/marketplace.blade.php
    ============================================================ */
 
-/* ─── CSS Variables ────────────────────────────────────────── */
-:root {
-    --cream:      #F7F3EC;
-    --cream2:     #EFE8D9;
-    --brown:      #3B2A1A;
-    --green:      #2D5016;
-    --green2:     #4A7C23;
-    --amber:      #C8883A;
-    --text:       #2A1F12;
-    --text-mid:   #7A6550;
-    --text-light: #A9967E;
-    --border:     #D9CEBC;
-    --ff:         'DM Sans', 'Inter', sans-serif;
-    --ff-display: 'Cormorant Garamond', serif;
-}
-
-/* ─── Reset ────────────────────────────────────────────────── */
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: var(--ff);
-    background: var(--cream);
-    color: var(--text);
-    line-height: 1.5;
-}
-
-a {
-    color: var(--green);
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-/* ─── Navbar ────────────────────────────────────────────────── */
-.main-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 2.5rem;
-    height: 64px;
-    background: var(--cream);
-    border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    transition: box-shadow .2s;
-}
-
-.nav-logo img {
-    height: 32px;
-    display: block;
-}
-
-.nav-links {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-}
-
-.nav-link {
-    font-size: .82rem;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    color: var(--text-mid);
-    text-decoration: none;
-    transition: color .2s;
-    padding-bottom: 2px;
-    border-bottom: 1.5px solid transparent;
-}
-
-.nav-link:hover,
-.nav-link.active {
-    color: var(--green);
-    border-bottom-color: var(--green);
-    text-decoration: none;
-}
-
-.nav-cart {
-    display: flex;
-    align-items: center;
-    background: var(--green);
-    color: #fff;
-    border: none;
-    padding: .45rem 1rem;
-    font-family: var(--ff);
-    font-size: .8rem;
-    cursor: pointer;
-    transition: background .2s;
-    border-radius: 2px;
-    gap: .3rem;
-}
-
-.nav-cart:hover {
-    background: var(--green2);
-}
-
-.cart-badge {
-    background: var(--amber);
-    color: #fff;
-    border-radius: 50%;
-    width: 18px;
-    height: 18px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: .7rem;
-    font-weight: 600;
-    margin-left: .3rem;
-}
-
-/* ─── Page Header ───────────────────────────────────────────── */
-.page {
-    padding-top: 0;
-}
-
-.page-header {
-    background: var(--brown);
-    color: #fff;
-    padding: 3.5rem 2.5rem 3rem;
-    text-align: center;
-}
-
-.page-header-label {
-    font-size: .75rem;
-    letter-spacing: .2em;
-    text-transform: uppercase;
-    color: var(--amber);
-    margin-bottom: .8rem;
-    font-family: var(--ff-display);
-}
-
-.page-header-title {
-    font-family: var(--ff-display);
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 300;
-    line-height: 1.1;
-    margin-bottom: .7rem;
-}
-
-.page-header-sub {
-    opacity: .75;
-    font-size: .95rem;
-    max-width: 540px;
-    margin: 0 auto;
-}
-
-/* ─── Market Layout (sidebar + products) ─────────────────────── */
+/* ─── Layout ────────────────────────────────────────── */
 .market-layout {
     display: grid;
     grid-template-columns: 260px 1fr;
-    gap: 0;
-    min-height: calc(100vh - 64px - 300px);
 }
 
-@media (max-width: 768px) {
-    .market-layout {
-        grid-template-columns: 1fr;
-    }
-
-    .market-sidebar {
-        display: none;
-    }
-}
-
-/* ─── Sidebar ───────────────────────────────────────────────── */
+/* ─── Sidebar (filter petani) ──────────────────────── */
 .market-sidebar {
     background: #fff;
     border-right: 1px solid var(--border);
-    padding: 1.5rem;
-    min-height: 100%;
+    padding: 2rem;
+    min-height: calc(100vh - 60px - 140px);
 }
 
 .sidebar-title {
-    font-size: .75rem;
-    letter-spacing: .15em;
+    font-size: .72rem;
+    letter-spacing: .14em;
     text-transform: uppercase;
     color: var(--text-light);
-    margin-bottom: 1.2rem;
-    font-weight: 500;
+    margin-bottom: 1rem;
 }
 
 .farmer-card {
     display: flex;
     align-items: center;
-    gap: .75rem;
-    padding: .7rem .8rem;
+    gap: .8rem;
+    padding: .8rem;
     border: 1px solid transparent;
-    border-radius: 2px;
     cursor: pointer;
-    transition: all .15s;
-    margin-bottom: .4rem;
+    transition: all .2s;
+    margin-bottom: .5rem;
 }
 
-.farmer-card:hover {
-    background: var(--cream);
+.farmer-card:hover,
+.farmer-card.active {
+    background: var(--green-light);
     border-color: var(--border);
 }
 
-.farmer-card.active {
-    background: var(--cream2);
-    border-color: var(--green);
+.farmer-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
 }
 
 .farmer-avatar img {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    border: 2px solid var(--border);
 }
 
 .farmer-info-name {
-    font-size: .88rem;
+    font-size: .9rem;
     font-weight: 500;
-    color: var(--text);
+    color: var(--brown);
 }
 
 .farmer-info-loc {
-    font-size: .76rem;
+    font-size: .75rem;
     color: var(--text-light);
-    margin-top: .1rem;
 }
 
-/* ─── Market Products ───────────────────────────────────────── */
+/* ─── Products area ─────────────────────────────────── */
 .market-products {
-    padding: 1.5rem;
+    padding: 2rem 2.5rem;
 }
 
-/* ─── Banner ────────────────────────────────────────────────── */
 .market-banner {
+    background: var(--green);
+    color: #fff;
+    padding: 1.5rem 2rem;
+    margin-bottom: 2rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: var(--green);
-    color: #fff;
-    padding: 1.2rem 1.5rem;
-    border-radius: 2px;
-    margin-bottom: 1.5rem;
 }
 
 .market-banner-text h3 {
     font-family: var(--ff-display);
+    font-size: 1.5rem;
     font-weight: 300;
-    font-size: 1.3rem;
     margin-bottom: .2rem;
 }
 
 .market-banner-text p {
-    opacity: .8;
-    font-size: .85rem;
+    font-size: .82rem;
+    opacity: .75;
+    font-weight: 300;
 }
 
-.market-banner-icon {
-    font-size: 2rem;
-}
-
-/* ─── Product Grid ──────────────────────────────────────────── */
 .market-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 1.2rem;
 }
 
-/* ─── Product Card ──────────────────────────────────────────── */
-.product-card {
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    overflow: hidden;
-    transition: transform .2s, box-shadow .2s;
+/* ─── Mobile (≤900px): sidebar becomes a horizontal scroller ── */
+@media (max-width: 900px) {
+    .market-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .market-sidebar {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        min-height: auto;
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        gap: .6rem;
+        padding: 1rem 1.2rem;
+        align-items: center;
+    }
+
+    .market-sidebar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .sidebar-title {
+        display: none;
+    }
+
+    .farmer-card {
+        margin-bottom: 0;
+        flex: 0 0 auto;
+        flex-direction: column;
+        text-align: center;
+        gap: .35rem;
+        padding: .5rem .3rem;
+        width: 78px;
+    }
+
+    .farmer-avatar {
+        width: 44px;
+        height: 44px;
+    }
+
+    .farmer-info-name {
+        font-size: .66rem;
+        line-height: 1.2;
+        white-space: normal;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        word-break: break-word;
+        max-width: 78px;
+    }
+
+    .farmer-info-loc {
+        display: none;
+    }
+
+    .market-products {
+        padding: 1.5rem 1.2rem;
+    }
 }
 
-.product-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(42, 31, 18, .12);
+/* ─── Mobile (≤768px) ───────────────────────────────── */
+@media (max-width: 768px) {
+    .market-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1rem;
+        padding: 1.5rem 1.2rem;
+    }
+
+    .market-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: .8rem;
+        padding: 1.2rem 1.4rem;
+    }
 }
 
-.product-thumb {
-    height: 170px;
-    overflow: hidden;
-    background: var(--cream2);
-    position: relative;
-}
-
-.product-thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform .4s;
-}
-
-.product-card:hover .product-thumb img {
-    transform: scale(1.04);
-}
-
-.product-body {
-    padding: 1rem;
-}
-
-.product-cat {
-    font-size: .72rem;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color: var(--amber);
-    margin-bottom: .3rem;
-}
-
-.product-name {
-    font-family: var(--ff-display);
-    font-size: 1.1rem;
-    font-weight: 400;
-    color: var(--brown);
-    margin-bottom: .3rem;
-}
-
-.product-desc {
-    font-size: .8rem;
-    color: var(--text-light);
-    line-height: 1.5;
-    margin-bottom: .8rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.product-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.product-price {
-    font-weight: 600;
-    color: var(--green);
-    font-size: .9rem;
-}
-
-.add-btn {
-    background: var(--green);
-    color: #fff;
-    border: none;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    font-size: 1.2rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background .2s, transform .15s;
-    line-height: 1;
-}
-
-.add-btn:hover {
-    background: var(--green2);
-    transform: scale(1.1);
-}
-
-/* ─── Footer ────────────────────────────────────────────────── */
-footer {
-    background: var(--brown);
-    color: #fff;
-    padding: 3rem 2.5rem 2rem;
-    margin-top: 4rem;
-}
-
-.footer-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-    max-width: 1100px;
-    margin: 0 auto;
-}
-
-.footer-logo {
-    height: 28px;
-    margin-bottom: .8rem;
-    filter: brightness(0) invert(1);
-}
-
-.footer-desc {
-    font-size: .84rem;
-    opacity: .7;
-    line-height: 1.6;
-}
-
-.footer-title {
-    font-family: var(--ff-display);
-    font-weight: 300;
-    font-size: 1.1rem;
-    margin-bottom: .8rem;
-}
-
-.footer-links {
-    list-style: none;
-}
-
-.footer-links li {
-    margin-bottom: .4rem;
-}
-
-.footer-link {
-    font-size: .82rem;
-    color: rgba(255, 255, 255, .65);
-    text-decoration: none;
-    transition: color .15s;
-    text-transform: none;
-    letter-spacing: 0;
-}
-
-.footer-link:hover {
-    color: #fff;
-    text-decoration: none;
+/* ─── Mobile (≤480px) ───────────────────────────────── */
+@media (max-width: 480px) {
+    .market-grid {
+        grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+    }
 }
