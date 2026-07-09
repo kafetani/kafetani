@@ -35,6 +35,9 @@
       @if(auth()->user()->isAdmin())
         <a href="{{ route('admin.dashboard') }}" class="nav-link">Admin</a>
       @endif
+      @if(auth()->user()->isKasirOrAdmin())
+        <a href="{{ route('admin.kasir') }}" class="nav-link {{ request()->routeIs('admin.kasir*') ? 'active' : '' }}">Kasir POS</a>
+      @endif
       <a href="{{ route('logout') }}"
          onclick="event.preventDefault(); document.getElementById('nav-logout-form').submit();"
          class="nav-link">Logout</a>
