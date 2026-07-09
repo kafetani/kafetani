@@ -232,3 +232,71 @@
         transform: translateY(-2px);
         text-decoration: none;
     }
+
+    /* ===========================================================
+       RESPONSIVE — Tablet & Mobile
+       =========================================================== */
+    @media (max-width: 768px) {
+        .hero {
+            min-height: auto;
+            padding: calc(60px + 3.5rem) 1.4rem 3.5rem;
+        }
+        .hero-sub {
+            max-width: 100%;
+            font-size: 1rem;
+        }
+        .hero-btns {
+            flex-direction: column;
+            width: 100%;
+            max-width: 320px;
+            margin: 0 auto;
+        }
+        .btn-hero-primary,
+        .btn-hero-outline {
+            width: 100%;
+            text-align: center;
+            padding: .9rem 1.5rem;
+        }
+
+        .features {
+            padding: 3.5rem 1.4rem;
+        }
+        .features-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+        }
+
+        .farmers-strip {
+            padding: 3rem 1.4rem;
+        }
+        .farmers-row {
+            gap: 1.5rem;
+        }
+        .farmer-item img {
+            width: 64px;
+            height: 64px;
+        }
+
+        .cta {
+            padding: 3.5rem 1.4rem;
+        }
+        .cta p {
+            max-width: 100%;
+        }
+        .btn-cta {
+            width: 100%;
+            max-width: 320px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .features-grid {
+            grid-template-columns: 1fr;
+        }
+        .farmers-row {
+            gap: 1.4rem 1rem;
+        }
+        .farmer-item {
+            width: calc(50% - .5rem);
+        }
+    }
