@@ -3,7 +3,7 @@
 
 @push('styles')
 <meta name="description" content="Kafetani menghadirkan produk segar dari petani lokal langsung ke meja Anda.">
-<link rel="stylesheet" href="{{ asset_v('home.css') }}">
+<link rel="stylesheet" href="{{ asset('home.css') }}">
 @endpush
 
 @section('content')

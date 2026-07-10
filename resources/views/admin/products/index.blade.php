@@ -2,7 +2,7 @@
 @section('title', 'Manajemen Produk')
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset_v('style-produk.css') }}">
+<link rel="stylesheet" href="{{ asset('style-produk.css') }}">
 @endpush
 
 @section('content')
@@ -190,5 +190,5 @@
 @endsection
 
 @push('scripts')
-<script src="{{ asset_v('script-produk.js') }}"></script>
+<script src="{{ asset('script-produk.js') }}"></script>
 @endpush

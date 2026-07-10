@@ -2,7 +2,7 @@
 @section('title', 'Kafetani  Farm to Table Cafe & Market')
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset_v('style-home.css') }}">
+<link rel="stylesheet" href="{{ asset('style-home.css') }}">
 @endpush
 
 @section('content')

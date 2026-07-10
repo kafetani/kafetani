@@ -2,7 +2,7 @@
 @section('title', 'Daftar Pesanan')
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset_v('style-orders.css') }}">
+<link rel="stylesheet" href="{{ asset('style-orders.css') }}">
 @endpush
 
 @section('content')

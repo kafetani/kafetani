@@ -2,7 +2,7 @@
 @section('title', 'Menu Kafe  Kafetani')
 
 @push('scripts')
-    <script src="{{ asset_v('script-menu.js') }}"></script>
+    <script src="{{ asset('script-menu.js') }}"></script>
 @endpush
 
 @section('content')

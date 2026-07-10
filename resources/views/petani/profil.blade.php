@@ -2,7 +2,7 @@
 @section('title', 'Profil Saya')
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset_v('style-produk.css') }}">
+<link rel="stylesheet" href="{{ asset('style-produk.css') }}">
 @endpush
 
 @section('content')

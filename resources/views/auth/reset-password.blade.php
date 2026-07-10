@@ -63,6 +63,6 @@
         <a href="{{ url('/') }}" class="back-link">← Kembali ke Beranda</a>
     </form>
 
-    <script src="{{ asset_v('auth.js') }}"></script>
+    <script src="{{ asset('auth.js') }}"></script>
 </body>
 </html>

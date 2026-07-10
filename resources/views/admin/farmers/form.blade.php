@@ -2,7 +2,7 @@
 @section('title', $action === 'edit' ? 'Edit Petani' : 'Tambah Petani')
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset_v('style-farmer-form.css') }}">
+<link rel="stylesheet" href="{{ asset('style-farmer-form.css') }}">
 @endpush
 
 @section('content')
@@ -85,5 +85,5 @@
 @endsection
 
 @push('scripts')
-<script src="{{ asset_v('script-farmer-form.js') }}"></script>
+<script src="{{ asset('script-farmer-form.js') }}"></script>
 @endpush

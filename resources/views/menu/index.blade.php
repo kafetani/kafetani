@@ -59,5 +59,5 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset_v('menu.js') }}"></script>
+    <script src="{{ asset('menu.js') }}"></script>
 @endpush

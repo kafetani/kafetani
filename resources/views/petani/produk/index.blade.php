@@ -2,7 +2,7 @@
 @section('title', 'Produk Saya')
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset_v('style-produk.css') }}">
+<link rel="stylesheet" href="{{ asset('style-produk.css') }}">
 @endpush
 
 @section('content')
@@ -126,5 +126,5 @@
 @endsection
 
 @push('scripts')
-<script src="{{ asset_v('script-petani-produk.js') }}"></script>
+<script src="{{ asset('script-petani-produk.js') }}"></script>
 @endpush

@@ -2,8 +2,8 @@
 @section('title', 'Dashboard Petani')
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset_v('style-dashboard.css') }}">
-<link rel="stylesheet" href="{{ asset_v('style-produk.css') }}">
+<link rel="stylesheet" href="{{ asset('style-dashboard.css') }}">
+<link rel="stylesheet" href="{{ asset('style-produk.css') }}">
 @endpush
 
 @section('content')
