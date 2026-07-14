@@ -11,7 +11,7 @@
   <div class="page-header">
     <div class="page-header-label">Kafetani · Menu Kafe</div>
     <h1 class="page-header-title">Menu Kafe</h1>
-    <p class="page-header-sub">Minuman, bakeri, dan camilan buatan sendiri dari bahan lokal</p>
+    <p class="page-header-sub">Minuman, pastry, dan camilan buatan sendiri dari bahan lokal</p>
   </div>
 
   <div class="filter-bar">

@@ -53,7 +53,7 @@ class DatabaseSeeder extends Seeder
         DB::table('categories')->insertOrIgnore([
             ['name' => 'Kopi',       'slug' => 'kopi'],
             ['name' => 'Non-Kopi',   'slug' => 'non-kopi'],
-            ['name' => 'Bakeri',     'slug' => 'bakeri'],
+            ['name' => 'Pastry',     'slug' => 'pastry'],
             ['name' => 'Camilan',    'slug' => 'camilan'],
             ['name' => 'Bahan Baku', 'slug' => 'bahan-baku'],
         ]);
@@ -79,7 +79,7 @@ class DatabaseSeeder extends Seeder
                 'name'     => 'Pak Yusuf',
                 'location' => 'Pangalengan, Jabar',
                 'contact'  => '0821-5544-3322',
-                'bio'      => 'Petani muda yang fokus pada sayuran hidroponik dan bahan baku bakeri segar. Lulusan pertanian IPB yang memilih kembali ke desa untuk mengembangkan pertanian modern ramah lingkungan.',
+                'bio'      => 'Petani muda yang fokus pada sayuran hidroponik dan bahan baku pastry segar. Lulusan pertanian IPB yang memilih kembali ke desa untuk mengembangkan pertanian modern ramah lingkungan.',
                 'avatar'   => 'pak_yusuf.webp',
             ],
         ] as $farmer) {

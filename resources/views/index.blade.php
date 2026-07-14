@@ -13,7 +13,7 @@
     <div class="hero-left">
       <div class="hero-tag">Farm to Table · Sejak Panen</div>
       <h1 class="hero-title">Dari <em>ladang</em><br>ke cangkirmu</h1>
-      <p class="hero-desc">Kafetani menghubungkan petani lokal langsung ke meja kamu  kopi, bakeri, dan bahan segar pilihan tanpa perantara.</p>
+      <p class="hero-desc">Kafetani menghubungkan petani lokal langsung ke meja kamu  kopi, pastry, dan bahan segar pilihan tanpa perantara.</p>
       <div class="hero-actions">
         <a href="{{ route('menu') }}" class="btn-primary">Pesan Sekarang</a>
         <a href="{{ route('marketplace') }}" class="btn-outline">Lihat Marketplace</a>
@@ -39,7 +39,7 @@
         <div class="hero-pills">
           <div class="hero-pill"><img src="{{ asset('products/arabica_gayo.webp') }}" alt=""><span>Arabica Gayo</span></div>
           <div class="hero-pill"><img src="{{ asset('products/gula_aren.webp') }}" alt=""><span>Gula Aren</span></div>
-          <div class="hero-pill"><img src="{{ asset('products/bakeri_segar.webp') }}" alt=""><span>Bakeri Segar</span></div>
+          <div class="hero-pill"><img src="{{ asset('products/pastry_segar.webp') }}" alt=""><span>Pastry Segar</span></div>
         </div>
       </div>
     </div>
@@ -74,7 +74,7 @@
           <img src="{{ asset('products/croissant_butter.webp') }}" alt="Croissant Butter">
         </div>
         <div class="feat-body">
-          <div class="feat-tag">Bakeri</div>
+          <div class="feat-tag">Pastry</div>
           <div class="feat-name">Croissant Butter</div>
           <div class="feat-price">Rp 22.000</div>
         </div>
