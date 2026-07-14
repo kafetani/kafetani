@@ -63,24 +63,27 @@
     <span class="section-label">Mitra Kami</span>
     <h2 class="section-title" style="font-size:clamp(1.6rem,3vw,2.4rem);">Petani Pilihan Kafetani</h2>
     <p class="section-sub">Kenali para petani yang menanam dengan penuh cinta untuk Anda.</p>
+    @php
+        $farmerImg = fn (string $file) => asset("farmers/{$file}") . '?v=' . (is_file(public_path("farmers/{$file}")) ? md5_file(public_path("farmers/{$file}")) : '1');
+    @endphp
     <div class="farmers-row">
         <div class="farmer-item">
-            <img src="{{ asset('farmers/pak_budi.webp') }}" alt="Pak Budi">
+            <img src="{{ $farmerImg('pak_budi.webp') }}" alt="Pak Budi">
             <div class="farmer-item-name">Pak Budi</div>
             <div class="farmer-item-loc">Gayo, Aceh</div>
         </div>
         <div class="farmer-item">
-            <img src="{{ asset('farmers/bu_sari.webp') }}" alt="Bu Sari">
+            <img src="{{ $farmerImg('bu_sari.webp') }}" alt="Bu Sari">
             <div class="farmer-item-name">Bu Sari</div>
             <div class="farmer-item-loc">Temanggung, Jateng</div>
         </div>
         <div class="farmer-item">
-            <img src="{{ asset('farmers/pak_yusuf.webp') }}" alt="Pak Yusuf">
+            <img src="{{ $farmerImg('pak_yusuf.webp') }}" alt="Pak Yusuf">
             <div class="farmer-item-name">Pak Yusuf</div>
             <div class="farmer-item-loc">Pangalengan, Jabar</div>
         </div>
         <div class="farmer-item">
-            <img src="{{ asset('farmers/semua_petani.webp') }}" alt="Semua Petani">
+            <img src="{{ $farmerImg('semua_petani.webp') }}" alt="Semua Petani">
             <div class="farmer-item-name">& Banyak Lagi</div>
             <div class="farmer-item-loc">Dari seluruh Indonesia</div>
         </div>
