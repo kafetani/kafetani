@@ -88,17 +88,30 @@ MIDTRANS_SNAP_URL=https://app.midtrans.com/snap/snap.js
   ```
   Endpoint ini menerima webhook status pembayaran (lihat `app/Http/Controllers/Api/MidtransController.php`); tanpa ini, status pesanan tidak akan otomatis berubah jadi `paid` setelah pelanggan membayar.
 
-### 4. Email (Lupa Password)
-Fitur lupa password mengirim link reset ke email pengguna lewat `App\Mail\ResetPasswordMail`. Secara default `MAIL_MAILER` di `.env.example` di-set ke `log`, artinya email cuma ditulis ke `storage/logs/laravel.log`, bukan benar-benar terkirim. Untuk production, ganti dengan SMTP:
+### 4. Email (Lupa Password) — Resend
+Fitur lupa password mengirim link reset ke email pengguna lewat `App\Mail\ResetPasswordMail`. Secara default `MAIL_MAILER` di `.env.example` di-set ke `log`, artinya email cuma ditulis ke `storage/logs/laravel.log`, bukan benar-benar terkirim.
+
+Project ini pakai domain `kafetani.store` (dibeli di Hostinger, DNS-nya dikelola di Cloudflare) dan hosting aplikasi di Railway — ketiganya tidak menyediakan SMTP outbound, jadi pengiriman email pakai [Resend](https://resend.com) sebagai provider terpisah.
+
+**Setup Resend:**
+1. Daftar di [resend.com](https://resend.com), lalu tambahkan domain `kafetani.store` di **Domains → Add domain**. Pilih region **Tokyo (ap-northeast-1)** karena paling dekat dari sisi latensi ke Indonesia dibanding pilihan lain (North Virginia, Ireland, São Paulo).
+2. Resend akan menampilkan beberapa DNS record (SPF, DKIM, dst). Tambahkan persis seperti yang ditampilkan ke **Cloudflare → domain kafetani.store → DNS → Records**.
+3. Tunggu sampai status domain di dashboard Resend berubah jadi *Verified*.
+4. Ambil SMTP credentials dari **Resend → dashboard SMTP**, lalu isi env var:
 ```env
 MAIL_MAILER=smtp
-MAIL_HOST=smtp.namaprovider.com
+MAIL_HOST=smtp.resend.com
 MAIL_PORT=587
-MAIL_USERNAME=xxxxxxxx
-MAIL_PASSWORD=xxxxxxxx
+MAIL_USERNAME=resend
+MAIL_PASSWORD=re_xxxxxxxxxxxxxxxxxxxx
 MAIL_ENCRYPTION=tls
 MAIL_FROM_ADDRESS=halo@kafetani.store
 MAIL_FROM_NAME="Kafetani"
 ```
-Provider yang umum dipakai: SMTP dari domain sendiri (kalau `kafetani.store` sudah ada email hosting), atau layanan pihak ketiga seperti Mailgun/SES/Resend. Link reset yang dikirim otomatis mengikuti `APP_URL`, jadi pastikan `APP_URL` sudah domain final sebelum testing fitur ini.
+
+**Set di Railway, bukan file `.env`:** buka project Railway → tab **Variables** → tambahkan env var di atas satu per satu. Railway otomatis redeploy setiap ada perubahan variable.
+
+Link reset yang dikirim otomatis mengikuti `APP_URL`, jadi pastikan `APP_URL` sudah domain final sebelum testing fitur ini.
+
+> Catatan: `MAIL_PASSWORD` di atas adalah API key Resend, bukan password akun. Jangan commit nilai asli ke repo — isi hanya di `.env` lokal (yang sudah di-gitignore) atau di Railway Variables.
 
