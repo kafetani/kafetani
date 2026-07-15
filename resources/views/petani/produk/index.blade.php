@@ -64,7 +64,7 @@
       </td>
     </tr>
     @empty
-    <tr class="empty-row"><td colspan="7">Anda belum mendaftarkan produk apa pun.</td></tr>
+    <tr class="empty-row"><td colspan="7">anda belum mendaftarkan produk apa pun.</td></tr>
     @endforelse
   </tbody>
 </table>

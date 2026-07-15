@@ -20,7 +20,7 @@
       <h2 class="prose-title">Misi Kami: Keadilan di Setiap Tegukan</h2>
       <div class="prose-body">
         <p>Kafetani lahir dari sebuah kegelisahan sederhana: mengapa hasil tani yang luar biasa dari pelosok Indonesia seringkali dihargai rendah, sementara penikmat di kota membayar harga yang mahal?</p>
-        <p>Kami hadir untuk memotong rantai distribusi yang panjang dan tidak efisien. Di Kafetani, kami tidak hanya menjual kopi dan pangan; kami membangun jembatan digital yang menghubungkan lumbung petani mitra kami langsung ke meja Anda.</p>
+        <p>Kami hadir untuk memotong rantai distribusi yang panjang dan tidak efisien. Di Kafetani, kami tidak hanya menjual kopi dan pangan; kami membangun jembatan digital yang menghubungkan lumbung petani mitra kami langsung ke meja anda.</p>
       </div>
     </div>
 
@@ -38,7 +38,7 @@
     <div class="prose-section">
       <h2 class="prose-title">Mengapa Kafetani?</h2>
       <div class="prose-body">
-        <p>Nama <strong>Kafetani</strong> adalah gabungan dari <em>Kafe</em> dan <em>Petani</em>. Kami percaya bahwa kualitas rasa yang Anda nikmati di setiap cangkir kopi kami adalah buah dari kerja keras dan dedikasi para petani kami. Dengan memilih Kafetani, Anda telah menjadi bagian dari pergerakan ekonomi mikro yang mendukung ketahanan pangan lokal Indonesia.</p>
+        <p>Nama <strong>Kafetani</strong> adalah gabungan dari <em>Kafe</em> dan <em>Petani</em>. Kami percaya bahwa kualitas rasa yang anda nikmati di setiap cangkir kopi kami adalah buah dari kerja keras dan dedikasi para petani kami. Dengan memilih Kafetani, anda telah menjadi bagian dari pergerakan ekonomi mikro yang mendukung ketahanan pangan lokal Indonesia.</p>
       </div>
     </div>
 

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reset Password - Kafetani</title>
-    <meta name="description" content="Buat password baru untuk akun Kafetani Anda.">
+    <meta name="description" content="Buat password baru untuk akun Kafetani anda.">
     <link rel="icon" href="{{ asset_v('favicon.svg') }}" type="image/svg+xml">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('style-reset-password.css') }}">

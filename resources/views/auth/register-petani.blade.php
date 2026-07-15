@@ -18,7 +18,7 @@
   </div>
   <div class="auth-box">
     <h1 class="auth-title">Daftar sebagai Petani</h1>
-    <p class="auth-sub">Jual produk segar Anda langsung ke pelanggan Kafetani</p>
+    <p class="auth-sub">Jual produk segar anda langsung ke pelanggan Kafetani</p>
 
     @if($errors->any())
       <div class="alert-err">
@@ -33,7 +33,7 @@
         <label for="nama_lengkap">Nama Lengkap</label>
         <input type="text" id="nama_lengkap" name="nama_lengkap"
                value="{{ old('nama_lengkap') }}"
-               placeholder="Nama lengkap Anda"
+               placeholder="Nama lengkap anda"
                class="{{ $errors->has('nama_lengkap') ? 'is-invalid' : '' }}"
                autocomplete="name" required>
         @error('nama_lengkap')<div class="field-err">{{ $message }}</div>@enderror
@@ -93,7 +93,7 @@
 
       <div class="form-group">
         <label for="bio">Bio Singkat (opsional)</label>
-        <textarea id="bio" name="bio" rows="3" placeholder="Ceritakan sedikit tentang usaha tani Anda">{{ old('bio') }}</textarea>
+        <textarea id="bio" name="bio" rows="3" placeholder="Ceritakan sedikit tentang usaha tani anda">{{ old('bio') }}</textarea>
         @error('bio')<div class="field-err">{{ $message }}</div>@enderror
       </div>
 

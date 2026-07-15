@@ -18,12 +18,12 @@
 
     <div class="prose-section">
       <h2>1. Umum</h2>
-      <p>Dengan mengakses dan menggunakan website Kafetani, Anda setuju untuk terikat oleh syarat dan ketentuan yang berlaku. Kafetani berhak memperbarui syarat ini sewaktu-waktu tanpa pemberitahuan sebelumnya.</p>
+      <p>Dengan mengakses dan menggunakan website Kafetani, anda setuju untuk terikat oleh syarat dan ketentuan yang berlaku. Kafetani berhak memperbarui syarat ini sewaktu-waktu tanpa pemberitahuan sebelumnya.</p>
     </div>
 
     <div class="prose-section">
       <h2>2. Akun Pengguna</h2>
-      <p>Anda bertanggung jawab untuk menjaga kerahasiaan informasi akun dan password Anda. Setiap aktivitas yang dilakukan menggunakan akun Anda menjadi tanggung jawab Anda sepenuhnya.</p>
+      <p>anda bertanggung jawab untuk menjaga kerahasiaan informasi akun dan password anda. Setiap aktivitas yang dilakukan menggunakan akun anda menjadi tanggung jawab anda sepenuhnya.</p>
     </div>
 
     <div class="prose-section">

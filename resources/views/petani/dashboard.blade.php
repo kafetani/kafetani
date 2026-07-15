@@ -10,7 +10,7 @@
 <div class="page-header">
   <div>
     <h1>Halo, {{ $farmer->name }}</h1>
-    <p style="font-size:.85rem;color:var(--text-mid);margin-top:.3rem">Ringkasan produk marketplace milik Anda.</p>
+    <p style="font-size:.85rem;color:var(--text-mid);margin-top:.3rem">Ringkasan produk marketplace milik anda.</p>
   </div>
 </div>
 
@@ -57,7 +57,7 @@
       <td><span class="badge badge-{{ $prod->status }}">{{ $prod->status }}</span></td>
     </tr>
     @empty
-    <tr class="empty-row"><td colspan="4">Anda belum mendaftarkan produk apa pun.</td></tr>
+    <tr class="empty-row"><td colspan="4">anda belum mendaftarkan produk apa pun.</td></tr>
     @endforelse
   </tbody>
 </table>
