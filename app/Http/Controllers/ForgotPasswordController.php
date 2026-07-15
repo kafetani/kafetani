@@ -22,6 +22,16 @@ class ForgotPasswordController extends Controller
     }
 
     /**
+     * Tampilkan halaman konfirmasi bahwa link reset sudah dikirim.
+     */
+    public function showSent(Request $request)
+    {
+        return view('auth.forgot-password-sent', [
+            'email' => $request->session()->get('reset_email_sent'),
+        ]);
+    }
+
+    /**
      * Kirim email reset password berisi link ke halaman reset.
      */
     public function sendEmail(Request $request)
@@ -35,12 +45,12 @@ class ForgotPasswordController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-        // Selalu tampilkan pesan yang sama, ada/tidaknya user, agar tidak bocorkan
-        // email mana yang terdaftar (user enumeration).
-        $status = 'Jika email tersebut terdaftar, link reset password telah dikirim. Silakan cek email Anda.';
+        // Selalu arahkan ke halaman konfirmasi yang sama, ada/tidaknya user,
+        // agar tidak bocorkan email mana yang terdaftar (user enumeration).
+        $request->session()->put('reset_email_sent', $request->email);
 
         if (!$user) {
-            return back()->with('status', $status);
+            return redirect()->route('password.sent');
         }
 
         // Buat token reset
@@ -60,7 +70,7 @@ class ForgotPasswordController extends Controller
         // jadi link ikut domain production tanpa perlu hardcode).
         Mail::to($request->email)->send(new ResetPasswordMail($token, $request->email));
 
-        return back()->with('status', $status);
+        return redirect()->route('password.sent');
     }
 
     /**

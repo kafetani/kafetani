@@ -23,11 +23,6 @@
             Masukkan email yang terdaftar. Kami akan mengirimkan link untuk mengatur ulang password anda.
         </p>
 
-        {{-- Status sukses --}}
-        @if (session('status'))
-            <div class="alert-success">{{ session('status') }}</div>
-        @endif
-
         {{-- Error --}}
         @if ($errors->any())
             <div class="alert-error">{{ $errors->first() }}</div>

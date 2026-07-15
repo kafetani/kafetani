@@ -31,6 +31,7 @@ Route::middleware('guest')->group(function () {
     // Lupa Password
     Route::get('/forgot-password',  [ForgotPasswordController::class, 'showForm'])->name('password.request');
     Route::post('/forgot-password', [ForgotPasswordController::class, 'sendEmail'])->name('password.email');
+    Route::get('/forgot-password/sent', [ForgotPasswordController::class, 'showSent'])->name('password.sent');
     Route::get('/reset-password',   [ForgotPasswordController::class, 'showResetForm'])->name('password.reset.form');
     Route::post('/reset-password',  [ForgotPasswordController::class, 'reset'])->name('password.update');
 
