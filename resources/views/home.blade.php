@@ -51,7 +51,7 @@
         <div class="feature-card">
             <img src="{{ asset_v('about/bawa_pulang.webp') }}" alt="Bawa Pulang" class="feature-img">
             <div class="feature-body">
-                <h3>Dine-In atau Bawa Pulang</h3>
+                <h3>Makan di Tempat atau Bawa Pulang</h3>
                 <p>Fleksibel sesuai kebutuhan anda — makan di tempat atau nikmati di rumah.</p>
             </div>
         </div>
