@@ -37,11 +37,31 @@
     </div>
 
     <div class="prose-section">
-      <h2>5. Kontak</h2>
+      <h2>5. Pembayaran melalui Pihak Ketiga</h2>
+      <p>Transaksi pembayaran diproses melalui penyedia layanan pembayaran pihak ketiga (Midtrans). Kafetani tidak menyimpan data kartu atau rekening anda — seluruh proses pembayaran ditangani langsung oleh penyedia layanan tersebut sesuai standar keamanan mereka.</p>
+    </div>
+
+    <div class="prose-section">
+      <h2>6. Cookie dan Pelacakan</h2>
+      <p>Website kami dapat menggunakan cookie untuk menjaga sesi login anda tetap aktif dan meningkatkan pengalaman berbelanja. Anda dapat menonaktifkan cookie melalui pengaturan browser, namun beberapa fitur situs mungkin tidak berfungsi optimal.</p>
+    </div>
+
+    <div class="prose-section">
+      <h2>7. Hak Anda atas Data Pribadi</h2>
+      <p>Anda berhak untuk mengakses, memperbarui, atau meminta penghapusan data pribadi yang kami simpan, dengan menghubungi kami melalui kontak di bawah ini.</p>
+    </div>
+
+    <div class="prose-section">
+      <h2>8. Retensi Data</h2>
+      <p>Data pribadi anda disimpan selama akun anda aktif. Jika anda menghapus akun, data akan dihapus dari sistem kami dalam waktu maksimal 14 hari kerja, kecuali data yang wajib disimpan untuk kepentingan hukum atau pajak.</p>
+    </div>
+
+    <div class="prose-section">
+      <h2>9. Kontak</h2>
       <p>Jika anda memiliki pertanyaan mengenai kebijakan privasi kami, silakan hubungi kami melalui email di <a href="mailto:halo@kafetani.com" style="color:var(--green)">halo@kafetani.com</a>.</p>
     </div>
 
-    <div class="prose-footer">Terakhir diperbarui: 10 April 2026</div>
+    <div class="prose-footer">Terakhir diperbarui: 15 Juli 2026</div>
 
   </div>
 </div>
