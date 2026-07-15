@@ -106,12 +106,15 @@ class DatabaseSeeder extends Seeder
 
         // Products
         DB::table('product')->insertOrIgnore([
-            // Menu Kafe
-            ['nama_produk' => 'Americano Arabica',    'harga' => 28000, 'stok' => 50, 'deskripsi' => 'Espresso dengan air panas, rasa tegas',        'farmer_id' => null, 'gambar' => 'americano_arabica.webp',  'category_id' => 1, 'type' => 'cafe'],
-            ['nama_produk' => 'Kopi Susu Gula Aren',  'harga' => 32000, 'stok' => 50, 'deskripsi' => 'Kopi lokal dengan gula aren asli',              'farmer_id' => null, 'gambar' => 'kopi_susu_gula_aren.webp', 'category_id' => 1, 'type' => 'cafe'],
-            ['nama_produk' => 'Cappuccino',            'harga' => 30000, 'stok' => 50, 'deskripsi' => 'Espresso, susu steam, dan foam lembut',         'farmer_id' => null, 'gambar' => 'cappuccino.webp',          'category_id' => 1, 'type' => 'cafe'],
-            ['nama_produk' => 'Croissant Butter',      'harga' => 22000, 'stok' => 30, 'deskripsi' => 'Renyah di luar, lembut di dalam',               'farmer_id' => null, 'gambar' => 'croissant_butter.webp',    'category_id' => 3, 'type' => 'cafe'],
-            ['nama_produk' => 'Chocolate Cake',        'harga' => 25000, 'stok' => 20, 'deskripsi' => 'Kue coklat lembab buatan sendiri',              'farmer_id' => null, 'gambar' => 'chocolate_cake.webp',      'category_id' => 4, 'type' => 'cafe'],
+            // Menu Kafe (status 'approved' eksplisit — insertOrIgnore()
+            // butuh semua baris dalam satu batch punya kolom yang sama,
+            // jadi harus konsisten dengan baris marketplace di bawah yang
+            // juga set 'status').
+            ['nama_produk' => 'Americano Arabica',    'harga' => 28000, 'stok' => 50, 'deskripsi' => 'Espresso dengan air panas, rasa tegas',        'farmer_id' => null, 'gambar' => 'americano_arabica.webp',  'category_id' => 1, 'type' => 'cafe', 'status' => 'approved'],
+            ['nama_produk' => 'Kopi Susu Gula Aren',  'harga' => 32000, 'stok' => 50, 'deskripsi' => 'Kopi lokal dengan gula aren asli',              'farmer_id' => null, 'gambar' => 'kopi_susu_gula_aren.webp', 'category_id' => 1, 'type' => 'cafe', 'status' => 'approved'],
+            ['nama_produk' => 'Cappuccino',            'harga' => 30000, 'stok' => 50, 'deskripsi' => 'Espresso, susu steam, dan foam lembut',         'farmer_id' => null, 'gambar' => 'cappuccino.webp',          'category_id' => 1, 'type' => 'cafe', 'status' => 'approved'],
+            ['nama_produk' => 'Croissant Butter',      'harga' => 22000, 'stok' => 30, 'deskripsi' => 'Renyah di luar, lembut di dalam',               'farmer_id' => null, 'gambar' => 'croissant_butter.webp',    'category_id' => 3, 'type' => 'cafe', 'status' => 'approved'],
+            ['nama_produk' => 'Chocolate Cake',        'harga' => 25000, 'stok' => 20, 'deskripsi' => 'Kue coklat lembab buatan sendiri',              'farmer_id' => null, 'gambar' => 'chocolate_cake.webp',      'category_id' => 4, 'type' => 'cafe', 'status' => 'approved'],
             // Marketplace (status 'approved' eksplisit supaya langsung tampil
             // di Marketplace publik begitu seeder selesai jalan — kolom
             // 'status' default-nya 'pending' di migration, jadi kalau tidak
