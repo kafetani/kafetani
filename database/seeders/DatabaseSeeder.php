@@ -95,7 +95,7 @@ class DatabaseSeeder extends Seeder
         $petaniUserId = $petaniUser->id ?? DB::table('users')->insertGetId([
             'nama'     => 'Pak Budi',
             'email'    => 'petani@kafetani.com',
-            'password' => Hash::make('petani123'),
+            'password' => Hash::make('PetaniGayo#2026'),
             'role'     => 'petani',
         ]);
 
