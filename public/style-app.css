@@ -737,8 +737,14 @@ footer {
   margin-bottom: 4rem;
 }
 
+.footer-grid > div {
+  min-width: 0;
+}
+
 .footer-logo {
   height: 70px;
+  max-width: 100%;
+  width: auto;
   margin-bottom: 1.5rem;
   filter: brightness(0) invert(1);
   display: block;
@@ -752,6 +758,7 @@ footer {
   color: rgba(255, 255, 255, .6);
   line-height: 1.8;
   margin-bottom: 1.5rem;
+  overflow-wrap: break-word;
 }
 
 .footer-title {
