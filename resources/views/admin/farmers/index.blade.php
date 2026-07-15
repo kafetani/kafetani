@@ -23,7 +23,7 @@
       <td>
         <div style="width:40px;height:40px;border-radius:50%;overflow:hidden;background:var(--cream2);display:flex;align-items:center;justify-content:center;">
           @if($farmer->avatar)
-            <img src="{{ asset('farmers/' . $farmer->avatar) }}"
+            <img src="{{ asset_v('farmers/' . $farmer->avatar) }}"
                  style="width:100%;height:100%;object-fit:cover;"
                  alt="{{ $farmer->name }}">
           @else

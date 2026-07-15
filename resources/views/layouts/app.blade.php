@@ -7,7 +7,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 <title>@yield('title', 'Kafetani  Farm to Table Cafe &amp; Market')</title>
-<link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
+<link rel="icon" type="image/svg+xml" href="{{ asset_v('favicon.svg') }}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset_v('style-app.css') }}">
@@ -20,7 +20,7 @@
 {{-- Navbar --}}
 <nav class="main-nav">
   <a href="{{ route('home') }}" class="nav-logo">
-    <img src="{{ asset('logo_v3.svg') }}" alt="Kafetani Logo" style="height:30px;">
+    <img src="{{ asset_v('logo_v3.svg') }}" alt="Kafetani Logo" style="height:30px;">
   </a>
 
   <button class="nav-toggle" id="nav-toggle" onclick="toggleNavMenu()" aria-label="Buka menu" aria-expanded="false">
@@ -143,7 +143,7 @@
 <footer>
   <div class="footer-grid">
     <div>
-      <img src="{{ asset('logo_footer.svg') }}" alt="Kafetani Logo" class="footer-logo">
+      <img src="{{ asset_v('logo_footer.svg') }}" alt="Kafetani Logo" class="footer-logo">
       <p class="footer-desc">Kafetani menghadirkan kesegaran ladang langsung ke meja kamu. Kami percaya pada keadilan bagi petani dan kualitas terbaik bagi penikmat kopi.</p>
     </div>
     <div>

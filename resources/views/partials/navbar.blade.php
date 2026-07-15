@@ -1,6 +1,6 @@
 <nav class="main-nav">
     <a href="{{ url('/') }}" class="nav-logo">
-        <img src="{{ asset('logo_v3.svg') }}" alt="Kafetani Logo" style="height:30px;">
+        <img src="{{ asset_v('logo_v3.svg') }}" alt="Kafetani Logo" style="height:30px;">
     </a>
     <div class="nav-links">
         <a href="{{ url('/') }}"

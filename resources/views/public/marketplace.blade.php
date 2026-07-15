@@ -36,7 +36,7 @@
         <div class="farmer-card" data-farmer="{{ $farmer->id }}">
           <div class="farmer-avatar">
             @if($farmer->avatar)
-              <img src="{{ asset('farmers/' . $farmer->avatar) }}" alt="{{ $farmer->name }}">
+              <img src="{{ asset_v('farmers/' . $farmer->avatar) }}" alt="{{ $farmer->name }}">
             @else
               <div style="width:100%;height:100%;background:var(--cream2);display:flex;align-items:center;justify-content:center;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
             @endif
@@ -64,7 +64,7 @@
           <div class="product-card" data-farmer-id="{{ $prod->farmer_id }}">
             <div class="product-thumb">
               @if($prod->gambar)
-                <img src="{{ asset('products/' . $prod->gambar) }}"
+                <img src="{{ asset_v('products/' . $prod->gambar) }}"
                      alt="{{ $prod->nama_produk }}" loading="lazy">
               @endif
             </div>

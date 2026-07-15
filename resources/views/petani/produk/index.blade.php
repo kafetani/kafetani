@@ -33,7 +33,7 @@
     <tr>
       <td>
         @if($prod->gambar)
-          <img class="product-thumb-sm" src="{{ asset('products/' . $prod->gambar) }}" alt="{{ $prod->nama_produk }}">
+          <img class="product-thumb-sm" src="{{ asset_v('products/' . $prod->gambar) }}" alt="{{ $prod->nama_produk }}">
         @else
           <div class="product-thumb-sm"></div>
         @endif

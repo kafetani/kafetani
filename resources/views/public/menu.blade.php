@@ -27,7 +27,7 @@
       <div class="product-card" data-cat="{{ $prod->category->name ?? '' }}">
         <div class="product-thumb">
           @if($prod->gambar)
-            <img src="{{ asset('products/' . $prod->gambar) }}"
+            <img src="{{ asset_v('products/' . $prod->gambar) }}"
                  alt="{{ $prod->nama_produk }}" loading="lazy">
           @endif
         </div>
