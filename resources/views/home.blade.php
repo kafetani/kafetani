@@ -45,7 +45,7 @@
             <img src="{{ asset_v('about/pesan_online.webp') }}" alt="Pesan Online" class="feature-img">
             <div class="feature-body">
                 <h3>Mudah Dipesan</h3>
-                <p>Pesan produk segar dari marketplace kami dan dikirim langsung ke pintu anda.</p>
+                <p>Pesan produk segar dari marketplace kami dan dikirim langsung ke depan pintu anda.</p>
             </div>
         </div>
         <div class="feature-card">
