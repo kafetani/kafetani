@@ -58,7 +58,7 @@
 
     <div class="prose-section">
       <h2>9. Kontak</h2>
-      <p>Jika anda memiliki pertanyaan mengenai kebijakan privasi kami, silakan hubungi kami melalui email di <a href="mailto:halo@kafetani.com" style="color:var(--green)">halo@kafetani.com</a>.</p>
+      <p>Jika anda memiliki pertanyaan mengenai kebijakan privasi kami, silakan hubungi kami melalui email di <a href="mailto:halo@kafetani.store" style="color:var(--green)">halo@kafetani.store</a>.</p>
     </div>
 
     <div class="prose-footer">Terakhir diperbarui: 15 Juli 2026</div>
