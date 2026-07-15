@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ResetPasswordMail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,8 +22,7 @@ class ForgotPasswordController extends Controller
     }
 
     /**
-     * Kirim email reset password (simulasi — tampilkan token di session)
-     * Untuk produksi: gunakan Mailable + SMTP
+     * Kirim email reset password berisi link ke halaman reset.
      */
     public function sendEmail(Request $request)
     {
@@ -35,9 +35,12 @@ class ForgotPasswordController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-        // Selalu tampilkan pesan sukses agar tidak bocorkan data email mana yang terdaftar
+        // Selalu tampilkan pesan yang sama, ada/tidaknya user, agar tidak bocorkan
+        // email mana yang terdaftar (user enumeration).
+        $status = 'Jika email tersebut terdaftar, link reset password telah dikirim. Silakan cek email Anda.';
+
         if (!$user) {
-            return back()->with('status', 'Jika email tersebut terdaftar, link reset password telah dikirim.');
+            return back()->with('status', $status);
         }
 
         // Buat token reset
@@ -53,13 +56,11 @@ class ForgotPasswordController extends Controller
             ]
         );
 
-        // Simpan token di session untuk dipakai di form reset (tanpa kirim email sungguhan)
-        // Pada produksi ganti dengan pengiriman email
-        session(['reset_token' => $token, 'reset_email' => $request->email]);
+        // Kirim link reset ke email pengguna (route() otomatis pakai APP_URL,
+        // jadi link ikut domain production tanpa perlu hardcode).
+        Mail::to($request->email)->send(new ResetPasswordMail($token, $request->email));
 
-        return redirect()->route('password.reset.form')
-                         ->with('status', 'Link reset password telah dikirim. Silakan cek email Anda.')
-                         ->with('debug_token', $token); // Hapus baris ini di produksi
+        return back()->with('status', $status);
     }
 
     /**
@@ -67,8 +68,8 @@ class ForgotPasswordController extends Controller
      */
     public function showResetForm(Request $request)
     {
-        $token = $request->query('token') ?? session('reset_token');
-        $email = $request->query('email') ?? session('reset_email');
+        $token = $request->query('token');
+        $email = $request->query('email');
 
         if (!$token || !$email) {
             return redirect()->route('password.request')

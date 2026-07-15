@@ -49,17 +49,6 @@
         {{-- Tombol submit form --}}
         <input type="submit" value="Kirim Link Reset">
 
-        {{-- DEBUG: tampilkan token & link reset (hapus di produksi) --}}
-        @if (session('debug_token'))
-            <div class="debug-token">
-                <strong><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-.15em;display:inline-block"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Mode Development:</strong> Token reset berhasil dibuat.<br>
-                <a href="{{ route('password.reset.form', ['token' => session('debug_token'), 'email' => old('email', session('reset_email'))]) }}">
-                    → Klik di sini untuk lanjut ke halaman reset password
-                </a>
-                <br><small>(Hapus blok debug ini di produksi dan ganti dengan email SMTP)</small>
-            </div>
-        @endif
-
         {{-- Link menuju halaman login --}}
         <p>Ingat password? <a href="{{ route('login') }}">Login di sini</a></p>
 

@@ -48,7 +48,7 @@ DB_PASSWORD=
 composer run dev
 ```
 
-## Konfigurasi Production (Domain, Google Sign-In, Midtrans)
+## Konfigurasi Production (Domain, Google Sign-In, Midtrans, Email)
 
 Selain langkah Quickstart di atas, deployment production butuh beberapa konfigurasi tambahan di `.env`:
 
@@ -87,4 +87,18 @@ MIDTRANS_SNAP_URL=https://app.midtrans.com/snap/snap.js
   https://kafetani.store/midtrans/notification
   ```
   Endpoint ini menerima webhook status pembayaran (lihat `app/Http/Controllers/Api/MidtransController.php`); tanpa ini, status pesanan tidak akan otomatis berubah jadi `paid` setelah pelanggan membayar.
+
+### 4. Email (Lupa Password)
+Fitur lupa password mengirim link reset ke email pengguna lewat `App\Mail\ResetPasswordMail`. Secara default `MAIL_MAILER` di `.env.example` di-set ke `log`, artinya email cuma ditulis ke `storage/logs/laravel.log`, bukan benar-benar terkirim. Untuk production, ganti dengan SMTP:
+```env
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.namaprovider.com
+MAIL_PORT=587
+MAIL_USERNAME=xxxxxxxx
+MAIL_PASSWORD=xxxxxxxx
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=halo@kafetani.store
+MAIL_FROM_NAME="Kafetani"
+```
+Provider yang umum dipakai: SMTP dari domain sendiri (kalau `kafetani.store` sudah ada email hosting), atau layanan pihak ketiga seperti Mailgun/SES/Resend. Link reset yang dikirim otomatis mengikuti `APP_URL`, jadi pastikan `APP_URL` sudah domain final sebelum testing fitur ini.
 
