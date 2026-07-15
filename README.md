@@ -56,7 +56,7 @@ Selain langkah Quickstart di atas, deployment production butuh beberapa konfigur
 ```env
 APP_ENV=production
 APP_DEBUG=false
-APP_URL=https://domain-kamu.com
+APP_URL=https://kafetani.store
 ```
 `APP_URL` dipakai oleh helper `asset()`/`asset_v()` untuk generate URL gambar (avatar petani, foto produk, dll). Pastikan ini sudah domain final sebelum deploy, karena beberapa cache framework (`view`, `config`) menyimpan hasil generate URL dan perlu di-clear ulang kalau `APP_URL` berubah:
 ```bash
@@ -69,7 +69,7 @@ Buat OAuth Client ID di [Google Cloud Console](https://console.cloud.google.com/
 ```env
 GOOGLE_CLIENT_ID=xxxxxxxx.apps.googleusercontent.com
 GOOGLE_CLIENT_SECRET=xxxxxxxx
-GOOGLE_REDIRECT_URI=https://domain-kamu.com/auth/google/callback
+GOOGLE_REDIRECT_URI=https://kafetani.store/auth/google/callback
 ```
 `GOOGLE_REDIRECT_URI` di atas **harus** didaftarkan persis sama di Google Cloud Console pada bagian *Authorized redirect URIs*, kalau tidak, login Google akan gagal dengan error `redirect_uri_mismatch`.
 
@@ -84,7 +84,7 @@ MIDTRANS_SNAP_URL=https://app.midtrans.com/snap/snap.js
 - Saat masih testing, biarkan `MIDTRANS_IS_PRODUCTION=false` dan `MIDTRANS_SNAP_URL` mengarah ke `app.sandbox.midtrans.com`, lalu pakai Server/Client Key dari mode **Sandbox** di dashboard (bukan Production). Server key sandbox dan production tidak bisa saling dicampur.
 - Di Midtrans Dashboard → **Settings → Configuration**, isi *Payment Notification URL* dengan:
   ```
-  https://domain-kamu.com/midtrans/notification
+  https://kafetani.store/midtrans/notification
   ```
   Endpoint ini menerima webhook status pembayaran (lihat `app/Http/Controllers/Api/MidtransController.php`); tanpa ini, status pesanan tidak akan otomatis berubah jadi `paid` setelah pelanggan membayar.
 
