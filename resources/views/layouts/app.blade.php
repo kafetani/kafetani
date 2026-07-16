@@ -189,7 +189,7 @@
   </div>
 </footer>
 
-<script src="{{ asset('app.js') }}"></script>
+<script src="{{ asset_v('app.js') }}"></script>
 @stack('scripts')
 </body>
 </html>
