@@ -122,6 +122,10 @@ body {
     color: var(--text-mid);
     font-size: 1rem;
     padding: .2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
 }
 
 /* Tombol submit utama form */

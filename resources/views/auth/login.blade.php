@@ -8,7 +8,7 @@
   <link rel="icon" type="image/svg+xml" href="{{ asset_v('favicon.svg') }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ asset('auth.css') }}">
+  <link rel="stylesheet" href="{{ asset_v('auth.css') }}">
 </head>
 
 <body>
