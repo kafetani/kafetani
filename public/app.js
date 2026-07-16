@@ -62,6 +62,7 @@ function renderCart() {
       </div>
       <div class="cart-item-info">
         <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-unit">Rp ${item.price.toLocaleString('id')} / item</div>
         <div class="cart-item-price">Rp ${(item.price * item.qty).toLocaleString('id')}</div>
         <div class="cart-item-qty">
           <button class="qty-btn" onclick="changeQty(${i},-1)">−</button>
