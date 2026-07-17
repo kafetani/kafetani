@@ -67,6 +67,7 @@ class DatabaseSeeder extends Seeder
                 'contact'  => '0812-3456-7890',
                 'bio'      => 'Petani kopi Arabica generasi ketiga di dataran tinggi Gayo. Sudah 20 tahun mengelola kebun seluas 3 hektar dengan metode organik tanpa pestisida kimia.',
                 'avatar'   => 'pak_budi.webp',
+                'status'   => 'approved',
             ],
             [
                 'name'     => 'Bu Sari',
@@ -74,6 +75,7 @@ class DatabaseSeeder extends Seeder
                 'contact'  => '0856-9876-5432',
                 'bio'      => 'Pelopor gula aren tradisional di Temanggung. Bu Sari mengolah nira aren secara manual menggunakan tungku kayu bakar warisan leluhur untuk menjaga cita rasa autentik.',
                 'avatar'   => 'bu_sari.webp',
+                'status'   => 'approved',
             ],
             [
                 'name'     => 'Pak Yusuf',
@@ -81,6 +83,7 @@ class DatabaseSeeder extends Seeder
                 'contact'  => '0821-5544-3322',
                 'bio'      => 'Petani muda yang fokus pada sayuran hidroponik dan bahan baku pastry segar. Lulusan pertanian IPB yang memilih kembali ke desa untuk mengembangkan pertanian modern ramah lingkungan.',
                 'avatar'   => 'pak_yusuf.webp',
+                'status'   => 'approved',
             ],
         ] as $farmer) {
             $existing = DB::table('farmers')->where('name', $farmer['name'])->first();

@@ -53,11 +53,21 @@ class Product extends Model
      * Scope: hanya produk yang boleh tampil di halaman publik (Marketplace).
      * Approved eksplisit, atau NULL (produk lama/diinput admin langsung yang
      * tidak melalui alur approval sama sekali — dianggap auto-approved).
+     *
+     * Sebelumnya scope ini hanya mengecek status produk itu sendiri, tanpa
+     * peduli status verifikasi petaninya — jadi produk dari petani yang
+     * belum (atau tidak) diverifikasi tetap muncul di Marketplace, padahal
+     * direktori petani publik cuma menampilkan yang sudah verified (SRS
+     * 3.4.2). Sekarang produk dengan farmer_id wajib farmer-nya verified;
+     * produk tanpa farmer_id (mis. item kafe internal) tidak terpengaruh.
      */
     public function scopeVisibleToPublic($query)
     {
         return $query->where(function ($q) {
             $q->where('status', 'approved')->orWhereNull('status');
+        })->where(function ($q) {
+            $q->whereNull('farmer_id')
+              ->orWhereHas('farmer', fn($fq) => $fq->verified());
         });
     }
 
