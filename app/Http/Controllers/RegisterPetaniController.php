@@ -70,6 +70,9 @@ class RegisterPetaniController extends Controller
                 'contact'  => $data['contact'] ?? null,
                 'bio'      => $data['bio'] ?? null,
                 'avatar'   => $avatarFile,
+                // Akun baru menunggu verifikasi admin sebelum resmi masuk
+                // jaringan (tampil di direktori petani/marketplace publik).
+                'status'   => 'pending',
             ]);
 
             return $user;
@@ -78,6 +81,6 @@ class RegisterPetaniController extends Controller
         Auth::login($user);
 
         return redirect()->route('petani.dashboard')
-                         ->with('success', 'Registrasi berhasil! Selamat datang di Kafetani.');
+                         ->with('success', 'Registrasi berhasil! Akun Anda sedang menunggu verifikasi admin sebelum tampil di direktori petani publik.');
     }
 }

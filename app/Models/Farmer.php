@@ -6,10 +6,27 @@ use Illuminate\Database\Eloquent\Model;
 
 class Farmer extends Model
 {
-    protected $fillable = ['user_id', 'name', 'location', 'contact', 'bio', 'avatar'];
+    protected $fillable = ['user_id', 'name', 'location', 'contact', 'bio', 'avatar', 'status'];
 
     // Tabel tidak pakai updated_at
     const UPDATED_AT = null;
+
+    /**
+     * Scope: hanya petani yang menunggu verifikasi admin (FR — verifikasi kemitraan).
+     */
+    public function scopePending($query)
+    {
+        return $query->where('status', 'pending');
+    }
+
+    /**
+     * Scope: hanya petani yang sudah terverifikasi/resmi masuk jaringan.
+     * Dipakai di semua tampilan publik (marketplace, direktori petani, API).
+     */
+    public function scopeVerified($query)
+    {
+        return $query->where('status', 'approved');
+    }
 
     /**
      * Relasi: satu petani bisa punya banyak produk (foreign key murni: farmer_id)

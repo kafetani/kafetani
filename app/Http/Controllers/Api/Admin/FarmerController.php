@@ -80,6 +80,9 @@ class FarmerController extends Controller
             $farmer->update($data);
             $message = 'Data petani berhasil diupdate!';
         } else {
+            // Petani yang ditambahkan langsung oleh admin (lewat API) dianggap
+            // otomatis terverifikasi, sama seperti alur web.
+            $data['status'] = 'approved';
             $farmer = Farmer::create($data);
             $message = 'Data petani berhasil ditambahkan!';
         }

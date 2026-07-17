@@ -14,8 +14,9 @@ class FarmerController extends Controller
      */
     public function index()
     {
-        $farmers = Farmer::orderByDesc('created_at')->get();
-        return view('admin.farmers.index', compact('farmers'));
+        $farmers     = Farmer::orderByDesc('created_at')->get();
+        $pendingCount = Farmer::pending()->count();
+        return view('admin.farmers.index', compact('farmers', 'pendingCount'));
     }
 
     /**
@@ -37,10 +38,37 @@ class FarmerController extends Controller
             $data['avatar'] = $this->uploadAvatar($request);
         }
 
+        // Petani yang ditambahkan langsung oleh admin dianggap otomatis
+        // terverifikasi — admin sudah memvalidasi sendiri saat menginput.
+        $data['status'] = 'approved';
+
         Farmer::create($data);
 
         return redirect()->route('admin.farmers.index')
                          ->with('success', 'Data petani berhasil ditambahkan!');
+    }
+
+    /**
+     * Verifikasi kemitraan petani: setujui akun petani yang mendaftar sendiri
+     * agar resmi masuk jaringan dan tampil di direktori/marketplace publik.
+     */
+    public function approve(Farmer $farmer)
+    {
+        $farmer->update(['status' => 'approved']);
+
+        return redirect()->back()
+                         ->with('success', "Kemitraan \"{$farmer->name}\" telah diverifikasi dan resmi masuk jaringan.");
+    }
+
+    /**
+     * Tolak kemitraan petani: akun tetap ada tapi tidak tampil di halaman publik.
+     */
+    public function reject(Farmer $farmer)
+    {
+        $farmer->update(['status' => 'rejected']);
+
+        return redirect()->back()
+                         ->with('success', "Kemitraan \"{$farmer->name}\" ditolak dan tidak akan tampil di direktori publik.");
     }
 
     /**

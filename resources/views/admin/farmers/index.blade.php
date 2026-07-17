@@ -4,7 +4,12 @@
 @section('content')
 <div class="page-header">
   <h1>Manajemen Petani</h1>
-  <a href="{{ route('admin.farmers.create') }}" class="btn-primary">+ Tambah Petani</a>
+  <div style="display:flex;gap:.6rem;align-items:center;">
+    @if($pendingCount > 0)
+      <span class="badge badge-pending">{{ $pendingCount }} kemitraan menunggu verifikasi</span>
+    @endif
+    <a href="{{ route('admin.farmers.create') }}" class="btn-primary">+ Tambah Petani</a>
+  </div>
 </div>
 
 <table class="data-table">
@@ -14,6 +19,7 @@
       <th>Nama</th>
       <th>Lokasi</th>
       <th>Kontak</th>
+      <th>Status</th>
       <th>Aksi</th>
     </tr>
   </thead>
@@ -35,7 +41,21 @@
       <td style="font-size:.85rem;">{{ $farmer->location }}</td>
       <td style="font-size:.85rem;">{{ $farmer->contact ?? '' }}</td>
       <td>
-        <div style="display:flex;gap:.4rem;align-items:center;">
+        <span class="badge badge-{{ $farmer->status }}">{{ $farmer->status }}</span>
+      </td>
+      <td>
+        <div style="display:flex;gap:.4rem;align-items:center;flex-wrap:wrap;">
+          @if($farmer->status === 'pending')
+            <form method="POST" action="{{ route('admin.farmers.approve', $farmer) }}">
+              @csrf
+              <button type="submit" class="btn-edit">Setujui</button>
+            </form>
+            <form method="POST" action="{{ route('admin.farmers.reject', $farmer) }}"
+                  onsubmit="return confirm('Tolak kemitraan petani ini?')">
+              @csrf
+              <button type="submit" class="btn-danger">Tolak</button>
+            </form>
+          @endif
           <a href="{{ route('admin.farmers.edit', $farmer) }}" class="btn-edit">Edit</a>
           <form method="POST" action="{{ route('admin.farmers.destroy', $farmer) }}"
                 onsubmit="return confirm('Hapus data petani ini?')">
@@ -48,7 +68,7 @@
     </tr>
     @empty
     <tr class="empty-row">
-      <td colspan="5">Belum ada data petani.</td>
+      <td colspan="6">Belum ada data petani.</td>
     </tr>
     @endforelse
   </tbody>

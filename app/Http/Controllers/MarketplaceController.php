@@ -16,7 +16,7 @@ class MarketplaceController extends Controller
                            ->orderBy('nama_produk')
                            ->get();
 
-        $farmers = Farmer::orderBy('name')->get()->map(fn($f) => [
+        $farmers = Farmer::verified()->orderBy('name')->get()->map(fn($f) => [
             'name'   => $f->name,
             'loc'    => $f->location,
             'img'    => $f->avatar ?? 'default.webp',

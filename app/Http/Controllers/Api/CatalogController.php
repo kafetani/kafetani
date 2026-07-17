@@ -46,7 +46,7 @@ class CatalogController extends Controller
     public function marketplace(): JsonResponse
     {
         $products = Product::where('type', 'market')->visibleToPublic()->with('farmer')->get();
-        $farmers  = Farmer::orderBy('name')->get();
+        $farmers  = Farmer::verified()->orderBy('name')->get();
 
         return response()->json([
             'success'  => true,
@@ -73,7 +73,7 @@ class CatalogController extends Controller
     {
         return response()->json([
             'success' => true,
-            'farmers' => FarmerResource::collection(Farmer::orderBy('name')->get()),
+            'farmers' => FarmerResource::collection(Farmer::verified()->orderBy('name')->get()),
         ]);
     }
 

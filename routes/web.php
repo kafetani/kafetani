@@ -82,6 +82,8 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->name('admin.')->grou
     Route::get('/farmers/{farmer}/edit', [FarmerController::class, 'edit'])->name('farmers.edit');
     Route::put('/farmers/{farmer}',      [FarmerController::class, 'update'])->name('farmers.update');
     Route::delete('/farmers/{farmer}',   [FarmerController::class, 'destroy'])->name('farmers.destroy');
+    Route::post('/farmers/{farmer}/approve', [FarmerController::class, 'approve'])->name('farmers.approve');
+    Route::post('/farmers/{farmer}/reject',  [FarmerController::class, 'reject'])->name('farmers.reject');
 
     Route::get('/orders',                [OrderController::class, 'index'])->name('orders.index');
     Route::post('/orders/update-status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
