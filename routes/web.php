@@ -6,6 +6,7 @@ use App\Http\Controllers\RegisterPetaniController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\PublicController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FarmerController;
 use App\Http\Controllers\Admin\KasirController;
@@ -67,6 +68,13 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->name('admin.')->grou
     Route::get('/products/delete', [ProductController::class, 'delete'])->name('products.delete');
     Route::post('/products/{product}/approve', [ProductController::class, 'approve'])->name('products.approve');
     Route::post('/products/{product}/reject',  [ProductController::class, 'reject'])->name('products.reject');
+
+    Route::get('/categories',               [CategoryController::class, 'index'])->name('categories.index');
+    Route::get('/categories/create',        [CategoryController::class, 'create'])->name('categories.create');
+    Route::post('/categories',              [CategoryController::class, 'store'])->name('categories.store');
+    Route::get('/categories/{category}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
+    Route::put('/categories/{category}',    [CategoryController::class, 'update'])->name('categories.update');
+    Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 
     Route::get('/farmers',               [FarmerController::class, 'index'])->name('farmers.index');
     Route::get('/farmers/create',        [FarmerController::class, 'create'])->name('farmers.create');
