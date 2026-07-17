@@ -88,10 +88,12 @@
 </section>
 
 {{-- CTA --}}
+@guest
 <section class="cta">
     <h2>Siap Merasakan Perbedaannya?</h2>
     <p>Bergabung bersama ribuan pelanggan yang sudah menikmati cita rasa alami Kafetani.</p>
     <a href="{{ route('register') }}" class="btn-cta">Daftar Gratis Sekarang</a>
 </section>
+@endguest
 
 @endsection
