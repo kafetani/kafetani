@@ -174,15 +174,6 @@
       <p class="footer-contact"><svg class="icon-inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> halo@kafetani.store</p>
     </div>
   </div>
-  <div class="footer-academic">
-    <p>Nama Kelompok &amp; NIM:</p>
-    <p>1. Hamadah Hilmi – 20240801265</p>
-    <p>2. Muhammad Riyan Hardiono – 20240801112</p>
-    <p>3. Rafi Ahmadinejad Al Farisi – 20240801285</p><br>
-    <p>Dosen Pengampu MK: Dewi Setiowati, A.Md., S.Pd., M.Tr.Kom.</p>
-    <p>Kelas: KH001</p>
-    <p>Tahun Akademik: 2025/2026 Genap</p>
-  </div>
   <div class="footer-bottom">
     <p>&copy; {{ date('Y') }} Kafetani. Semua Hak Dilindungi.</p>
     <p>Dibuat dengan <svg class="icon-inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> untuk Petani Indonesia</p>
