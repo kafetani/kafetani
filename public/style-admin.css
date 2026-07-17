@@ -296,6 +296,95 @@ body {
   color: var(--text-light);
 }
 
+/* Kartu produk - alternatif tabel di layar kecil */
+
+.product-cards {
+  display: none;
+  flex-direction: column;
+  gap: .9rem;
+}
+
+.product-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.product-card-top {
+  display: flex;
+  gap: .85rem;
+}
+
+.product-card-top .product-thumb-sm {
+  flex-shrink: 0;
+}
+
+.product-card-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.product-card-name {
+  font-weight: 500;
+  font-size: .95rem;
+  color: var(--text);
+}
+
+.product-card-cat {
+  font-size: .8rem;
+  color: var(--text-mid);
+  margin: .15rem 0 .5rem;
+}
+
+.product-card-badges {
+  display: flex;
+  gap: .4rem;
+  flex-wrap: wrap;
+}
+
+.product-card-meta {
+  display: flex;
+  gap: 1.1rem;
+  flex-wrap: wrap;
+  margin-top: .9rem;
+  padding-top: .8rem;
+  border-top: .5px solid var(--border);
+}
+
+.product-card-meta > div {
+  display: flex;
+  flex-direction: column;
+  gap: .15rem;
+}
+
+.meta-label {
+  font-size: .7rem;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: .03em;
+}
+
+.meta-value {
+  font-size: .85rem;
+  color: var(--text);
+}
+
+.product-card-actions {
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+  margin-top: .9rem;
+}
+
+.product-card-empty {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-light);
+  background: #fff;
+  border-radius: 10px;
+}
+
 /* ===========================================================
    Responsive - tablet & mobile
    =========================================================== */
@@ -345,10 +434,11 @@ body {
   }
 
   .data-table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
+    display: none;
+  }
+
+  .product-cards {
+    display: flex;
   }
 }
 
