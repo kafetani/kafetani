@@ -63,10 +63,13 @@ body {
   z-index: 30;
 }
 
-.admin-topbar-title {
-  font-family: var(--ff-display);
-  font-size: 1.2rem;
-  font-weight: 300;
+.admin-topbar-logo {
+  display: flex;
+  align-items: center;
+}
+
+.admin-topbar-logo img {
+  filter: brightness(0) invert(1);
 }
 
 .admin-burger {
@@ -117,11 +120,13 @@ body {
   overflow-y: auto;
 }
 
-.admin-sidebar h2 {
-  font-family: var(--ff-display);
-  font-size: 1.5rem;
+.admin-sidebar-logo {
+  display: flex;
   margin-bottom: 1.5rem;
-  font-weight: 300;
+}
+
+.admin-sidebar-logo img {
+  filter: brightness(0) invert(1);
 }
 
 .admin-nav {
@@ -321,7 +326,7 @@ body {
     transform: translateX(0);
   }
 
-  .admin-sidebar h2 {
+  .admin-sidebar-logo {
     display: none;
   }
 

@@ -18,7 +18,9 @@
     <button type="button" class="admin-burger" id="adminBurger" aria-label="Buka menu" aria-expanded="false" aria-controls="adminSidebar">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
-    <span class="admin-topbar-title">Kafetani Admin</span>
+    <a href="{{ route('admin.dashboard') }}" class="admin-topbar-logo">
+      <img src="{{ asset_v('logo_v3.svg') }}" alt="Kafetani Logo" style="height:26px;">
+    </a>
   </header>
 
   {{-- Overlay (mobile) --}}
@@ -26,7 +28,9 @@
 
   {{-- Sidebar --}}
   <aside class="admin-sidebar" id="adminSidebar">
-    <h2>Kafetani Admin</h2>
+    <a href="{{ route('admin.dashboard') }}" class="admin-sidebar-logo">
+      <img src="{{ asset_v('logo_v3.svg') }}" alt="Kafetani Logo" style="height:32px;">
+    </a>
     <nav class="admin-nav">
       <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
         <svg class="icon-inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> Dashboard
