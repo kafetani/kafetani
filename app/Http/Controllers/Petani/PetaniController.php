@@ -161,11 +161,13 @@ class PetaniController extends Controller
 
         $existing = null;
         if ($id) {
-            $existing = Product::where('id_product', $id)->where('farmer_id', $farmer->id)->first();
+            $existing = Product::where('id_product', $id)->first();
 
             // Cegah petani mengedit/mengklaim produk milik petani lain
-            // dengan menyisipkan id produk secara manual.
-            if (! $existing) {
+            // dengan menyisipkan id produk secara manual. Aturan
+            // kepemilikannya sendiri ada di ProductPolicy (dipakai juga
+            // oleh produkDelete()), bukan ditulis ulang di sini.
+            if (! $existing || $request->user()->cannot('update', $existing)) {
                 throw ValidationException::withMessages([
                     'id' => 'Produk tidak ditemukan atau bukan milik Anda.',
                 ]);
@@ -200,9 +202,11 @@ class PetaniController extends Controller
      */
     public function produkDelete(Request $request)
     {
-        $farmer  = $this->currentFarmer();
+        $this->currentFarmer();
         $id      = (int) $request->query('hapus');
-        $product = Product::where('id_product', $id)->where('farmer_id', $farmer->id)->firstOrFail();
+        $product = Product::where('id_product', $id)->firstOrFail();
+
+        $this->authorize('delete', $product);
 
         if ($product->gambar) {
             @unlink(public_path('products/' . $product->gambar));

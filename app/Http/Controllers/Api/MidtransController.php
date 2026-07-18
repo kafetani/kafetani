@@ -20,11 +20,22 @@ class MidtransController extends Controller
         \Midtrans\Config::$serverKey = config('midtrans.server_key');
         \Midtrans\Config::$isProduction = config('midtrans.is_production');
 
+        // Midtrans\Notification secara default membaca body mentah lewat
+        // php://input. Di sini kita salurkan lewat $request->getContent()
+        // (API resmi Laravel untuk body mentah) via file sementara, supaya:
+        // (a) tidak bergantung pada stream input yang cuma bisa dibaca sekali,
+        // (b) endpoint ini bisa dites dengan request tiruan, bukan cuma HTTP asli.
+        $bodyFile = tmpfile();
+        fwrite($bodyFile, $request->getContent());
+        $bodyPath = stream_get_meta_data($bodyFile)['uri'];
+
         try {
-            $notification = new \Midtrans\Notification();
+            $notification = new \Midtrans\Notification($bodyPath);
         } catch (\Exception $e) {
             Log::error('Midtrans Notification Error: ' . $e->getMessage());
             return response()->json(['success' => false, 'message' => 'Invalid notification payload.'], 400);
+        } finally {
+            fclose($bodyFile);
         }
 
         $transactionStatus = $notification->transaction_status;
