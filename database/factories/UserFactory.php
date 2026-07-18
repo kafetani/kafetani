@@ -25,21 +25,40 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
+            'nama' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+            'role' => 'user',
         ];
     }
 
     /**
-     * Indicate that the model's email address should be unverified.
+     * Role admin: akses penuh ke dashboard admin (SRS Bab 2.3).
      */
-    public function unverified(): static
+    public function admin(): static
     {
         return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
+            'role' => 'admin',
+        ]);
+    }
+
+    /**
+     * Role kasir: akses ke halaman kasir dan sebagian dashboard admin.
+     */
+    public function kasir(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => 'kasir',
+        ]);
+    }
+
+    /**
+     * Role petani: aktor sistem penuh untuk petani lokal (SRS Bab 6).
+     */
+    public function petani(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => 'petani',
         ]);
     }
 }
